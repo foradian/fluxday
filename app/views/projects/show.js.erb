@@ -1,1 +1,7 @@
 $('.pane3').html("<%= escape_javascript(render :partial => 'projects/show',:locals=>{:project=>@project}) %>")
+$(document).foundation({
+    tab: {
+        callback: function (tab) {
+        }
+    }
+});

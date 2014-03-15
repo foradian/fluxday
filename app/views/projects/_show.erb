@@ -1,5 +1,43 @@
 <div class="head-row">
+  <%= link_to 'edit', edit_project_path(@project) %>
   <div class="cols">
     <%= image_tag(project.image.thumbnail) %>
   </div>
+  <div class=""><%= project.name %></div>
+  <div class=""><%= project.code %></div>
+  <div class=""><%= project.description %></div>
+  <div class=""><%= project.website %></div>
 </div>
+
+<div class="data-container">
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel2-1">
+      Teams
+      <h6><%= project.team_count %></h6>
+    </a></dd>
+    <dd><a href="#panel2-2">
+      Members
+      <h6><%= project.member_count %></h6>
+    </a></dd>
+    <dd><a href="#panel2-3">
+      Managers
+      <h6><%= project.project_managers.count %></h6>
+    </a></dd>
+
+    Added on
+    <%= project.created_at.strftime('%d %B %Y') %>
+
+  </dl>
+  <div class="tabs-content">
+    <div class="content active" id="panel2-1">
+      <p>List of teams</p>
+    </div>
+    <div class="content" id="panel2-2">
+      <p>List of members</p>
+    </div>
+    <div class="content" id="panel2-3">
+      <p>List of managers</p>
+    </div>
+  </div>
+</div>
+

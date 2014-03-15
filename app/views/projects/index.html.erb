@@ -5,19 +5,8 @@
 </div>
 <div class="large-6 columns pane3">
 <%#= content_for :pane3 do %>
-  <div class="font">
-    <b>
-      Lorem ipsum dolor sit amet, ut pri aliquid epicuri, neglegentur instructior est et. Mei at affert viderer
-      iudicabit, quis sint labitur nam ne. Nam id munere molestiae. Te vel odio discere appareat. In mei nibh malis,
-      cu nisl everti facilisis pri.
-    </b>
-    An nonumes splendide persequeris nec, per suscipit dignissim referrentur in. Nec ex suscipit posidonium
-    mediocritatem. Est in latine urbanitas scripserit. Quo cu equidem facilisis erroribus, vide consulatu his ei. Sit
-    ut alii salutatus. Nam iusto invidunt conceptam ut, esse corpora adversarium no eos.
-    <small>
-      Sed id fastidii sadipscing, eum ornatus inciderint ne, maiorum sadipscing ex vix. Habeo mnesarchum sit id. Ei
-      his choro dicam debitis. Ei vis audiam fuisset.
-    </small>
-  </div>
+  <% if @project.present? %>
+   <%= render :partial=>'projects/show',:locals=>{:project=>@project} %>
+  <% end %>
 <%# end %>
 </div>

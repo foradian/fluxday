@@ -6,11 +6,13 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
+    @project = @projects.first unless @projects.empty?
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @projects = Project.all
   end
 
   # GET /projects/new

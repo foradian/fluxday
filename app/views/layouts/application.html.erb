@@ -10,6 +10,7 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "vendor/modernizr" %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 </head>
 
 <body>
@@ -56,6 +57,6 @@
   <!--</div>-->
 
 </div>
-<%= javascript_include_tag "application" %>
+
 </body>
 </html>
