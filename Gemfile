@@ -49,6 +49,8 @@ gem 'devise'
 
 gem "therubyracer"
 #gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "foundation"
+gem "foundation-rails"
 gem 'hirb'
 gem 'thin'
+gem 'carrierwave'
+gem "mini_magick"
