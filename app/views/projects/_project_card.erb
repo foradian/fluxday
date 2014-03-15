@@ -1,0 +1,18 @@
+<%= link_to project_path(project),:remote=>true do %>
+    <div class="project card transition">
+      <div class="cols ths">
+        <%= image_tag(project.image.icon) %>
+      </div>
+      <div class="cols">
+        <div class="title"><%= project.name %></div>
+        <div class="text">
+          <%= "#{project.team_count} #{'team'.pluralize(project.team_count)}" %>
+          <%= "#{project.member_count} #{'team'.pluralize(project.member_count)}" %>
+        </div>
+        <div class="text">
+          <%= project.website %>
+        </div>
+      </div>
+    </div>
+
+<% end %>

@@ -1,0 +1,67 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$font-color: #222222;
+$link: #c0392b;
+$link-hover: #c0392b;
+$pane1-bg:#2c3e50;
+$pane2-bg:#ecf0f1;
+$pane3-bg:#ffffff;
+$card-bg:#fcfcfd;
+$card-border:#ecf0f1;
+$border:#ffffff;
+$card-bg-hover:#ffffff;
+$card-border-hover:#e74c3c;
+$border-hover:#ffffff;
+
+
+
+html, body{height: 100%}
+html {
+  -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+//  text-shadow: #fff 0px 1px 1px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility !important;
+}
+
+body{
+//  font-family: 'Raleway', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.ep-tracker.row{max-width: 100rem;}
+
+.row{height: 100%;}
+.pane1, .pane2, .pane3{height: 100%;padding-top: 10px}
+.pane1{background: $pane1-bg;}
+.pane2{background: $pane2-bg;}
+.pane3{background: $pane3-bg;}
+//a{color: #e74c3c}
+//a:hover{color: #f75c4c}
+.transition{
+  -o-transition:.25s;
+  -ms-transition:.25s;
+  -moz-transition:.25s;
+  -webkit-transition:.25s;
+  transition:.25s;
+}
+.cols{float: left;margin-right: 10px;}
+.card{
+  display: block;
+  background: $card-bg;
+  border: solid 1px $card-border;
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.card:hover, .card.active{
+  background: $card-bg-hover;
+  border: solid 1px $card-border-hover;
+}
+.title, .text{
+  color: $font-color;
+}
+.title{font-size: 1em;font-weight: bold;}
+.text{font-size: 1em}
+.font{
+  font-size: 1.4em;
+}

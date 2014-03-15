@@ -1,0 +1,43 @@
+<h1>Listing teams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Description</th>
+      <th>Project</th>
+      <th>Members count</th>
+      <th>Managers count</th>
+      <th>Is deleted</th>
+      <th>Pending tasks</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.code %></td>
+        <td><%= team.description %></td>
+        <td><%= team.project_id %></td>
+        <td><%= team.members_count %></td>
+        <td><%= team.managers_count %></td>
+        <td><%= team.is_deleted %></td>
+        <td><%= team.pending_tasks %></td>
+        <td><%= team.status %></td>
+        <td><%= link_to 'Show', team %></td>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Team', new_team_path %>

@@ -1,42 +1,23 @@
-<%- model_class = Project -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<div class="large-4 columns pane2">
+  <% @projects.each do |project| %>
+      <%= render :partial => 'projects/project_card', :locals => {:project => project} %>
+  <% end %>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:code) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:is_deleted) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.id, project_path(project) %></td>
-        <td><%= project.name %></td>
-        <td><%= project.code %></td>
-        <td><%= project.description %></td>
-        <td><%= project.is_deleted %></td>
-        <td><%=l project.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_path(project), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      project_path(project),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+<div class="large-6 columns pane3">
+<%#= content_for :pane3 do %>
+  <div class="font">
+    <b>
+      Lorem ipsum dolor sit amet, ut pri aliquid epicuri, neglegentur instructior est et. Mei at affert viderer
+      iudicabit, quis sint labitur nam ne. Nam id munere molestiae. Te vel odio discere appareat. In mei nibh malis,
+      cu nisl everti facilisis pri.
+    </b>
+    An nonumes splendide persequeris nec, per suscipit dignissim referrentur in. Nec ex suscipit posidonium
+    mediocritatem. Est in latine urbanitas scripserit. Quo cu equidem facilisis erroribus, vide consulatu his ei. Sit
+    ut alii salutatus. Nam iusto invidunt conceptam ut, esse corpora adversarium no eos.
+    <small>
+      Sed id fastidii sadipscing, eum ornatus inciderint ne, maiorum sadipscing ex vix. Habeo mnesarchum sit id. Ei
+      his choro dicam debitis. Ei vis audiam fuisset.
+    </small>
+  </div>
+<%# end %>
+</div>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  code: MyString
+  description: MyText
+  project_id: 1
+  members_count: 1
+  managers_count: 1
+  is_deleted: false
+  pending_tasks: 1
+  status: MyString
+
+two:
+  name: MyString
+  code: MyString
+  description: MyText
+  project_id: 1
+  members_count: 1
+  managers_count: 1
+  is_deleted: false
+  pending_tasks: 1
+  status: MyString

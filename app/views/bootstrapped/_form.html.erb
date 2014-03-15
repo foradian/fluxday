@@ -1,4 +1,4 @@
-<%= form_for @project, :html => { :class => 'form-horizontal' ,:multipart=>true} do |f| %>
+<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
@@ -12,12 +12,6 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :image, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :image, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :description, :class => 'text_field' %>
@@ -27,24 +21,6 @@
     <%= f.label :is_deleted, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :is_deleted, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :team_count, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :team_count, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :member_count, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :member_count, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :website, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :website, :class => 'text_field' %>
     </div>
   </div>
 

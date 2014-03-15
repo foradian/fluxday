@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @team.code %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @team.description %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @team.project_id %>
+</p>
+
+<p>
+  <strong>Members count:</strong>
+  <%= @team.members_count %>
+</p>
+
+<p>
+  <strong>Managers count:</strong>
+  <%= @team.managers_count %>
+</p>
+
+<p>
+  <strong>Is deleted:</strong>
+  <%= @team.is_deleted %>
+</p>
+
+<p>
+  <strong>Pending tasks:</strong>
+  <%= @team.pending_tasks %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @team.status %>
+</p>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>

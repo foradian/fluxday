@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 1
+  user_id: 1
+  role: MyString
+  status: MyString
+
+two:
+  team_id: 1
+  user_id: 1
+  role: MyString
+  status: MyString
