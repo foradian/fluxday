@@ -1,0 +1,7 @@
+$('.pane3').html("<%= escape_javascript(render :partial => 'teams/form',:locals=>{:project=>@project}) %>")
+$(document).foundation({
+    tab: {
+        callback: function (tab) {
+        }
+    }
+});

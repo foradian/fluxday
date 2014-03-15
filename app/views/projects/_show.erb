@@ -31,6 +31,7 @@
   <div class="tabs-content">
     <div class="content active" id="panel2-1">
       <p>List of teams</p>
+      <%= link_to 'New team',new_project_team_path(@project),:remote=>true %>
     </div>
     <div class="content" id="panel2-2">
       <p>List of members</p>

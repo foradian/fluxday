@@ -4,7 +4,13 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @projects = Project.active
+    if params[:project_id].present?
+      @project = Project.find(params[:project_id])
+      @teams = @project.teams.active
+    else
+      @teams = Team.active
+    end
   end
 
   # GET /teams/1
@@ -14,7 +20,13 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team = Team.new
+    @projects = Project.active
+    if params[:project_id].present?
+      @project = Project.find(params[:project_id])
+      @team = @project.teams.new
+    else
+      @team = Team.new
+    end
   end
 
   # GET /teams/1/edit
@@ -62,13 +74,13 @@ class TeamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_team
+    @team = Team.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def team_params
-      params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def team_params
+    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status)
+  end
 end

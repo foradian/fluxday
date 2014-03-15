@@ -1,5 +1,10 @@
-<h1>New team</h1>
+<div class="large-4 columns pane2">
+  <% @projects.each do |project| %>
+      <%= render :partial => 'projects/project_card', :locals => {:project => project} %>
+  <% end %>
 
-<%= render 'form' %>
+</div>
+<div class="large-6 columns pane3">
 
-<%= link_to 'Back', teams_path %>
+    <%= render :partial => 'teams/form' %>
+</div>

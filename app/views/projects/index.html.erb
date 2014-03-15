@@ -2,6 +2,7 @@
   <% @projects.each do |project| %>
       <%= render :partial => 'projects/project_card', :locals => {:project => project} %>
   <% end %>
+  <%= link_to 'New project',new_project_path,:remote=>true %>
 </div>
 <div class="large-6 columns pane3">
 <%#= content_for :pane3 do %>

@@ -3,4 +3,6 @@ class Project < ActiveRecord::Base
   has_many :teams
   has_many :project_managers
   has_many :users,:through=>:project_managers
+
+  scope :active, where('is_deleted = ?',false)
 end

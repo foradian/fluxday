@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :project_id %><br>
-    <%= f.number_field :project_id %>
+    <%= f.select :project_id, @projects.map{|x| [x.name,x.id]} %>
   </div>
   <div class="field">
     <%= f.label :members_count %><br>
