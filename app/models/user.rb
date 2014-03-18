@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   has_many  :task_assignees, :as=>:assignee
   has_many  :tasks,:through => :task_assignees
   has_many  :comments
+  has_many  :reporting_managers
+  has_many  :managers, :through=>:reporting_managers,:class_name=>'User'
+  has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
+  has_many  :users, :through=>:reporting_employees,:class_name=>'User', :foreign_key => "user_id"
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end

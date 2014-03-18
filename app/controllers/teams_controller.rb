@@ -21,6 +21,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @projects = Project.active
+    @users = User.all
     if params[:project_id].present?
       @project = Project.find(params[:project_id])
       @team = @project.teams.new
@@ -31,12 +32,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    @users = User.all
     @projects = Project.active
   end
 
   # POST /teams
   # POST /teams.json
   def create
+    @users = User.all
     @team = Team.new(team_params)
     @projects = Project.active
     respond_to do |format|
@@ -53,6 +56,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+    @users = User.all
     @projects = Project.active
     respond_to do |format|
       if @team.update(team_params)
@@ -83,6 +87,6 @@ class TeamsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def team_params
-    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status)
+    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status, :team_lead_ids=>[])
   end
 end

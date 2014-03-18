@@ -11,6 +11,17 @@
           <%= f.select :project_id, @projects.map { |x| [x.name, x.id] } %>
         </div>
       </div>
+
+
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :team_lead_ids, 'Team leads' %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.select :team_lead_ids,@users.map{|x| [x.name,x.id]},{},{:multiple=>true} %>
+        </div>
+      </div>
+
       <%= build_validated_field('team', 'is_deleted', 'Deleted', 'Cannot be blank', '[a-zA-Z]+', 'checkbox', @team.is_deleted) %>
       <%= build_field('team', 'members_count', 'Teams count', 'text', @team.members_count) %>
       <%= build_field('team', 'managers_count', 'Members count', 'text', @team.managers_count) %>

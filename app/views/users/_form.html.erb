@@ -4,8 +4,16 @@
       <%= build_validated_field('user', 'email', 'Email', '', '','text',@user.email) %>
       <%= build_field('user', 'nickname', 'Nickname','text',@user.nickname) %>
       <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+','text',@user.employee_code) %>
-      <%= build_validated_field('user', 'password', 'Password', '', '','password',@user.password) %>
-      <%= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '','password',@user.password_confirmation) %>
+      <%#= build_validated_field('user', 'password', 'Password', '', '','password',@user.password) %>
+      <%#= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '','password',@user.password_confirmation) %>
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :manager_ids %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.select :manager_ids,@users.map{|x| [x.name,x.id]},{},{:multiple=>true} %>
+        </div>
+      </div>
     </div>
     <div class="small-12 columns form-action-up">
       <div class="right">

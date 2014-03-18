@@ -19,7 +19,7 @@ module ApplicationHelper
     else
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field', :required => '',:pattern=>pattern,:placeholder=>name)
     end
-    html << "<small class='error'>#{message.blank? ? 'Cannot be blank' : message}</small>"
+    #html << "<small class='error'>#{message.blank? ? 'Cannot be blank' : message}</small>"
     html << "</div>"
     html << "</div>"
     return html.html_safe

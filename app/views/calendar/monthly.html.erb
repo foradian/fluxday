@@ -1,0 +1,29 @@
+<%= content_for :pane2 do %>
+    <table class="table">
+      <tr>
+        <% (0..7).each do |x| %>
+            <th><%= (Date::ABBR_DAYNAMES+['Sun'])[x+1].to_s.upcase %></th>
+        <% end %>
+      </tr>
+      <tr>
+        <% (@prev_month).each do |date| %>
+            <td>
+              <%= date.day %>
+            </td>
+            <%= raw("</tr><tr>") if date.sunday? %>
+        <% end %>
+        <% (@start_date..@end_date).each do |date| %>
+            <td>
+              <%= date.day %>
+            </td>
+            <%= raw("</tr><tr>") if date.sunday? %>
+        <% end %>
+        <% @next_month.each do |date| %>
+            <td>
+              <%= date.day %>
+            </td>
+            <%= raw("</tr><tr>") if date.sunday? %>
+        <% end %>
+      </tr>
+    </table>
+<% end %>
