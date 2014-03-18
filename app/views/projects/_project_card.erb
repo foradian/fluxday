@@ -1,5 +1,5 @@
-<%= link_to project_path(project),:remote=>true do %>
-    <div class="project card transition">
+<%= link_to project_path(project),:remote=>false do %>
+    <div class="project card-transparent transition prj-<%= project.id %>">
       <div class="cols ths">
         <%= image_tag(project.image.icon) %>
       </div>

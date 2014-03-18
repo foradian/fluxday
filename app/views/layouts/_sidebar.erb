@@ -1,6 +1,10 @@
 <ul class="side-nav">
+  <li><a href="/">Dashboard</a></li>
   <li><a href="#">My tasks</a></li>
-  <li><a href="#">Projects</a></li>
-  <li><a href="#">Teams</a></li>
-  <li><a href="#">Users</a></li>
+  <li><%= link_to 'Projects',projects_path %></li>
+  <li><%= link_to 'Teams',teams_path %></li>
+  <li><%#= link_to 'Users',user_registration_path %></li>
+  <li><%= link_to 'My tasks',tasks_path %></li>
+  <li><%= link_to 'Calendar',tasks_path %></li>
+  <li><%= link_to 'Reports',tasks_path %></li>
 </ul>

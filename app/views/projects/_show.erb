@@ -1,37 +1,41 @@
-<div class="head-row">
-  <%= link_to 'edit', edit_project_path(@project) %>
+<div class="head-row project">
   <div class="cols">
     <%= image_tag(project.image.thumbnail) %>
   </div>
-  <div class=""><%= project.name %></div>
-  <div class=""><%= project.code %></div>
-  <div class=""><%= project.description %></div>
-  <div class=""><%= project.website %></div>
+  <div class="right options">
+    <%= link_to 'edit', edit_project_path(@project) %>
+  </div>
+  <div class="title">
+  <div class="main-title"><%= project.name %></div>
+  <div class="main-title-helper">(<%= project.code %>)</div>
+  </div>
+  <div class="website"><%= project.website %></div>
+  <div class="description"><%= project.description %></div>
 </div>
 
 <div class="data-container">
   <dl class="tabs" data-tab>
     <dd class="active"><a href="#panel2-1">
       Teams
-      <h6><%= project.team_count %></h6>
+      <div class="fig"><%= project.team_count %></div>
     </a></dd>
     <dd><a href="#panel2-2">
       Members
-      <h6><%= project.member_count %></h6>
+      <div class="fig"><%= project.member_count %></div>
     </a></dd>
     <dd><a href="#panel2-3">
       Managers
-      <h6><%= project.project_managers.count %></h6>
+      <div class="fig"><%= project.project_managers.count %></div>
     </a></dd>
-
-    Added on
-    <%= project.created_at.strftime('%d %B %Y') %>
+    <div class="right meta">
+    Project added on
+      <div class="fig"><%= project.created_at.strftime('%d %B %Y') %></div>
+    </div>
 
   </dl>
   <div class="tabs-content">
     <div class="content active" id="panel2-1">
-      <p>List of teams</p>
-      <%= link_to 'New team',new_project_team_path(@project),:remote=>true %>
+      <%= render :partial=>'teams/team_list',:locals=>{:project=>@project,:teams=>@teams.present? ? @teams : @project.teams} %>
     </div>
     <div class="content" id="panel2-2">
       <p>List of members</p>
@@ -41,4 +45,7 @@
     </div>
   </div>
 </div>
-
+<script type="text/javascript">
+    $('.project.card').removeClass('active')
+    $('.prj-<%= project.id %>').addClass('active')
+</script>

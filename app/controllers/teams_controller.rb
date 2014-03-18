@@ -31,13 +31,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
+    @projects = Project.active
   end
 
   # POST /teams
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-
+    @projects = Project.active
     respond_to do |format|
       if @team.save
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
@@ -52,6 +53,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+    @projects = Project.active
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }

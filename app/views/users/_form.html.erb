@@ -1,0 +1,17 @@
+<%= form_for(@user, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+    <div class="form-content form-below">
+      <%= build_validated_field('user', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+','text',@user.name) %>
+      <%= build_validated_field('user', 'email', 'Email', '', '','text',@user.email) %>
+      <%= build_field('user', 'nickname', 'Nickname','text',@user.nickname) %>
+      <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+','text',@user.employee_code) %>
+      <%= build_validated_field('user', 'password', 'Password', '', '','password',@user.password) %>
+      <%= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '','password',@user.password_confirmation) %>
+    </div>
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    users_path, :class => 'btn cancel-btn' %>
+      </div>
+    </div>
+<% end %>

@@ -1,56 +1,19 @@
-<%= form_for @project, :html => { :class => 'form-horizontal' ,:multipart=>true} do |f| %>
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
+<%= form_for @project, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+    <div class="form-content form-below">
+      <%= build_validated_field('project', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.name) %>
+      <%= build_validated_field('project', 'code', 'Code', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.code) %>
+      <%= build_field('project', 'image', 'Image', 'file',@project.image) %>
+      <%= build_field('project', 'description', 'Description', 'text_area',@project.description) %>
+      <%= build_validated_field('project', 'is_deleted', 'Deleted', 'Cannot be blank', '[a-zA-Z]+', 'checkbox',@project.is_deleted) %>
+      <%= build_field('project', 'team_count', 'Teams count', 'text',@project.team_count) %>
+      <%= build_field('project', 'member_count', 'Members count', 'text',@project.member_count) %>
+      <%= build_field('project', 'website', 'Website', 'text',@project.website) %>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :code, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :code, :class => 'text_field' %>
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    projects_path, :class => 'btn cancel-btn' %>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :image, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :description, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :is_deleted, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :is_deleted, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :team_count, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :team_count, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :member_count, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :member_count, :class => 'text_field' %>
-    </div>
-  </div>
-<div class="control-group">
-    <%= f.label :website, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :website, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                projects_path, :class => 'btn' %>
-  </div>
 <% end %>

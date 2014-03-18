@@ -4,6 +4,7 @@ Tracker::Application.routes.draw do
   resources :tasks
 
   resources :teams
+  resources :users
 
   get "home/index"
   get "home/dashboard"

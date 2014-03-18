@@ -2,8 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $font-color: #222222;
-$link: #c0392b;
-$link-hover: #c0392b;
+$link: #f75c5a;
+$link-hover: #e74c3a;
 $pane1-bg:#2c3e50;
 $pane2-bg:#ecf0f1;
 $pane3-bg:#ffffff;
@@ -13,10 +13,13 @@ $border:#ffffff;
 $card-bg-hover:#ffffff;
 $card-border-hover:#e74c3c;
 $border-hover:#ffffff;
+$grey-link:#cccccc;
+$grey-link-hover:#cccccc;
+$line:#cccccc;
 
 
 
-html, body{height: 100%}
+html, body{height: 100%;}
 html {
   -webkit-text-stroke: 1px rgba(0,0,0,0.1);
 //  text-shadow: #fff 0px 1px 1px;
@@ -27,11 +30,12 @@ html {
 body{
 //  font-family: 'Raleway', sans-serif;
   font-family: 'Source Sans Pro', sans-serif;
+  a{font-family: 'Source Sans Pro', sans-serif;}
 }
 .ep-tracker.row{max-width: 100rem;}
 
 .row{height: 100%;}
-.pane1, .pane2, .pane3{height: 100%;padding-top: 10px}
+.pane1, .pane2, .pane3{height: 100%;padding: 30px;}
 .pane1{background: $pane1-bg;}
 .pane2{background: $pane2-bg;}
 .pane3{background: $pane3-bg;}
@@ -44,7 +48,7 @@ body{
   -webkit-transition:.25s;
   transition:.25s;
 }
-.cols{float: left;margin-right: 10px;}
+.cols{float: left;margin-right: 20px;}
 .card{
   display: block;
   background: $card-bg;
@@ -57,14 +61,116 @@ body{
   background: $card-bg-hover;
   border: solid 1px $card-border-hover;
 }
+.card-transparent{
+  display: block;
+//  background: $card-bg;
+//  border: solid 1px $card-border;
+  padding: 20px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+.card-transparent:hover, .card-transparent.active{
+  background: $card-bg;
+//  border: solid 1px $card-border-hover;
+}
 .title, .text{
   color: $font-color;
 }
-.title{font-size: 1em;font-weight: bold;}
+.title{font-size: 1em;font-weight: normal;}
+.active .title{font-size: 1em;font-weight: bold;}
 .text{font-size: 1em}
 .font{
   font-size: 1.4em;
 }
 .head-row{
+  div{line-height: 1.2em;}
   overflow: hidden;
+  .title{
+//    clear: right;
+    overflow: hidden;
+    margin-left: 140px;
+    .main-title{font-size: 2em;float: left;}
+    .main-title-helper{font-size: 1.2em;color: $grey-link;float: left;}
+  }
+  .website{color: $grey-link}
+  .description{margin-left: 150px;}
+
+}
+.pane1{overflow-y: auto}
+.pane2{overflow-y: auto}
+.pane3{overflow-y: auto}
+.form-row{clear: left;overflow: hidden;}
+.form-action-up{
+  height: 40px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+.form-below{
+  position: relative;
+  top: 50px;
+}
+.button{
+  padding: 5px 10px;
+}
+.dashed_link{
+  border: dashed 2px $grey-link;
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: $grey-link;
+}
+.dashed_link:hover{color: $link;border-color: $link;}
+.dashed_link:active{color: $link-hover;border-color: $link;}
+
+dl.tabs{
+  clear: left;
+  margin-top: 20px;
+  border-top: solid 1px $line;
+  border-bottom: solid 1px $line;
+  dd a{
+    padding: 13px 35px 5px 35px;
+    background: $pane3-bg;
+//    padding: 0 35px;
+    font-family: 'Source Sans Pro', sans-serif;
+    .fig {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 0px;
+      margin-top: -24px;
+      padding-top: 7px;
+    }
+  }
+  dd:first-child a:first-child{padding-left: 0px}
+  dd a:hover{background: $pane3-bg;color: $link-hover;}
+  dd.active a{background: $pane3-bg;color: $link-hover;}
+  dd:after{
+    content: '';
+    width: 1px;
+    height: 37px;
+    background: $line;
+    position: absolute;
+    top: 22px;
+    right: 0;
+  }
+
+  dd:last-child:after{
+    content: '';
+    width: 1px;
+    background: $line;
+    position: absolute;
+    top: 22px;
+    right: 0;
+  }
+
+  .meta{
+    color: $grey-link;
+    padding-top: 10px;
+    .fig{
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+  }
 }

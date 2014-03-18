@@ -4,3 +4,7 @@
 
 #$(document).on "page:change", ->
 #  alert "page has loaded!"
+
+$(document).on "page:change", ->
+  $('select').select2({'width':'100%'});
+

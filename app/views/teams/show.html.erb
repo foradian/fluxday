@@ -1,3 +1,8 @@
+<%= content_for :pane2 do %>
+    <%# @projects.each do |project| %>
+    <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
+    <%# end %>
+<% end %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -47,3 +52,7 @@
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
+<script type="text/javascript">
+    $('.project.card').removeClass('active')
+    $('.prj-<%= @team.project_id %>').addClass('active')
+</script>

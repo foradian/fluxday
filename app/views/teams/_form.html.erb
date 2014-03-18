@@ -1,53 +1,28 @@
-<%= form_for(@team) do |f| %>
-  <% if @team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
-
-      <ul>
-      <% @team.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for(@team, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+    <div class="form-content form-below">
+      <%= build_validated_field('team', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @team.name) %>
+      <%= build_validated_field('team', 'code', 'Code', 'Cannot be blank', '[a-zA-Z]+', 'text', @team.code) %>
+      <%= build_field('team', 'description', 'Description', 'text_area', @team.description) %>
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :project_id %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.select :project_id, @projects.map { |x| [x.name, x.id] } %>
+        </div>
+      </div>
+      <%= build_validated_field('team', 'is_deleted', 'Deleted', 'Cannot be blank', '[a-zA-Z]+', 'checkbox', @team.is_deleted) %>
+      <%= build_field('team', 'members_count', 'Teams count', 'text', @team.members_count) %>
+      <%= build_field('team', 'managers_count', 'Members count', 'text', @team.managers_count) %>
+      <%= build_field('team', 'status', 'Status', 'text', @team.status) %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :project_id %><br>
-    <%= f.select :project_id, @projects.map{|x| [x.name,x.id]} %>
-  </div>
-  <div class="field">
-    <%= f.label :members_count %><br>
-    <%= f.number_field :members_count %>
-  </div>
-  <div class="field">
-    <%= f.label :managers_count %><br>
-    <%= f.number_field :managers_count %>
-  </div>
-  <div class="field">
-    <%= f.label :is_deleted %><br>
-    <%= f.check_box :is_deleted %>
-  </div>
-  <div class="field">
-    <%= f.label :pending_tasks %><br>
-    <%= f.number_field :pending_tasks %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    projects_path, :class => 'btn cancel-btn' %>
+      </div>
+    </div>
 <% end %>
+
+

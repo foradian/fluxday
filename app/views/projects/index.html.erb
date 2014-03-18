@@ -1,13 +1,16 @@
-<div class="large-4 columns pane2">
-  <% @projects.each do |project| %>
-      <%= render :partial => 'projects/project_card', :locals => {:project => project} %>
-  <% end %>
-  <%= link_to 'New project',new_project_path,:remote=>true %>
-</div>
-<div class="large-6 columns pane3">
-<%#= content_for :pane3 do %>
-  <% if @project.present? %>
-   <%= render :partial=>'projects/show',:locals=>{:project=>@project} %>
-  <% end %>
-<%# end %>
-</div>
+<%= content_for :pane2 do %>
+    <!--<div class="large-4 columns pane2">-->
+    <%#= render :partial=>'projects/new_link' %>
+    <%# @projects.each do |project| %>
+        <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
+    <%# end %>
+
+    <!--</div>-->
+    <!--<div class="large-6 columns pane3">-->
+<% end %>
+<%= content_for :pane3 do %>
+    <% if @project.present? %>
+        <%= render :partial => 'projects/show', :locals => {:project => @project} %>
+    <% end %>
+<% end %>
+<!--</div>-->
