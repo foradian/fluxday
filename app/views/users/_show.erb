@@ -1,0 +1,42 @@
+<div class="head-row user centered">
+  <div class="">
+  <%= image_tag(user.image.thumbnail,:class=>'rounded_pic centered') %>
+  </div>
+  <div class="right options">
+    <%= link_to 'edit', edit_user_path(user) %>
+  </div>
+  <div class="title">
+    <div class="main-title"><%= user.name %></div>
+    <div class="main-title-helper">(<%= user.nickname %>)</div>
+  </div>
+  <div class="description"><%= user.email %></div>
+</div>
+
+<div class="data-container">
+  <dl class="tabs" data-tab>
+    <dd class="active"><a href="#panel2-1">
+      Pending
+      <div class="fig"><%=  %></div>
+    </a></dd>
+    <dd><a href="#panel2-2">
+      Teams
+      <div class="fig"><%= user.teams.count %></div>
+    </a></dd>
+    <div class="right meta">
+      Reports
+    </div>
+
+  </dl>
+  <div class="tabs-content">
+    <div class="content active" id="panel2-1">
+      <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
+    </div>
+    <div class="content" id="panel2-2">
+      <%= render :partial=>'teams/team_list',:locals=>{:teams=>teams.present? ? teams : user.teams} %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $('.project.card').removeClass('active')
+    $('.prj-<%= user.id %>').addClass('active')
+</script>

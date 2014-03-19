@@ -1,24 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :pane2 do %>
+    <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
+<% end %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>nickname:</strong>
-  <%= @user.nickname %>
-</p>
-
-<p>
-  <strong>employee_code:</strong>
-  <%= @user.employee_code %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= content_for :pane3 do %>
+    <% if @user.present? %>
+        <%= render :partial => 'users/show', :locals => {:user=>@user,:teams=>@teams} %>
+    <% end %>
+<% end %>
