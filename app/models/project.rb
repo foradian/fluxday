@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   has_many :project_members, :through=>:team_members, :source=>:user
   scope :active, -> {where(is_deleted: false)}
 
-  after_save  :update_numbers
+  #after_save  :update_numbers
 
   def members
     return project_members.active.uniq
