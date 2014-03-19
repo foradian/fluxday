@@ -7,6 +7,5 @@ class AddAdditionalFieldsToUsers < ActiveRecord::Migration
     add_column :users, :joining_date, :datetime
     add_column :users, :role, :string
     add_column :users, :status, :string
-    add_column :users, :is_deleted, :boolean
   end
 end

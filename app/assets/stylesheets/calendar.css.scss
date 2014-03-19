@@ -1,3 +1,21 @@
 // Place all the styles related to the calendar controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//.month-calendar-field{visibility: hidden;}
+//.datepicker.datepicker-dropdown.dropdown-menu{display: block !important;}
+
+@import "global";
+.datepicker.datepicker-inline{
+  width: 80%;
+  margin: 0 5%;
+  table{
+    width: 100%;
+    background: $pane2-bg;
+    border-collapse: collapse;
+    td{height: 35px;}
+    th,td.old,td.new{background: $pane2-bg;}
+    span.active,td.active{background: $link;}
+    td{border: solid 1px $line;border-collapse: collapse;}
+  }
+}

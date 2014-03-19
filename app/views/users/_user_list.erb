@@ -1,0 +1,11 @@
+
+<% users.each do |user| %>
+    <div class="user-list-item">
+      <div class="user-name">
+        <%= link_to user.name, user_path(user) %>
+      </div>
+      <div class="user-glymplse">
+
+      </div>
+    </div>
+<% end %>

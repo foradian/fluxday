@@ -14,4 +14,5 @@ class User < ActiveRecord::Base
   has_many  :users, :through=>:reporting_employees,:class_name=>'User', :foreign_key => "user_id"
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  scope :active, -> {where(is_deleted: false)}
 end

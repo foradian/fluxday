@@ -16,12 +16,15 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @projects = Project.active
+    @team_leads = @team.team_leads
+    @members = @team.members
   end
 
   # GET /teams/new
   def new
     @projects = Project.active
-    @users = User.all
+    @users = User.active
     if params[:project_id].present?
       @project = Project.find(params[:project_id])
       @team = @project.teams.new
@@ -32,14 +35,14 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @users = User.all
+    @users = User.active
     @projects = Project.active
   end
 
   # POST /teams
   # POST /teams.json
   def create
-    @users = User.all
+    @users = User.active
     @team = Team.new(team_params)
     @projects = Project.active
     respond_to do |format|
@@ -56,7 +59,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
-    @users = User.all
+    @users = User.active
     @projects = Project.active
     respond_to do |format|
       if @team.update(team_params)

@@ -7,4 +7,6 @@
 
 $(document).on "page:change", ->
   $('select').select2({'width':'100%'});
+  $('.date-selector').fdatepicker()
+  $('.month-calendar-field').fdatepicker({'show','weekStart':0})
 

@@ -1,10 +1,11 @@
 Tracker::Application.routes.draw do
+  get "calendar/index"
+  get "calendar/monthly"
   resources :comments
 
   resources :tasks
 
   resources :teams
-  resources :users
 
   get "home/index"
   get "home/dashboard"
@@ -12,6 +13,9 @@ Tracker::Application.routes.draw do
   resources :projects do
     resources :teams
   end
+
+  resources :users
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

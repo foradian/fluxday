@@ -4,7 +4,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :name
       t.string :code
       t.text :description
-      t.boolean :is_deleted
+      t.boolean :is_deleted, :default=>false
 
       t.timestamps
     end

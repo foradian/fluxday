@@ -38,10 +38,10 @@
       <%= render :partial=>'teams/team_list',:locals=>{:project=>@project,:teams=>@teams.present? ? @teams : @project.teams} %>
     </div>
     <div class="content" id="panel2-2">
-      <p>List of members</p>
+      <%= render :partial=>'users/user_list',:locals=>{:users=>@members.present? ? @members : @project.members} %>
     </div>
     <div class="content" id="panel2-3">
-      <p>List of managers</p>
+      <%= render :partial=>'users/user_list',:locals=>{:users=>@managers.present? ? @managers : @project.users} %>
     </div>
   </div>
 </div>

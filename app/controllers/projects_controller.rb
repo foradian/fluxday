@@ -14,21 +14,26 @@ class ProjectsController < ApplicationController
   def show
     @projects = Project.active
     @teams = @project.teams
+    @managers = @project.users
+    @members = @project.members
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    @users= User.active
   end
 
   # GET /projects/1/edit
   def edit
+    @users= User.active
   end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @users= User.active
 
     respond_to do |format|
       if @project.save
@@ -44,6 +49,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @users= User.active
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }

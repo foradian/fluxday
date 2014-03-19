@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.active
   end
 
   # GET /users/1
@@ -15,19 +15,19 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @users = User.all
+    @users = User.active
   end
 
   # GET /users/1/edit
   def edit
-    @users = User.all
+    @users = User.active
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-    @users = User.all
+    @users = User.active
 
     respond_to do |format|
       if @user.save
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @users = User.all
+    @users = User.active
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

@@ -1,58 +1,15 @@
+<!--<div class="large-4 columns pane2">-->
 <%= content_for :pane2 do %>
     <%# @projects.each do |project| %>
     <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
     <%# end %>
+    <!--</div>-->
 <% end %>
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
-</p>
-
-<p>
-  <strong>Code:</strong>
-  <%= @team.code %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @team.description %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @team.project_id %>
-</p>
-
-<p>
-  <strong>Members count:</strong>
-  <%= @team.members_count %>
-</p>
-
-<p>
-  <strong>Managers count:</strong>
-  <%= @team.managers_count %>
-</p>
-
-<p>
-  <strong>Is deleted:</strong>
-  <%= @team.is_deleted %>
-</p>
-
-<p>
-  <strong>Pending tasks:</strong>
-  <%= @team.pending_tasks %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @team.status %>
-</p>
-
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
-<script type="text/javascript">
-    $('.project.card').removeClass('active')
-    $('.prj-<%= @team.project_id %>').addClass('active')
-</script>
+<!--<div class="large-6 columns pane3">-->
+<%= content_for :pane3 do %>
+    <% if @team.present? %>
+        <%= render :partial => 'teams/show', :locals => {:team => @team,:projects=>@projects,:members=>@members,:team_leads=>@team_leads} %>
+    <% end %>
+<% end %>
+<!--</div>-->
