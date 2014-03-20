@@ -17,9 +17,9 @@
             <% (@start_date..@end_date).each do |date| %>
                 <div class="date-card date-<%= date.to_s %> card-transparent transition">
                   <% unless date == Date.today %>
-                      <%= link_to date.strftime('%A %d %B %Y'), calendar_day_path(:date => date.to_s), :remote => true %>
+                      <%= link_to date.strftime('%A %d %B %Y'), calendar_day_path(:date => date.to_s), :remote => true,:class=>'cal-date' %>
                   <% else %>
-                      <%= link_to 'Today', calendar_day_path(:date => date.to_s), :remote => true %>
+                      <%= link_to 'Today', calendar_day_path(:date => date.to_s), :remote => true,:class=>'cal-date' %>
                   <% end %>
                   <% if date <= Date.today && date >= 5.days.ago %>
                       <%= link_to 'Add log', new_work_log_path, :remote => true, :class => 'btn btn-sec right' %>

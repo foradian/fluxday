@@ -1,9 +1,14 @@
+<div class="pane3-meta">
+  <%= @date.strftime('%A %d %B %Y') %>
+</div>
+<div class="pane3-content">
 <div class="pane3-padding">
   <ul>
     <% entries.each do |entry| %>
         <li><%= entry.name %></li>
     <% end %>
   </ul>
+</div>
 </div>
 <script type="text/javascript">
     $('.date-card').removeClass('active')

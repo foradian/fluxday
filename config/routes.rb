@@ -1,6 +1,9 @@
 Tracker::Application.routes.draw do
+  resources :work_logs
+
   get "calendar/index"
   get "calendar/monthly"
+  get "calendar/day"
   resources :comments
 
   resources :tasks

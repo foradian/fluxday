@@ -42,9 +42,9 @@ body{
 .pane2{background: $pane2-bg;}
 .pane3{background: $pane3-bg;}
 
-.pane2-meta{height: 80px;border-bottom: solid 1px $line;}
+.pane2-meta{height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
-.pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;}
+.pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
 .pane2-padding{padding: 35px;}
 .pane3-padding{padding: 35px;}
@@ -235,3 +235,13 @@ dl.tabs{
 form.form-horizontal{padding-top: 100px;}
 .text_field{outline: none;}
 .button{margin: 0;}
+
+.cal-date,.cal-date:hover{color: $font-color;}
+.date-card.active .cal-date{font-weight: bold;}
+.date-card{
+  li{list-style: none;
+    a{color: $font-color;}
+    a:hover{color: $link;}
+  }
+  .entries{margin-top: 10px;}
+}
