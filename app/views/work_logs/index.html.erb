@@ -1,0 +1,37 @@
+<h1>Listing work_logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Task</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Is deleted</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @work_logs.each do |work_log| %>
+      <tr>
+        <td><%= work_log.user_id %></td>
+        <td><%= work_log.name %></td>
+        <td><%= work_log.task %></td>
+        <td><%= work_log.start_time %></td>
+        <td><%= work_log.end_time %></td>
+        <td><%= work_log.is_deleted %></td>
+        <td><%= link_to 'Show', work_log %></td>
+        <td><%= link_to 'Edit', edit_work_log_path(work_log) %></td>
+        <td><%= link_to 'Destroy', work_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Work log', new_work_log_path %>

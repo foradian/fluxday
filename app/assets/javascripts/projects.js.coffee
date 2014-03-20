@@ -8,10 +8,10 @@
 $(document).on "page:change", ->
   $('select').select2({'width':'100%'});
   $('.date-input').datetimepicker()
-  $('.dates-input').fdatetimepicker({
-    weekStart: 1,
-    todayHighlight: true,
-    autoclose: true
-    })
+#  $('.dates-input').fdatetimepicker({
+#    weekStart: 1,
+#    todayHighlight: true,
+#    autoclose: true
+#    })
   $('.month-calendar-field').fdatepicker({'show','weekStart':0})
 

@@ -36,10 +36,18 @@ body{
 .ep-tracker.row{max-width: 100rem;}
 
 .row{height: 100%;}
-.pane1, .pane2, .pane3{height: 100%;padding: 30px;}
+.pane1, .pane2, .pane3{height: 100%;}
+.pane1, .pane2, .pane3{padding: 0px;}
 .pane1{background: $pane1-bg;}
 .pane2{background: $pane2-bg;}
 .pane3{background: $pane3-bg;}
+
+.pane2-meta{height: 80px;border-bottom: solid 1px $line;}
+.pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
+.pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;}
+.pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
+.pane2-padding{padding: 35px;}
+.pane3-padding{padding: 35px;}
 //a{color: #e74c3c}
 //a:hover{color: #f75c4c}
 .transition{
@@ -102,10 +110,14 @@ body{
 .pane3{overflow-y: auto}
 .form-row{clear: left;overflow: hidden;}
 .form-action-up{
-  height: 40px;
+  height: 80px;
   position: absolute;
-  right: 30px;
-  top: 30px;
+//  right: 30px;
+  top: 0px;
+  padding: 0px;
+  padding-right: 35px;
+  border-bottom: solid 1px $line;
+
 }
 .form-below{
   position: relative;
@@ -179,6 +191,9 @@ dl.tabs{
 
 .form-row{
   border-bottom: solid 1px $line;
+  padding-top: 10px;
+  margin-left: 45px;
+  margin-right: 45px;
   label,input{margin-bottom: 0px;margin-top: 20px;}
   input,input.active{
   border: none;
@@ -188,15 +203,35 @@ dl.tabs{
   box-shadow: none;
   -webkit-box-shadow: none;
 }
-  input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="week"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea:focus{
+  textarea,input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="week"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea:focus{
     background: $pane3-bg;
     outline: none;
+    border: none;
     -moz-box-shadow: none;
     box-shadow: none;
     -webkit-box-shadow: none;
   }
 }
+.select2-container{
+  margin-bottom: 0px;
+  .select2-choice{
+  border: none;
+  background: $pane3-bg;}
+}
 .rounded_pic{
   border-radius: 100%;
 }
 .centered{text-align: center;}
+
+.btn-sec{
+  padding: 5px 10px;
+  border: solid 1px $line;
+  border-radius: 5px;
+  color: $link;
+  font-size: 14px;
+}
+
+.form-row label, .form-row input{margin-top: 0px;}
+form.form-horizontal{padding-top: 100px;}
+.text_field{outline: none;}
+.button{margin: 0;}

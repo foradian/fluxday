@@ -1,0 +1,11 @@
+<div class="pane3-padding">
+  <ul>
+    <% entries.each do |entry| %>
+        <li><%= entry.name %></li>
+    <% end %>
+  </ul>
+</div>
+<script type="text/javascript">
+    $('.date-card').removeClass('active')
+    $('.date-<%= date.to_s %>').addClass('active')
+</script>

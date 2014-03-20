@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  name: MyString
+  task: 1
+  start_time: 2014-03-20 12:49:32
+  end_time: 2014-03-20 12:49:32
+  is_deleted: false
+
+two:
+  user_id: 1
+  name: MyString
+  task: 1
+  start_time: 2014-03-20 12:49:32
+  end_time: 2014-03-20 12:49:32
+  is_deleted: false

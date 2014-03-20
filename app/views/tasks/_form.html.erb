@@ -1,53 +1,24 @@
-<%= form_for(@task) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @task, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+    <%= build_validated_field('task', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@task.name) %>
+    <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '[a-zA-Z]+', 'text_area',@task.description) %>
+    <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field',@task.start_date) %>
+    <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field',@task.end_date) %>
+    <%= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'team_id', 'User','Should select at least one','',false,@task.user_id,User.active.map{|x| [x.name,x.id]}) %>
+    <!--<div class="field">-->
+        <%#= f.label :tracker_id %><br>
+        <!--<%#= f.text_field :tracker_id %>-->
+    <!--</div>-->
+    <!--<div class="field">-->
+        <%#= f.label :comments_count %><br>
+        <!--<%#= f.number_field :comments_count %>-->
+    <!--</div>-->
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    projects_path, :class => 'btn cancel-btn' %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :start_date %><br>
-    <%= f.text_area :start_date,:class=>'date-input form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <%= f.text_area :end_date,:class=>'date-input form-control' %>
-  </div>
-  <div class="field">
-    <%= f.label :project_id %><br>
-    <%= f.number_field :project_id %>
-  </div>
-  <div class="field">
-    <%= f.label :team_id %><br>
-    <%= f.number_field :team_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :tracker_id %><br>
-    <%= f.text_field :tracker_id %>
-  </div>
-  <div class="field">
-    <%= f.label :comments_count %><br>
-    <%= f.number_field :comments_count %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
