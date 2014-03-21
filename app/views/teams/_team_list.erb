@@ -4,7 +4,7 @@
 <% teams.each do |team| %>
     <div class="team-list-item">
       <div class="team-name">
-        <%= link_to team.name, team_path(team) %>
+        <%= link_to team.name, team_path(team),:class=>'grey-link' %>
       </div>
       <div class="team-glymplse">
         <%= team.members_count %>

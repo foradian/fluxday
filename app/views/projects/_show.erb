@@ -1,47 +1,49 @@
-<div class="head-row project">
-  <div class="cols">
-    <%= image_tag(project.image.thumbnail) %>
+<div class="pane3-padding">
+  <div class="head-row project">
+    <div class="cols">
+      <%= image_tag(project.image.thumbnail) %>
+    </div>
+    <div class="right options">
+      <%= link_to 'edit', edit_project_path(@project) %>
+    </div>
+    <div class="title">
+      <div class="main-title"><%= project.name %></div>
+      <div class="main-title-helper">(<%= project.code %>)</div>
+    </div>
+    <div class="website"><%= project.website %></div>
+    <div class="description"><%= project.description %></div>
   </div>
-  <div class="right options">
-    <%= link_to 'edit', edit_project_path(@project) %>
-  </div>
-  <div class="title">
-  <div class="main-title"><%= project.name %></div>
-  <div class="main-title-helper">(<%= project.code %>)</div>
-  </div>
-  <div class="website"><%= project.website %></div>
-  <div class="description"><%= project.description %></div>
-</div>
 
-<div class="data-container">
-  <dl class="tabs" data-tab>
-    <dd class="active"><a href="#panel2-1">
-      Teams
-      <div class="fig"><%= project.team_count %></div>
-    </a></dd>
-    <dd><a href="#panel2-2">
-      Members
-      <div class="fig"><%= project.member_count %></div>
-    </a></dd>
-    <dd><a href="#panel2-3">
-      Managers
-      <div class="fig"><%= project.project_managers.count %></div>
-    </a></dd>
-    <div class="right meta">
-    Project added on
-      <div class="fig"><%= project.created_at.strftime('%d %B %Y') %></div>
-    </div>
+  <div class="data-container">
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">
+        Teams
+        <div class="fig"><%= project.team_count %></div>
+      </a></dd>
+      <dd><a href="#panel2-2">
+        Members
+        <div class="fig"><%= project.member_count %></div>
+      </a></dd>
+      <dd><a href="#panel2-3">
+        Managers
+        <div class="fig"><%= project.project_managers.count %></div>
+      </a></dd>
+      <div class="right meta">
+        Project added on
+        <div class="fig"><%= project.created_at.strftime('%d %B %Y') %></div>
+      </div>
 
-  </dl>
-  <div class="tabs-content">
-    <div class="content active" id="panel2-1">
-      <%= render :partial=>'teams/team_list',:locals=>{:project=>@project,:teams=>@teams.present? ? @teams : @project.teams} %>
-    </div>
-    <div class="content" id="panel2-2">
-      <%= render :partial=>'users/user_list',:locals=>{:users=>@members.present? ? @members : @project.members} %>
-    </div>
-    <div class="content" id="panel2-3">
-      <%= render :partial=>'users/user_list',:locals=>{:users=>@managers.present? ? @managers : @project.users} %>
+    </dl>
+    <div class="tabs-content">
+      <div class="content active" id="panel2-1">
+        <%= render :partial => 'teams/team_list', :locals => {:project => @project, :teams => @teams.present? ? @teams : @project.teams} %>
+      </div>
+      <div class="content" id="panel2-2">
+        <%= render :partial => 'users/user_list', :locals => {:users => @members.present? ? @members : @project.members} %>
+      </div>
+      <div class="content" id="panel2-3">
+        <%= render :partial => 'users/user_list', :locals => {:users => @managers.present? ? @managers : @project.users} %>
+      </div>
     </div>
   </div>
 </div>

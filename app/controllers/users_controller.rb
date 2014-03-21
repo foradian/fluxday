@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @teams = @user.teams
+    @managers = @user.managers
+    @users = User.active
   end
 
   # GET /users/new

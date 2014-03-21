@@ -57,6 +57,9 @@ body{
   -webkit-transition:.25s;
   transition:.25s;
 }
+
+.grey-link{color: $font-color;}
+.grey-link:hover{color: $link;}
 .cols{float: left;margin-right: 20px;}
 .card{
   display: block;
@@ -105,6 +108,16 @@ body{
   .description{margin-left: 150px;}
 
 }
+.user-title{
+  font-size: 2em;
+  text-align: center;
+  .nickname{
+    font-size: 0.5em;
+    display: inline-block;
+    color: $grey-link;
+  }
+}
+.email{text-align: center;}
 .pane1{overflow-y: auto}
 .pane2{overflow-y: auto}
 .pane3{overflow-y: auto}

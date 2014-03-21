@@ -2,7 +2,8 @@
 <% users.each do |user| %>
     <div class="user-list-item">
       <div class="user-name">
-        <%= link_to user.name, user_path(user) %>
+        <%= link_to image_tag(user.image.icon32,:class=>'rounded_pic'), user_path(user),:remote=>true %>
+        <%= link_to user.name, user_path(user),:remote=>true %>
       </div>
       <div class="user-glymplse">
 
