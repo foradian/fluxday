@@ -41,13 +41,46 @@ body{
 .pane1{background: $pane1-bg;}
 .pane2{background: $pane2-bg;}
 .pane3{background: $pane3-bg;}
-
+.no-padding{padding: 0px !important;}
 .pane2-meta{height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
 .pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
 .pane2-padding{padding: 35px;}
 .pane3-padding{padding: 35px;}
+.pane2-meta,.pane3-meta{
+  padding: 30px;
+  .title{font-weight: bold;font-size: 1em;float: left;}
+
+  .tabs{
+    float: right;
+    border: none;
+
+    .active{background: $pane2-bg;}
+    dd{position: initial;}
+    .clear-tab{
+      background: $pane2-bg;border: none;outline: none;
+      a{
+      outline: none;
+      background: $pane2-bg;
+      font-size: 0.8em;
+      color: $font-color;
+      padding: 0px 8px;
+    }
+    a:hover{color: $link;}
+    }
+    .active a,.active a:hover{
+      cursor: default;
+      color: $link;
+    }
+
+  }
+}
+.pane3-meta{
+  .title{
+
+  }
+}
 //a{color: #e74c3c}
 //a:hover{color: #f75c4c}
 .transition{
@@ -130,6 +163,11 @@ body{
   padding: 0px;
   padding-right: 35px;
   border-bottom: solid 1px $line;
+  .right{
+    top: 40%;
+    position: relative;
+    a{padding: 5px 10px;display: table;}
+  }
 
 }
 .form-below{
@@ -138,6 +176,7 @@ body{
 }
 .button{
   padding: 5px 10px;
+  border-radius: 2px;
 }
 .dashed_link{
   border: dashed 2px $grey-link;
@@ -151,7 +190,9 @@ body{
 .dashed_link:hover{color: $link;border-color: $link;}
 .dashed_link:active{color: $link-hover;border-color: $link;}
 
-dl.tabs{
+dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
+.pane3{
+ dl.tabs{
   clear: left;
   margin-top: 20px;
   border-top: solid 1px $line;
@@ -199,6 +240,7 @@ dl.tabs{
       font-weight: bold;
     }
   }
+}
 }
 
 

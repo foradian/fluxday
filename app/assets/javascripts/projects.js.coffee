@@ -15,3 +15,6 @@ $(document).on "page:change", ->
 #    })
   $('.month-calendar-field').fdatepicker({'show','weekStart':0})
 
+
+$(document).foundation tab:
+  callback: (tab) ->

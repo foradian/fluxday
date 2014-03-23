@@ -1,1 +1,7 @@
-<%
+<%= content_for :pane2 do %>
+    <ul>
+      <% @tasks.each do |task| %>
+          <li><% task.name %></li>
+      <% end %>
+    </ul>
+<% end %>

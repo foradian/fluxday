@@ -1,9 +1,21 @@
 <%= content_for :pane2 do %>
     <div class="pane2-meta">
-      ding ding
+      <div class="title">Entries</div>
+      <dl class="tabs right" data-tab>
+        <dd class="active clear-tab"><a href="#panel3-1">
+          Week
+        </a></dd>
+        <dd class="clear-tab"><a href="#panel3-2">
+          Month
+        </a></dd>
+      </dl>
+
+
     </div>
     <div class="pane2-content">
+
       <div class="data-container">
+
         <!--<dl class="tabs" data-tab>-->
         <!--<dd class="active"><a href="#panel2-1">-->
         <!--Week-->
@@ -13,20 +25,20 @@
         <!--</a></dd>-->
         <!--</dl>-->
         <div class="tabs-content">
-          <div class="content active" id="panel2-1">
+          <div class="content active" id="panel3-1">
             <% (@start_date..@end_date).each do |date| %>
                 <div class="date-card date-<%= date.to_s %> card-transparent transition">
                   <% unless date == Date.today %>
-                      <%= link_to date.strftime('%A %d %B %Y'), calendar_day_path(:date => date.to_s), :remote => true,:class=>'cal-date' %>
+                      <%= link_to date.strftime('%A %d %B %Y'), calendar_day_path(:date => date.to_s), :remote => true, :class => 'cal-date' %>
                   <% else %>
-                      <%= link_to 'Today', calendar_day_path(:date => date.to_s), :remote => true,:class=>'cal-date' %>
+                      <%= link_to 'Today', calendar_day_path(:date => date.to_s), :remote => true, :class => 'cal-date' %>
                   <% end %>
                   <% if date <= Date.today && date >= 5.days.ago %>
                       <%= link_to 'Add log', new_work_log_path, :remote => true, :class => 'btn btn-sec right' %>
                   <% end %>
                   <div class="entries">
                     <ul>
-                      <% @entries[date].each do |e| %>
+                      <% @entry_hash[date].each do |e| %>
                           <li>
                             <%= link_to e.name, task_path(e), :remote => true %>
                           </li>
@@ -36,7 +48,7 @@
                 </div>
             <% end %>
           </div>
-          <div class="content" id="panel2-2">
+          <div class="content" id="panel3-2">
             <div class="calendar">
               <div class="month-calendar-field"></div>
             </div>
@@ -45,3 +57,4 @@
       </div>
     </div>
 <% end %>
+<%= render :partial => 'calendar/day',:locals=>{:date=>@date,:entries=>@entries} %>

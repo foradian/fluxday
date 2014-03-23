@@ -1,3 +1,47 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$link-blue: #759bc0;
+$link-active-bg: #1f2f3e;
+
+.sidebar-links.side-nav{
+  li a{
+    color: $link-blue;
+    font-size: 16px;
+    padding: 3% 5%;
+  }
+  li:hover{
+    a{color: $link-blue;}
+    background: $link-active-bg ;
+  }
+}
+ 
+
+.icon{
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  margin: 0px 10px -2px 0px;
+}
+.icon-dashboard-16{
+  background: url('/assets/iconsprite.png') no-repeat 0px 0px;
+}
+.icon-tasks-16{
+  background: url('/assets/iconsprite.png') no-repeat -16px 0px;
+}
+.icon-projects-16{
+  background: url('/assets/iconsprite.png') no-repeat -32px 0px;
+}
+.icon-teams-16{
+  background: url('/assets/iconsprite.png') no-repeat -48px 0px;
+}
+.icon-user-16{
+  background: url('/assets/iconsprite.png') no-repeat -64px 0px;
+}
+.icon-calendar-16{
+  background: url('/assets/iconsprite.png') no-repeat -80px 0px;
+}
+.icon-reports-16{
+  background: url('/assets/iconsprite.png') no-repeat -96px 0px;
+}

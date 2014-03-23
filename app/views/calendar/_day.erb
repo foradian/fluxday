@@ -1,16 +1,28 @@
 <div class="pane3-meta">
-  <%= @date.strftime('%A %d %B %Y') %>
+  <div class="title">
+    <%= @date.strftime('%A %d %B %Y') %>
+  </div>
+  <div class="right"><></div>
 </div>
-<div class="pane3-content">
-<div class="pane3-padding">
-  <ul>
-    <% entries.each do |entry| %>
-        <li><%= entry.name %></li>
+<div class="pane3-content no-padding">
+  <dl class="accordion" data-accordion>
+    <% entries.each_with_index do |entry,i| %>
+        <dd>
+          <a href="#panel<%= i+1 %>"><%= entry.name %></a>
+          <div id="panel<%= i+1 %>" class="content">
+            <%= entry.description %>
+          </div>
+        </dd>
     <% end %>
-  </ul>
-</div>
+  </dl>
 </div>
 <script type="text/javascript">
     $('.date-card').removeClass('active')
     $('.date-<%= date.to_s %>').addClass('active')
+    $(document).foundation({
+        accordion: {
+            callback: function (accordion) {
+            }
+        }
+    });
 </script>
