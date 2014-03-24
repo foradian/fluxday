@@ -11,12 +11,15 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @tasks = current_user.assignments
+    @team = @task.team
+    @project = @team.project
   end
 
 # GET /tasks/new
   def new
     @root_task = Task.find(params[:task_id]) if params[:task_id].present?
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
+    @projects = Project.active
   end
 
   # GET /tasks/1/edit

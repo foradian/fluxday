@@ -7,5 +7,5 @@
 
 <div class="pane3-meta"></div>
 <div class="pane3-content">
-  <%= render :partial => 'show' %>
+  <%= render :partial => 'show',:locals=>{:task=>@task,:project=>@project,:team=>@team} %>
 </div>

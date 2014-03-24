@@ -8,11 +8,12 @@
   <dl class="accordion" data-accordion>
     <% entries.each_with_index do |entry,i| %>
         <dd>
-          <a href="#panel<%= i+1 %>"><%= entry.name %></a>
+          <a href="#panel<%= i+1 %>" class="collapse-task">
+            <li><%= entry.name %></li>
+            <li><%= entry.end_date %></li>
+          </a>
           <div id="panel<%= i+1 %>" class="content">
-            <%= entry.name %>
-            <%= entry.description %>
-            <%= entry.start_date %>
+            <%= render :partial=>'tasks/show',:locals=>{:task=>entry,:team => entry.team, :project => entry.project} %>
           </div>
         </dd>
 

@@ -41,6 +41,7 @@ body{
 .pane1{background: $pane1-bg;}
 .pane2{background: $pane2-bg;}
 .pane3{background: $pane3-bg;}
+label{font-size: 16px;}
 .no-padding{padding: 0px !important;}
 .pane2-meta{height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
@@ -304,4 +305,43 @@ form.form-horizontal{padding-top: 100px;}
 
 .task-list{
 
+}
+
+.bc-div{
+  overflow: hidden;
+.tracker-breadcrumbs{
+  float: left;
+  padding: 0px;
+  margin-left: 0px;
+  li{
+    display: inline;
+    color: $link;
+    font-size: 0.8em;
+    a{color: $link;}
+  }
+}
+}
+
+.task-show{
+  line-height: 1.4em;
+  .task-name{font-size: 1.8em;line-height: 2em;}
+  .info{font-size: 0.8em;color: $grey-link;
+    em{color: $font-color;font-style: normal;}
+  }
+  .descr{
+    line-height: 1.2em;
+    margin: 10px 0;
+  }
+}
+
+
+
+
+.accordion dd.active .collapse-task{display: none;}
+.accordion dd > a{
+  background: $pane3-bg;
+  li{list-style: none;}
+  border-top: solid 1px $line;
+  border-bottom: solid 1px $line;
+  border-collapse: collapse;
 }

@@ -1,21 +1,47 @@
+<div class="task-show">
+  <div class="bc-div">
+    <ul class="tracker-breadcrumbs">
+      <li><%= link_to project.name %></li>
+      <li> ></li>
+      <li><%= link_to team.name %></li>
+      <li> ></li>
+      <%= task.name %>
+    </ul>
+    <div class="right">
+      Due <%= task.end_date.strftime('%d %m %Y') %>
+    </div>
+  </div>
 
-<%= @task.name %>
+  <div class="task-name">
+    <%= task.name %>
+  </div>
 
-Added by <%= @task.user.name %>
-on
-<%= @task.created_at.strftime('%d %m %Y') %>
+  <div class="info">
+    Added by
+    <em><%= task.user.name %></em>
+    on
+    <em><%= task.created_at.strftime('%d %m %Y') %></em>
+  </div>
 
-<%= @task.description %>
+  <div class="descr">
+    <%= task.description %>
+  </div>
 
-Start date
-<%= @task.start_date %>
-End date
-<%= @task.end_date %>
-
-Assigned to
-<%= @task.task_assignees %>
-Priority
-<%= @task.priority %>
+  <div class="info">
+    Start date
+    <em><%= task.start_date.strftime('%d %b %Y') %></em>
+    End date
+    <em><%= task.end_date.strftime('%d %b %Y') %></em>
+  </div>
 
 
-<%= link_to 'Add subtask', new_task_path(:task_id=>@task.id) %>
+  <div class="info">
+    Assigned to
+    <em><%= task.users %></em>
+    Priority
+    <em><%= task.priority %></em>
+  </div>
+
+
+  <%= link_to 'Add subtask', new_task_path(:task_id => task.id) %>
+</div>

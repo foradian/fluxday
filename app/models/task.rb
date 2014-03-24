@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :user
+  belongs_to :team
+  belongs_to :project
   has_many :task_assignees
   has_many :users, :through=>:task_assignees
   has_many :comments, :as => :source
