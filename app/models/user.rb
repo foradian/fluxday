@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   has_many  :projects, :through=>:project_managers
   has_many  :team_members
   has_many  :teams, :through=>:team_members
-  has_many  :task_assignees, :as=>:assignee
-  has_many  :tasks,:through => :task_assignees
+  has_many  :task_assignees
+  has_many  :assignments,:through => :task_assignees, :source=>:task
   has_many  :comments
   has_many  :reporting_managers
   has_many  :managers, :through=>:reporting_managers,:class_name=>'User'

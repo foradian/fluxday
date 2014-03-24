@@ -14,7 +14,8 @@ class WorkLogsController < ApplicationController
 
   # GET /work_logs/new
   def new
-    @work_log = WorkLog.new
+    @date = params[:date].present? ? params[:date].to_date : Date.today
+    @work_log = WorkLog.new(:date=>@date)
   end
 
   # GET /work_logs/1/edit
@@ -69,6 +70,6 @@ class WorkLogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_log_params
-      params.require(:work_log).permit(:user_id, :name, :task, :start_time, :end_time, :is_deleted)
+      params.require(:work_log).permit(:user_id, :name, :task, :start_time, :date, :end_time, :is_deleted)
     end
 end

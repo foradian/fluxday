@@ -1,5 +1,6 @@
 <%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
     <div class="form-content form-below">
+      <%= f.hidden_field :date ,:value=>@date  %>
       <%= build_validated_field('work_log', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@work_log.name) %>
       <%= build_field('work_log', 'task', 'Task', 'text_area',@work_log.task) %>
       <%= build_validated_field('work_log', 'start_time', 'Start Time', 'Cannot be blank', '', 'time-field',@work_log.start_time) %>

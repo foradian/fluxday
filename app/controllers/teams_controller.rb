@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
       @project = Project.find(params[:project_id])
       @teams = @project.teams.active
     else
-      @teams = Team.active
+      @teams = current_user.teams.active
     end
   end
 

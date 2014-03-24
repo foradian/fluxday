@@ -1,1 +1,11 @@
-<%= render :partial => 'show' %>
+<%= content_for :pane2 do %>
+    <div class="pane2-meta"></div>
+    <div class="pane2-content">
+      <%= render :partial => 'tasks/task_list' %>
+    </div>
+<% end %>
+
+<div class="pane3-meta"></div>
+<div class="pane3-content">
+  <%= render :partial => 'show' %>
+</div>

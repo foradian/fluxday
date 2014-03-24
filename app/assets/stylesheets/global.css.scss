@@ -13,7 +13,7 @@ $border:#ffffff;
 $card-bg-hover:#ffffff;
 $card-border-hover:#e74c3c;
 $border-hover:#ffffff;
-$grey-link:#cccccc;
+$grey-link:#666666;
 $grey-link-hover:#cccccc;
 $line:#cccccc;
 
@@ -281,7 +281,7 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 .btn-sec{
   padding: 5px 10px;
   border: solid 1px $line;
-  border-radius: 5px;
+  border-radius: 3px;
   color: $link;
   font-size: 14px;
 }
@@ -291,7 +291,7 @@ form.form-horizontal{padding-top: 100px;}
 .text_field{outline: none;}
 .button{margin: 0;}
 
-.cal-date,.cal-date:hover{color: $font-color;}
+.cal-date,.cal-date:hover{color: $grey-link;}
 .date-card.active .cal-date{font-weight: bold;}
 .date-card{
   li{list-style: none;
@@ -299,4 +299,9 @@ form.form-horizontal{padding-top: 100px;}
     a:hover{color: $link;}
   }
   .entries{margin-top: 10px;}
+}
+
+
+.task-list{
+
 }

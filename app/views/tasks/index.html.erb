@@ -1,7 +1,3 @@
 <%= content_for :pane2 do %>
-    <ul>
-      <% @tasks.each do |task| %>
-          <li><% task.name %></li>
-      <% end %>
-    </ul>
+<%= render :partial => 'tasks/task_list' %>
 <% end %>

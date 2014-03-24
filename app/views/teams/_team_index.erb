@@ -1,0 +1,20 @@
+<div class="pane2-meta">
+  Teams
+</div>
+<div class="pane2-content pane2-padding">
+  <% if defined? project %>
+      <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition' %>
+  <% else %>
+      <%= link_to 'New team', new_team_path, :remote => false, :class => 'dashed_link transition' %>
+  <% end %>
+  <% teams.each do |team| %>
+      <div class="card-transparent transition">
+        <div class="team-name">
+          <%= link_to team.name, team_path(team), :class => 'grey-link' %>
+        </div>
+        <div class="team-glymplse">
+          <%= team.members_count %>
+        </div>
+      </div>
+  <% end %>
+</div>

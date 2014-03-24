@@ -1,11 +1,14 @@
 <%= form_for @task, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+    <%= f.hidden_field :task_id ,:value=>@root_task.id if @root_task.present? %>
     <%= build_validated_field('task', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@task.name) %>
     <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '[a-zA-Z]+', 'text_area',@task.description) %>
     <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field',@task.start_date) %>
     <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field',@task.end_date) %>
     <%= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
     <%= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'priority', 'Priority','Should select at least one','',false,@task.priority,['Low','Medium','High','Showstopper']) %>
     <%= build_validated_select('task', 'user_id', 'User','Should select at least one','',false,@task.user_id,User.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'user_ids', 'Assignees','Should select at least one','',true,@task.user_ids,User.active.map{|x| [x.name,x.id]}) %>
     <!--<div class="field">-->
         <%#= f.label :tracker_id %><br>
         <!--<%#= f.text_field :tracker_id %>-->

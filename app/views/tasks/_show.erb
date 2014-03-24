@@ -1,1 +1,21 @@
+
 <%= @task.name %>
+
+Added by <%= @task.user.name %>
+on
+<%= @task.created_at.strftime('%d %m %Y') %>
+
+<%= @task.description %>
+
+Start date
+<%= @task.start_date %>
+End date
+<%= @task.end_date %>
+
+Assigned to
+<%= @task.task_assignees %>
+Priority
+<%= @task.priority %>
+
+
+<%= link_to 'Add subtask', new_task_path(:task_id=>@task.id) %>

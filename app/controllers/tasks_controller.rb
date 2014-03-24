@@ -4,17 +4,19 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = current_user.assignments
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @tasks = current_user.assignments
   end
 
-  # GET /tasks/new
+# GET /tasks/new
   def new
-    @task = Task.new
+    @root_task = Task.find(params[:task_id]) if params[:task_id].present?
+    @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
   end
 
   # GET /tasks/1/edit
@@ -69,6 +71,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :description, :start_date, :end_date, :project_id, :team_id, :user_id, :tracker_id, :comments_count)
+      params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count,:user_ids=>[])
     end
 end

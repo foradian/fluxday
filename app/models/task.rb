@@ -1,6 +1,7 @@
 class Task < ActiveRecord::Base
   belongs_to :user
   has_many :task_assignees
+  has_many :users, :through=>:task_assignees
   has_many :comments, :as => :source
 
   belongs_to :root_task, :class_name => "Task", :foreign_key => "task_id"
