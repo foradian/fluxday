@@ -5,6 +5,7 @@
       <%= build_field('user', 'nickname', 'Nickname','text',@user.nickname) %>
       <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+','text',@user.employee_code) %>
       <%= build_field('user', 'image', 'Image', 'file',@user.image) %>
+      <%= build_validated_select('user', 'role', 'Role','Should select at least one','',false,@user.role,[['Employee'],['Manager']]) %>
       <%#= build_validated_field('user', 'password', 'Password', '', '','password',@user.password) %>
       <%#= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '','password',@user.password_confirmation) %>
       <div class='form-row'>

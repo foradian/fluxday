@@ -16,4 +16,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable#, :registerable
   scope :active, -> {where(is_deleted: false)}
+
+  def admin?
+    role.downcase == 'admin'
+  end
+
+  def manager?
+    role.downcase.in?('manager','admin')
+  end
+
+  def employee?
+    role.downcase == 'employee'
+  end
 end

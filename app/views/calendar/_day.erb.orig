@@ -4,12 +4,23 @@
   </div>
   <div class="right"><></div>
 </div>
+<<<<<<< Updated upstream
 <div class="pane3-content no-padding">
+=======
+<div class="pane3-content">
+<div class="pane3-paddings">
+
+>>>>>>> Stashed changes
   <dl class="accordion" data-accordion>
     <% entries.each_with_index do |entry,i| %>
         <dd>
           <a href="#panel<%= i+1 %>"><%= entry.name %></a>
           <div id="panel<%= i+1 %>" class="content">
+<<<<<<< Updated upstream
+            <%= entry.description %>
+          </div>
+        </dd>
+=======
             <%= entry.name %>
             <%= entry.description %>
             <%= entry.start_date %>
@@ -17,6 +28,7 @@
         </dd>
 
 
+>>>>>>> Stashed changes
     <% end %>
   </dl>
 </div>

@@ -2,12 +2,11 @@
     <div class="form-content form-below">
       <%= build_validated_field('work_log', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@work_log.name) %>
       <%= build_field('work_log', 'task', 'Task', 'text_area',@work_log.task) %>
-      <%= build_validated_field('work_log', 'start_time', 'Start Time', 'Cannot be blank', '', 'date_field',@work_log.start_time) %>
-      <%= build_validated_field('work_log', 'end_time', 'End Time', 'Cannot be blank', '', 'date_field',@work_log.end_time) %>
+      <%= build_validated_field('work_log', 'start_time', 'Start Time', 'Cannot be blank', '', 'time-field',@work_log.start_time) %>
+      <%= build_validated_field('work_log', 'end_time', 'End Time', 'Cannot be blank', '', 'time-field',@work_log.end_time) %>
       <%= build_validated_field('work_log', 'is_deleted', 'Deleted', 'Cannot be blank', '', 'checkbox',@work_log.is_deleted) %>
       <%= build_validated_select('work_log', 'user_id', 'User','Should select at least one','',false,@work_log.user_id,User.active.map{|x| [x.name,x.id]}) %>
     </div>
-
 
 
     <div class="small-12 columns form-action-up">
@@ -22,4 +21,5 @@
 <script type="text/javascript">
     $('select').select2({'width':'100%'});
     $('.date-input').datetimepicker();
+    $('.time-field').timepicker({ 'step': 15 });
 </script>

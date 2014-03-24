@@ -4,8 +4,9 @@ class CreateWorkLogs < ActiveRecord::Migration
       t.integer :user_id
       t.string :name
       t.integer :task
-      t.datetime :start_time
-      t.datetime :end_time
+      t.time :start_time
+      t.time :end_time
+      t.date :date
       t.boolean :is_deleted,:default=>false
 
       t.timestamps

@@ -4,12 +4,53 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
+    user ||= User.new # guest user (not logged in)
+
+    alias_action :new, :edit, :create, :read, :update, :destroy, :to => :crud
+
+    #if user.admin?
+    #  can :manage, :all
+    #else
+    #  can :read, :all
+    #end
+
+    if user.role.downcase == 'admin'
+    elsif user.role.downcase == 'manager'
+      can [:new, :edit, :create, :read, :update, :destroy], [Project, Team, User, Comment, WorkLog, Task]
+    elsif user.role.downcase == 'employee'
+      #can [:new, :edit, :create, :read, :update, :destroy], [Project, Team, User, Comment, WorkLog, Task]
+    else
+    end
+
+    can :crud, User do |u|
+      user.role.downcase == 'employee'
+    end
+
+    #def manager
+    #  can :manage, User
+    #  can :manage, Project
+    #  can :manage, Team
+    #  can :manage, Task
+    #  can :manage, WorkLog
+    #end
+    #
+    #def admin
+    #  manager
+    #end
+    #
+    #def employee
+    #  can :crud, User
+    #end
+
+    #can :read, Team, Team do |team|
+    #  taem.published_at <= Time.now
+    #end
+
+    #can :read, Article, Article.published do |article|
+    #  article.published_at <= Time.now
+    #end
+
+
     #
     # The first argument to `can` is the action you are giving the user 
     # permission to do.

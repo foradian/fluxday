@@ -18,6 +18,8 @@ module ApplicationHelper
       html << text_area_tag("#{form_name}[#{field}]", value, :class => 'text_field', :required => '', :pattern => pattern, :placeholder => name,:rows=>1)
     elsif type == 'date_field'
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field date-input form-control', :required => '', :pattern => pattern, :placeholder => name)
+    elsif type == 'time-field'
+      html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field time-field form-control', :required => '', :pattern => pattern, :placeholder => name)
     else
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field', :required => '', :pattern => pattern, :placeholder => name)
     end
@@ -59,7 +61,7 @@ module ApplicationHelper
     html << label_tag("#{form_name}_#{field}", name, :class => 'left inline')
     html << "</div>"
     html << "<div class='small-9 columns'>"
-    html << select_tag("#{form_name}_#{field}", options_for_select(options, value), {:multiple => multiple})
+    html << select_tag("#{form_name}[#{field}]", options_for_select(options, value), {:multiple => multiple})
     #html << "<small class='error'>#{message.blank? ? 'Cannot be blank' : message}</small>"
     html << "</div>"
     html << "</div>"
@@ -72,7 +74,7 @@ module ApplicationHelper
     html << label_tag("#{form_name}_#{field}", name, :class => 'left inline')
     html << "</div>"
     html << "<div class='small-9 columns'>"
-    html << select_tag("#{form_name}_#{field}", options_for_select(options, value), {:multiple => multiple})
+    html << select_tag("#{form_name}[#{field}]", options_for_select(options, value), {:multiple => multiple})
     #html << "<small class='error'>#{message.blank? ? 'Cannot be blank' : message}</small>"
     html << "</div>"
     html << "</div>"

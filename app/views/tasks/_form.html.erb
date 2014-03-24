@@ -5,7 +5,7 @@
     <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field',@task.end_date) %>
     <%= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
     <%= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
-    <%= build_validated_select('task', 'team_id', 'User','Should select at least one','',false,@task.user_id,User.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'user_id', 'User','Should select at least one','',false,@task.user_id,User.active.map{|x| [x.name,x.id]}) %>
     <!--<div class="field">-->
         <%#= f.label :tracker_id %><br>
         <!--<%#= f.text_field :tracker_id %>-->
