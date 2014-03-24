@@ -9,7 +9,7 @@
     <% entries.each_with_index do |entry,i| %>
         <dd>
           <a href="#panel<%= i+1 %>" class="collapse-task">
-            <li><%= entry.name %></li>
+            <li class="li-<%= entry.priority.to_s.downcase %>"><%= entry.name %></li>
             <li><%= entry.end_date %></li>
           </a>
           <div id="panel<%= i+1 %>" class="content">

@@ -14,8 +14,8 @@ $(document).on "page:change", ->
 #    todayHighlight: true,
 #    autoclose: true
 #    })
-  $('.month-calendar-field').fdatepicker({'show','weekStart':0})
-
+  $('.month-calendar-field').fdatepicker({'show','weekStart':0}).on "changeDate", (ev) ->
+    $.get("/calendar/day.js?date="+ev.date.getFullYear()+'-'+("0" + (ev.date.getMonth() + 1)).slice(-2)+'-'+("0" + ev.date.getDate()).slice(-2));
 
 $(document).foundation tab:
   callback: (tab) ->

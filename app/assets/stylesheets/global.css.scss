@@ -337,11 +337,17 @@ form.form-horizontal{padding-top: 100px;}
 
 
 
-.accordion dd.active .collapse-task{display: none;}
+.accordion dd.active{
+  .collapse-task{display: none;}
+  border-bottom: solid 1px $line;
+}
 .accordion dd > a{
   background: $pane3-bg;
   li{list-style: none;}
-  border-top: solid 1px $line;
+//  border-top: solid 1px $line;
   border-bottom: solid 1px $line;
   border-collapse: collapse;
+}
+.li-showstopper{
+  list-style: square;
 }
