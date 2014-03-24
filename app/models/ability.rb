@@ -8,22 +8,22 @@ class Ability
 
     alias_action :new, :edit, :create, :read, :update, :destroy, :to => :crud
 
-    #if user.admin?
-    #  can :manage, :all
-    #else
-    #  can :read, :all
-    #end
+    if user.admin?
+      can :manage, :all
+    else
+      can :read, :all
+    end
 
     if user.role.downcase == 'admin'
     elsif user.role.downcase == 'manager'
-      can [:new, :edit, :create, :read, :update, :destroy], [Project, Team, User, Comment, WorkLog, Task]
+      can :manage, [Project, Team, User, Comment, WorkLog, Task]
     elsif user.role.downcase == 'employee'
       #can [:new, :edit, :create, :read, :update, :destroy], [Project, Team, User, Comment, WorkLog, Task]
     else
     end
 
     can :crud, User do |u|
-      user.role.downcase == 'employee'
+      user.role.downcase == 'employee' && u.id == user.id
     end
 
     #def manager

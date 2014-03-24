@@ -56,3 +56,5 @@ gem 'thin'
 gem 'carrierwave'
 gem "mini_magick"
 gem "select2-rails"
+#gem "cancan"
+gem 'cancancan', '~> 1.7'
