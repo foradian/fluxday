@@ -13,7 +13,7 @@
           <%= link_to team.name, team_path(team), :class => 'grey-link' %>
         </div>
         <div class="team-glymplse">
-          <%= team.members_count %>
+          <%= "#{team.members_count} #{'Member'.pluralize(team.members_count)}" %>
         </div>
       </div>
   <% end %>

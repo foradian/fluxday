@@ -180,13 +180,13 @@ label{font-size: 16px;}
   border-radius: 2px;
 }
 .dashed_link{
-  border: dashed 2px $grey-link;
+  border: dashed 2px $line;
   width: 100%;
   text-align: center;
   display: block;
   margin-bottom: 10px;
   padding: 10px;
-  color: $grey-link;
+  color: $line;
 }
 .dashed_link:hover{color: $link;border-color: $link;}
 .dashed_link:active{color: $link-hover;border-color: $link;}
@@ -350,4 +350,11 @@ form.form-horizontal{padding-top: 100px;}
 }
 .li-showstopper{
   list-style: square;
+}
+
+.team-show{
+  .head-row .title{
+    margin-left: 0px;
+  }
+  .description{margin-left: 0px;}
 }

@@ -1,36 +1,48 @@
-<div class="head-row team">
-  <div class="right options">
-    <%= link_to 'edit', edit_team_path(team) %>
-  </div>
-  <div class="title">
-    <div class="main-title"><%= team.name %></div>
-    <div class="main-title-helper">(<%= team.code %>)</div>
-  </div>
-  <div class="description"><%= team.description %></div>
-</div>
-
-<div class="data-container">
-  <dl class="tabs" data-tab>
-    <dd class="active"><a href="#panel2-1">
-      Members
-      <div class="fig"><%= team.members_count %></div>
-    </a></dd>
-    <dd><a href="#panel2-2">
-      Leads
-      <div class="fig"><%= team.managers_count %></div>
-    </a></dd>
-    <div class="right meta">
-      Created on
-      <div class="fig"><%= team.created_at.strftime('%d %B %Y') %></div>
+<div class="pane3-padding team-show">
+  <div class="bc-div">
+    <ul class="tracker-breadcrumbs">
+      <li><%= link_to team.project.name %></li>
+      <li> ></li>
+      <%= team.code %>
+    </ul>
+    <div class="right">
     </div>
+  </div>
 
-  </dl>
-  <div class="tabs-content">
-    <div class="content active" id="panel2-1">
-      <%= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : team.members} %>
+
+  <div class="head-row team">
+    <div class="right options">
+      <%= link_to 'edit', edit_team_path(team) %>
     </div>
-    <div class="content" id="panel2-2">
-      <%= render :partial=>'users/user_list',:locals=>{:users=>team_leads.present? ? team_leads : team.team_leads} %>
+    <div class="title">
+      <div class="main-title"><%= team.name %></div>
+    </div>
+    <div class="description"><%= team.description %></div>
+  </div>
+
+  <div class="data-container">
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">
+        Members
+        <div class="fig"><%= team.members_count %></div>
+      </a></dd>
+      <dd><a href="#panel2-2">
+        Leads
+        <div class="fig"><%= team.managers_count %></div>
+      </a></dd>
+      <div class="right meta">
+        Created on
+        <div class="fig"><%= team.created_at.strftime('%d %B %Y') %></div>
+      </div>
+
+    </dl>
+    <div class="tabs-content">
+      <div class="content active" id="panel2-1">
+        <%= render :partial => 'users/user_list', :locals => {:users => members.present? ? members : team.members} %>
+      </div>
+      <div class="content" id="panel2-2">
+        <%= render :partial => 'users/user_list', :locals => {:users => team_leads.present? ? team_leads : team.team_leads} %>
+      </div>
     </div>
   </div>
 </div>
