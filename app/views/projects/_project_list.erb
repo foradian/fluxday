@@ -1,5 +1,9 @@
-<div class="pane2-padding">
-  <%= link_to 'New project', new_project_path, :remote => false, :class => 'dashed_link transition' %>
+<div class="pane2-meta">
+  <div class="title">Projects</div>
+</div>
+<div class="pane2-content">
+
+  <%= link_to 'Create project', new_project_path, :remote => false, :class => 'dashed_link transition' %>
   <% projects = Project.active if projects.nil? %>
   <% projects.each do |project| %>
       <%= link_to project_path(project), :remote => false do %>
@@ -11,7 +15,7 @@
               <div class="title"><%= project.name %></div>
               <div class="text">
                 <%= "#{project.team_count} #{'team'.pluralize(project.team_count)}" %>
-                <%= "#{project.member_count} #{'team'.pluralize(project.member_count)}" %>
+                <%= "#{project.member_count} #{'member'.pluralize(project.member_count)}" %>
               </div>
               <div class="text">
                 <%= project.website %>

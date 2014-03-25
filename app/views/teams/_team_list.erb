@@ -1,5 +1,5 @@
 <% if defined? project %>
-    <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition' %>
+    <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition new-team' %>
 <% end %>
 <% teams.each do |team| %>
     <div class="team-list-item">

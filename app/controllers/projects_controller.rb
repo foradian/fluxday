@@ -20,12 +20,15 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
+    @projects = Project.active
     @project = Project.new
     @users= User.active
   end
 
   # GET /projects/1/edit
   def edit
+    @projects = Project.active
+
     @users= User.active
   end
 
@@ -72,14 +75,14 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      params.require(:project).permit!#(:name, :code, :description, :is_deleted, :team_count, :member_count, :website, :image)
-      #params.require(:project).permit(:name, :code, :description, :is_deleted, :team_count, :member_count, :website, :image)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    params.require(:project).permit! #(:name, :code, :description, :is_deleted, :team_count, :member_count, :website, :image)
+    #params.require(:project).permit(:name, :code, :description, :is_deleted, :team_count, :member_count, :website, :image)
+  end
 end

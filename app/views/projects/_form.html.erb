@@ -1,13 +1,13 @@
 <%= form_for @project, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
     <div class="form-content form-below">
-      <%= build_validated_field('project', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.name) %>
+      <%= build_validated_field('project', 'name', 'Title', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.name) %>
       <%= build_validated_field('project', 'code', 'Code', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.code) %>
-      <%= build_field('project', 'image', 'Image', 'file',@project.image) %>
+      <%= build_field('project', 'website', 'Url', 'text',@project.website) %>
       <%= build_field('project', 'description', 'Description', 'text_area',@project.description) %>
-      <%= build_validated_field('project', 'is_deleted', 'Deleted', 'Cannot be blank', '[a-zA-Z]+', 'checkbox',@project.is_deleted) %>
-      <%= build_field('project', 'team_count', 'Teams count', 'text',@project.team_count) %>
-      <%= build_field('project', 'member_count', 'Members count', 'text',@project.member_count) %>
-      <%= build_field('project', 'website', 'Website', 'text',@project.website) %>
+      <%= build_field('project', 'image', 'Image', 'file',@project.image) %>
+      <%#= build_validated_field('project', 'is_deleted', 'Deleted', 'Cannot be blank', '[a-zA-Z]+', 'checkbox',@project.is_deleted) %>
+      <%#= build_field('project', 'team_count', 'Teams count', 'text',@project.team_count) %>
+      <%#= build_field('project', 'member_count', 'Members count', 'text',@project.member_count) %>
       <div class='form-row'>
         <div class='small-3 columns'>
           <%= f.label :user_ids, 'Managers' %>

@@ -1,7 +1,7 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-$font-color: #222222;
+$font-color: #333333;
 $link: #f75c5a;
 $link-hover: #e74c3a;
 $pane1-bg:#2c3e50;
@@ -13,7 +13,7 @@ $border:#ffffff;
 $card-bg-hover:#ffffff;
 $card-border-hover:#e74c3c;
 $border-hover:#ffffff;
-$grey-link:#666666;
+$grey-link:#aaaaaa;
 $grey-link-hover:#cccccc;
 $line:#cccccc;
 
@@ -119,6 +119,9 @@ label{font-size: 16px;}
   background: $card-bg;
 //  border: solid 1px $card-border-hover;
 }
+.project{
+  .text{font-size: 0.9em;line-height: 2em;}
+}
 .title, .text{
   color: $font-color;
 }
@@ -139,18 +142,20 @@ label{font-size: 16px;}
     .main-title-helper{font-size: 1.2em;color: $grey-link;float: left;}
   }
   .website{color: $grey-link}
-  .description{margin-left: 150px;}
+  .description{margin-left: 150px;line-height: 1.5em;}
 
 }
 .user-title{
   font-size: 2em;
   text-align: center;
   .nickname{
-    font-size: 0.5em;
+    font-size: 0.8em;
     display: inline-block;
     color: $grey-link;
   }
 }
+a{color: $link}
+a:hover{color: $link-hover}
 .email{text-align: center;}
 .pane1{overflow-y: auto}
 .pane2{overflow-y: auto}
@@ -173,7 +178,7 @@ label{font-size: 16px;}
 }
 .form-below{
   position: relative;
-  top: 50px;
+//  top: 50px;
 }
 .button{
   padding: 5px 10px;
@@ -187,6 +192,7 @@ label{font-size: 16px;}
   margin-bottom: 10px;
   padding: 10px;
   color: $line;
+  font-weight: bold;
 }
 .dashed_link:hover{color: $link;border-color: $link;}
 .dashed_link:active{color: $link-hover;border-color: $link;}
@@ -313,10 +319,10 @@ form.form-horizontal{padding-top: 100px;}
   float: left;
   padding: 0px;
   margin-left: 0px;
+  font-size: 0.8em;
   li{
     display: inline;
     color: $link;
-    font-size: 0.8em;
     a{color: $link;}
   }
 }
@@ -357,4 +363,37 @@ form.form-horizontal{padding-top: 100px;}
     margin-left: 0px;
   }
   .description{margin-left: 0px;}
+}
+
+.pic48{
+  width: 48px;
+  height: 48px;
+}
+
+.user-list-item, .user-min{
+  line-height: 1.2em;
+.left.info{position: relative;top: 5px;}
+.name{margin-left: 10px;color: $font-color;}
+.name:hover{color: $link-hover;}
+.nickname{margin-left: 10px;color: $grey-link;font-size: 0.8em;}
+.nickname:hover{;color: $grey-link-hover;}
+}
+
+
+.team-list-item{
+  overflow: hidden;
+  border-bottom: solid 1px $line;
+}
+
+
+.user-min{
+  overflow: hidden;
+  padding: 2% 0;
+}
+
+
+.task-details{padding-bottom: 20px}
+.subtask{
+  border-top: solid 1px $line;
+  padding: 20px 0;
 }

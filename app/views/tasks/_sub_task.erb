@@ -1,0 +1,22 @@
+<div class="subtask">
+  Subtask
+  <%= count %>:
+  <%= link_to task.name,task_path(task) %>
+
+
+  <div class="info">
+    Start date
+    <em><%= task.start_date.strftime('%d %b %Y') %></em>
+    End date
+    <em><%= task.end_date.strftime('%d %b %Y') %></em>
+  </div>
+
+  <div class="info">
+    Assigned to
+    <em>
+      <% task.users.each do |u| %>
+          <%= link_to u.name, user_path(u) %>
+      <% end %>
+    </em>
+  </div>
+</div>

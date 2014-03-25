@@ -1,12 +1,3 @@
 <%= content_for :pane2 do %>
-    <div class="pane2-meta">
-      Users
-    </div>
-    <div class="pane2-content">
-      <% @users.each do |user| %>
-          <%= link_to image_tag(user.image.icon32, :class => 'rounded_pic'), user_path(user) %>
-          <%= link_to user.name,user_path(user) %>
-          <%= link_to user.nickname,user_path(user) %>
-      <% end %>
-    </div>
+    <%= render :partial => 'users/user_index' %>
 <% end %>

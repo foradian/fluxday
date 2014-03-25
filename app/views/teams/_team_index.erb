@@ -1,7 +1,7 @@
 <div class="pane2-meta">
-  Teams
+  <div class="title">My teams</div>
 </div>
-<div class="pane2-content pane2-padding">
+<div class="pane2-content">
   <% if defined? project %>
       <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition' %>
   <% else %>

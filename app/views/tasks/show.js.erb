@@ -1,1 +1,1 @@
-$('.pane3').html("<%= escape_javascript(render :partial => 'tasks/show') %>")
+$('.pane3').html("<%= escape_javascript(render :partial => 'tasks/show_detailed',:locals => {:task => @task, :project => @project, :team => @team}) %>")

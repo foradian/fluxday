@@ -12,7 +12,7 @@
       <div class="nickname">(<%= @user.nickname %>)</div>
     </div>
   </div>
-  <div class="email"><%= @user.email %></div>
+  <div class="email"><a href="mail:<%= @user.email %>"><%= @user.email %></a> </div>
   <div class="email">
     Reporting managers:
     <% @managers.each do |manager| %>

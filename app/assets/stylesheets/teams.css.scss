@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .team-list-item{
   clear: both;
-  padding: 2% 0;
+  padding: 3% 0;
   font-size: 1.2em;
   .team-name{
     float: left;
@@ -11,4 +11,8 @@
   .team-glymplse{
     float: right;
   }
+}
+
+.new-team{
+  margin-top: 10px;
 }

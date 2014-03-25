@@ -1,0 +1,61 @@
+<div class="pane3-meta"></div>
+<div class="pane3-content">
+  <div class="task-show">
+    <div class="task-details">
+      <div class="bc-div">
+        <ul class="tracker-breadcrumbs">
+          <li><%= link_to project.name, project_path(project) %></li>
+          <li> ></li>
+          <li><%= link_to team.name, project_team_path(project, team) %></li>
+          <li> ></li>
+          <%= task.name %>
+        </ul>
+        <div class="right">
+          Due <%= task.end_date.strftime('%d %m %Y') %>
+        </div>
+      </div>
+
+      <div class="task-name">
+        <%= task.name %>
+      </div>
+
+      <div class="info">
+        Added by
+        <em><%= task.user.name %></em>
+        on
+        <em><%= task.created_at.strftime('%d %m %Y') %></em>
+      </div>
+
+      <div class="descr">
+        <%= task.description %>
+      </div>
+
+      <div class="info">
+        Start date
+        <em><%= task.start_date.strftime('%d %b %Y') %></em>
+        End date
+        <em><%= task.end_date.strftime('%d %b %Y') %></em>
+      </div>
+
+
+      <div class="info">
+        Assigned to
+        <em>
+          <% task.users.each do |u| %>
+              <%= link_to u.name, user_path(u) %>
+          <% end %>
+        </em>
+        Priority
+        <em><%= task.priority %></em>
+      </div>
+    </div>
+
+
+    <% if @sub_tasks.present? %>
+        <% @sub_tasks.each_with_index do |task, i| %>
+            <%= render :partial => 'tasks/sub_task', :locals => {:task => task, :count => i+1} %>
+        <% end %>
+    <% end %>
+    <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
+  </div>
+</div>

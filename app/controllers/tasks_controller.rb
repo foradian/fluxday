@@ -13,6 +13,7 @@ class TasksController < ApplicationController
     @tasks = current_user.assignments
     @team = @task.team
     @project = @team.project
+    @sub_tasks = @task.sub_tasks
   end
 
 # GET /tasks/new
@@ -67,13 +68,13 @@ class TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count,:user_ids=>[])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def task_params
+    params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count, :user_ids => [])
+  end
 end

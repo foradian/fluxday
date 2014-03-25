@@ -1,29 +1,33 @@
 <%= form_for @task, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
-    <%= f.hidden_field :task_id ,:value=>@root_task.id if @root_task.present? %>
-    <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '[a-zA-Z]+', 'text',@task.name) %>
-    <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '[a-zA-Z]+', 'text_area',@task.description) %>
-    <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field',@task.start_date) %>
-    <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field',@task.end_date) %>
+    <%= f.hidden_field :task_id, :value => @root_task.id if @root_task.present? %>
+    <%= f.hidden_field :team_id, :value => @root_task.team_id if @root_task.present? %>
+    <%= f.hidden_field :project_id, :value => @root_task.project_id if @root_task.present? %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '[a-zA-Z]+', 'text', @task.name) %>
+    <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '[a-zA-Z]+', 'text_area', @task.description) %>
+    <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field', @task.start_date) %>
+    <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field', @task.end_date) %>
     <%#= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
-    <div class='form-row'>
-      <div class='small-3 columns'>
-        <%= f.label :team_id, 'Team' %>
-      </div>
-      <div class='small-9 columns'>
-        <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name) %>
-      </div>
-    </div>
+    <% unless @root_task.present? %>
+        <div class='form-row'>
+          <div class='small-3 columns'>
+            <%= f.label :team_id, 'Team' %>
+          </div>
+          <div class='small-9 columns'>
+            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name) %>
+          </div>
+        </div>
+    <% end %>
     <%#= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
-    <%= build_validated_select('task', 'priority', 'Priority','Should select at least one','',false,@task.priority,['Low','Medium','High','Showstopper']) %>
-    <%= build_validated_select('task', 'user_id', 'User','Should select at least one','',false,@task.user_id,User.active.map{|x| [x.name,x.id]}) %>
-    <%= build_validated_select('task', 'user_ids', 'Assignees','Should select at least one','',true,@task.user_ids,User.active.map{|x| [x.name,x.id]}) %>
+    <%= build_validated_select('task', 'priority', 'Priority', 'Should select at least one', '', false, @task.priority, ['Low', 'Medium', 'High', 'Showstopper']) %>
+    <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, User.active.map { |x| [x.name, x.id] }) %>
     <!--<div class="field">-->
-        <%#= f.label :tracker_id %><br>
-        <!--<%#= f.text_field :tracker_id %>-->
+    <%#= f.label :tracker_id %><br>
+    <!--<%#= f.text_field :tracker_id %>-->
     <!--</div>-->
     <!--<div class="field">-->
-        <%#= f.label :comments_count %><br>
-        <!--<%#= f.number_field :comments_count %>-->
+    <%#= f.label :comments_count %><br>
+    <!--<%#= f.number_field :comments_count %>-->
     <!--</div>-->
     <div class="small-12 columns form-action-up">
       <div class="right">

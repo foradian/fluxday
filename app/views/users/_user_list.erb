@@ -1,12 +1,18 @@
+<div class="row">
+  <% users.each do |user| %>
+      <div class="user-list-item large-6 columns">
+        <div class="user-name">
+          <div class="left">
+            <%= link_to image_tag(user.image.icon, :class => 'rounded_pic pic48'), user_path(user), :remote => true %>
+          </div>
+          <div class="left info">
+            <%= link_to user.name, user_path(user), :remote => true,:class=>'name' %><br/>
+            <%= link_to raw("(#{user.nickname})"), user_path(user), :remote => true,:class=>'nickname' %>
+          </div>
+        </div>
+        <div class="user-glymplse">
 
-<% users.each do |user| %>
-    <div class="user-list-item">
-      <div class="user-name">
-        <%= link_to image_tag(user.image.icon32,:class=>'rounded_pic'), user_path(user),:remote=>true %>
-        <%= link_to user.name, user_path(user),:remote=>true %>
+        </div>
       </div>
-      <div class="user-glymplse">
-
-      </div>
-    </div>
-<% end %>
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 <div class="pane3-padding team-show">
   <div class="bc-div">
     <ul class="tracker-breadcrumbs">
-      <li><%= link_to team.project.name %></li>
+      <li><%= link_to team.project.name,projects_path(team.project_id) %></li>
       <li> ></li>
       <%= team.code %>
     </ul>
@@ -48,5 +48,5 @@
 </div>
 <script type="text/javascript">
     $('.project.card').removeClass('active')
-    $('.prj-<%= team.id %>').addClass('active')
+    $('.prj-<%= team.project_id %>').addClass('active')
 </script>

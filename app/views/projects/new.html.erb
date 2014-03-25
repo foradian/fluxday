@@ -1,8 +1,5 @@
 <%= content_for :pane2 do %>
-    <%- model_class = Project -%>
-    <div class="page-header">
-      <h1><%= t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
-    </div>
+    <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
 <% end %>
 <%= content_for :pane3 do %>
     <%= render :partial => 'form' %>
