@@ -6,7 +6,7 @@
         <li> ></li>
         <li><%= link_to team.name, project_team_path(project, team) %></li>
         <li> ></li>
-        <%= task.name %>
+        <%= link_to task.name, task_path(task) %>
       </ul>
       <div class="right">
         <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
@@ -56,7 +56,9 @@
       <% end %>
   <% end %>
 
-  <%= render :partial =>'comments/form' %>
+  <% if @comment.present? %>
+      <%= render :partial => 'comments/form' %>
+  <% end %>
 
   <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
 </div>
