@@ -14,6 +14,7 @@ class TasksController < ApplicationController
     @team = @task.team
     @project = @team.project
     @sub_tasks = @task.sub_tasks
+    @comment = @task.comments.new
   end
 
 # GET /tasks/new

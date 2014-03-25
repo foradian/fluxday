@@ -16,6 +16,7 @@ $border-hover:#ffffff;
 $grey-link:#aaaaaa;
 $grey-link-hover:#cccccc;
 $line:#cccccc;
+$warning:#bf392d;
 
 
 
@@ -398,8 +399,19 @@ form.form-horizontal{padding-top: 100px;}
   padding: 20px 0;
 }
 
-
-.task-card{
+.task-card {
   color: $font-color;
+  .date, .team {
+    font-size: 0.9em;
+  }
+  line-height: 1.3em;
+
+}
+.end-soon {
+  font-weight: bold;
+  color: $warning;
 }
 
+.date-sub{
+  font-size: 0.8em;
+}

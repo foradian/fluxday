@@ -9,8 +9,8 @@
               <div class="name">
                 <%= task.name %>
               </div>
-              <div class="date">
-                <%= task.end_date %>
+              <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
+                <%= task.time_to_end %>
               </div>
               <div class="team">
                 <%= task.team.name %>

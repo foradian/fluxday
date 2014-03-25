@@ -9,7 +9,9 @@
         <%= task.name %>
       </ul>
       <div class="right">
-        Due <%= task.end_date.strftime('%d %m %Y') %>
+        <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
+          <%= task.time_to_end %>
+        </div>
       </div>
     </div>
 
@@ -21,7 +23,7 @@
       Added by
       <em><%= task.user.name %></em>
       on
-      <em><%= task.created_at.strftime('%d %m %Y') %></em>
+      <em><%= task.created_at.strftime('%d %B %Y') %></em>
     </div>
 
     <div class="descr">
@@ -30,9 +32,9 @@
 
     <div class="info">
       Start date
-      <em><%= task.start_date.strftime('%d %b %Y') %></em>
+      <em><%= task.start_date.strftime('%d %B %Y') %></em>
       End date
-      <em><%= task.end_date.strftime('%d %b %Y') %></em>
+      <em><%= task.end_date.strftime('%d %B %Y') %></em>
     </div>
 
 
@@ -53,6 +55,8 @@
           <%= render :partial => 'tasks/sub_task', :locals => {:task => task, :count => i+1} %>
       <% end %>
   <% end %>
+
+  <%= render :partial =>'comments/form' %>
 
   <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
 </div>
