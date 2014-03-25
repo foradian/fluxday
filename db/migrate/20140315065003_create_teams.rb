@@ -5,8 +5,8 @@ class CreateTeams < ActiveRecord::Migration
       t.string :code
       t.text :description
       t.integer :project_id
-      t.integer :members_count
-      t.integer :managers_count
+      t.integer :members_count, :default=>0
+      t.integer :managers_count, :default=>0
       t.boolean :is_deleted, :default=>false
       t.integer :pending_tasks
       t.string :status

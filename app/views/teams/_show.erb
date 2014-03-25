@@ -38,6 +38,7 @@
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">
+        <%= link_to 'Add members', new_user_path, :remote => false, :class => 'dashed_link transition' %>
         <%= render :partial => 'users/user_list', :locals => {:users => members.present? ? members : team.members} %>
       </div>
       <div class="content" id="panel2-2">

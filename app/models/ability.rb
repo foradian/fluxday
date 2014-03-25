@@ -15,6 +15,7 @@ class Ability
     end
 
     if user.role.downcase == 'admin'
+      can :manage, [Project, Team, User, Comment, WorkLog, Task]
     elsif user.role.downcase == 'manager'
       can :manage, [Project, Team, User, Comment, WorkLog, Task]
     elsif user.role.downcase == 'employee'
@@ -23,7 +24,7 @@ class Ability
     end
 
     can :crud, User do |u|
-      user.role.downcase == 'employee' && u.id == user.id
+      user.role.downcase == 'employee' #&& u.id == user.id
     end
 
     #def manager

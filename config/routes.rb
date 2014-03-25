@@ -10,7 +10,10 @@ Tracker::Application.routes.draw do
     resources :comments
   end
 
-  resources :teams
+  resources :teams do
+    get 'add_members'
+    post 'add_members'
+  end
 
   get "home/index"
   get "home/dashboard"

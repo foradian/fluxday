@@ -7,7 +7,11 @@
 
 @import "global";
 .datepicker.datepicker-inline{
-  width: 80%;
+  width: auto;
+  left: 30px;
+  right: 30px;
+  top: 30px;
+//  width: 80%;
 //  margin: 30px 10%;
   table{
     width: 100%;

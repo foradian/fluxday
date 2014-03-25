@@ -9,6 +9,7 @@ $(document).on "page:change", ->
   $('select').select2({'width':'100%'});
   $('.time-field').timepicker({ 'step': 15 });
   $('.date-input').datetimepicker();
+  $('textarea').autosize();
 #  $('.dates-input').fdatetimepicker({
 #    weekStart: 1,
 #    todayHighlight: true,

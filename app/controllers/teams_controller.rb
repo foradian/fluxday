@@ -21,6 +21,12 @@ class TeamsController < ApplicationController
     @members = @team.members
   end
 
+  def add_members
+    @team = Team.find(params[:team_id])
+    @users = User.active
+    @members = @team.members
+  end
+
   # GET /teams/new
   def new
     @projects = Project.active

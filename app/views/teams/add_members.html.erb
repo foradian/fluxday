@@ -1,0 +1,32 @@
+<%= form_for(@team, :url => {:controller => 'teams', :action => 'add_members'}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+    <div class="form-content form-below">
+      <div class="user-list-item large-6 columns">
+        
+        <% @users.each do |user| %>
+            <div class="user-min">
+              <div class="user-name">
+                <div class="left">
+                  <%= link_to image_tag(user.image.icon32, :class => 'rounded_pic'), user_path(user)%>
+                </div>
+                <div class="left info">
+                  <%= link_to user.name, user_path(user),:class=>'name' %><br/>
+                  <%= link_to raw("(#{user.nickname})"), user_path(user),:class=>'nickname' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="user-list-item large-6 columns">
+
+      </div>
+    </div>
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    projects_path, :class => 'btn cancel-btn' %>
+      </div>
+    </div>
+<% end %>
+
+

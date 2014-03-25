@@ -7,3 +7,14 @@
   <!--<li><%#= link_to raw('<span class="icon icon-calendar-16"></span>Calendar'),calendar_index_path %></li>-->
   <li><%= link_to raw('<span class="icon icon-reports-16"></span>Reports'),tasks_path %></li>
 </ul>
+
+
+<% if user_signed_in? %>
+    <li>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+    </li>
+<% else %>
+    <li>
+      <%= link_to('Login', new_user_session_path)  %>
+    </li>
+<% end %>

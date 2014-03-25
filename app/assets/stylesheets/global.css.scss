@@ -197,6 +197,10 @@ a:hover{color: $link-hover}
 }
 .dashed_link:hover{color: $link;border-color: $link;}
 .dashed_link:active{color: $link-hover;border-color: $link;}
+.accordion dd > a:hover{
+  background: $pane3-bg;
+  .task-name{color: $link-hover;}
+}
 
 dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 .pane3{
