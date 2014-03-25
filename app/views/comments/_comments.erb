@@ -1,0 +1,15 @@
+<%= render :partial => 'comments/form' %>
+<% @comments.each do |comment| %>
+    <div class="comment-set">
+      <div class="left">
+        <%= link_to image_tag(comment.user.image.icon, :class => 'rounded_pic pic48'), user_path(comment.user) %>
+      </div>
+      <div class="left left-offset">
+        <span class="name"><%= link_to comment.user.nickname, user_path(comment.user) %></span>
+        <span class="date"><%= comment.created_at.max_diff %></span>
+        <div class="comment-body">
+          <%= comment.body %>
+        </div>
+      </div>
+    </div>
+<% end %>

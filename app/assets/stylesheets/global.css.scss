@@ -415,3 +415,14 @@ form.form-horizontal{padding-top: 100px;}
 .date-sub{
   font-size: 0.8em;
 }
+
+
+.comment-set{
+  margin: 10px 0;
+  font-size: 0.9em;
+  overflow: hidden;
+  .left-offset{margin-left: 10px}
+  .name{color:$font-color;font-weight: bold;}
+  .time{color: $grey-link}
+  .comment-body{}
+}

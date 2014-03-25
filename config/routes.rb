@@ -6,7 +6,9 @@ Tracker::Application.routes.draw do
   get "calendar/day"
   resources :comments
 
-  resources :tasks
+  resources :tasks do
+    resources :comments
+  end
 
   resources :teams
 

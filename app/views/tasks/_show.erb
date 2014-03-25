@@ -50,15 +50,20 @@
     </div>
   </div>
 
+  <div class="comments-<%= task.id %>">
+    <% if @comment.present? %>
+        <%= render :partial => 'comments/form' %>
+    <% end %>
+    <%= link_to "#{task.comments_count.to_i} #{'comment'.pluralize(task.comments_count.to_i)}", task_comments_path(task),:remote=>true %>
+  </div>
+
   <% if @sub_tasks.present? %>
       <% @sub_tasks.each_with_index do |task, i| %>
           <%= render :partial => 'tasks/sub_task', :locals => {:task => task, :count => i+1} %>
       <% end %>
   <% end %>
 
-  <% if @comment.present? %>
-      <%= render :partial => 'comments/form' %>
-  <% end %>
+
 
   <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
 </div>
