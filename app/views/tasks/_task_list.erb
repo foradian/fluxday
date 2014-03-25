@@ -5,8 +5,16 @@
   <div class="task-list">
     <% @tasks.each do |task| %>
         <%= link_to task_path(task) do %>
-            <div class="card transition">
-              <%= task.name %>
+            <div class="card transition task-card">
+              <div class="name">
+                <%= task.name %>
+              </div>
+              <div class="date">
+                <%= task.end_date %>
+              </div>
+              <div class="team">
+                <%= task.team.name %>
+              </div>
             </div>
         <% end %>
     <% end %>
