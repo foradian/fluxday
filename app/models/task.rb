@@ -6,10 +6,13 @@ class Task < ActiveRecord::Base
   has_many :users, :through => :task_assignees
   has_many :comments, :as => :source
 
+  after_save :update_team_task_count
+
   belongs_to :root_task, :class_name => "Task", :foreign_key => "task_id"
   has_many :sub_tasks, :class_name => "Task", :foreign_key => "task_id"
 
   scope :active, -> { where(is_deleted: false) }
+  scope :pending, -> { where(status: 'pending') }
 
 
   def time_to_end
@@ -24,4 +27,9 @@ class Task < ActiveRecord::Base
       'Due '+end_date.strftime('%d %B %Y')
     end
   end
+
+  def update_team_task_count
+    team.update_attributes(:pending_tasks=>team.tasks.active.pending.count)
+  end
+
 end
