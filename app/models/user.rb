@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many  :projects, :through=>:project_managers
   has_many  :team_members
   has_many  :teams, :through=>:team_members
+  has_many  :admin_teams, :through=>:projects, :source => :teams
+  has_many  :joined_projects, :through=>:teams, :source => :project
   has_many  :task_assignees
   has_many  :assignments,:through => :task_assignees, :source=>:task
   has_many  :comments
@@ -28,4 +30,5 @@ class User < ActiveRecord::Base
   def employee?
     role.downcase == 'employee'
   end
+
 end

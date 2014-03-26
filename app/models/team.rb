@@ -14,4 +14,8 @@ class Team < ActiveRecord::Base
   def update_project_team_count
     project.update_attributes(:team_count=>project.teams.active.count)
   end
+
+  def self.for_user(user)
+    teams = (user.teams + user.admin_teams).uniq
+  end
 end

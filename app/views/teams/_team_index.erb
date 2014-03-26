@@ -8,12 +8,16 @@
       <%= link_to 'New team', new_team_path, :remote => false, :class => 'dashed_link transition' %>
   <% end %>
   <% teams.each do |team| %>
-      <div class="card-transparent transition">
+      <div class="card-transparent transition team-card team-<%= team.id %>">
         <div class="team-name">
           <%= link_to team.name, team_path(team), :class => 'grey-link' %>
         </div>
         <div class="team-glymplse">
           <%= "#{team.members_count} #{'Member'.pluralize(team.members_count)}" %>
+        </div>
+        <div class="team-glymplse">
+          <%= link_to team.project.name, project_path(team.project_id),:class=>'team-project' %>
+          <%= link_to 'Add task', new_task_path(:team_id=>team.id), :remote => false, :class => 'btn btn-sec right' %>
         </div>
       </div>
   <% end %>

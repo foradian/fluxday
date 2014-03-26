@@ -9,19 +9,21 @@ class TeamsController < ApplicationController
       @project = Project.find(params[:project_id])
       @teams = @project.teams.active
     else
-      @teams = current_user.teams.active
+      @teams = Team.for_user(current_user)
     end
   end
 
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @projects = Project.active
+    #@projects = Project.active
+    @teams = Team.for_user(current_user)
     @team_leads = @team.team_leads
     @members = @team.members
   end
 
   def add_members
+    @teams = Team.for_user(current_user)
     @team = Team.find(params[:team_id])
     @users = User.active
     @members = @team.members
@@ -96,6 +98,6 @@ class TeamsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def team_params
-    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status, :team_lead_ids=>[])
+    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status, :team_lead_ids=>[],:user_ids=>[])
   end
 end

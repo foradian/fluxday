@@ -21,7 +21,13 @@ class TasksController < ApplicationController
   def new
     @root_task = Task.find(params[:task_id]) if params[:task_id].present?
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
+    if params[:team_id].present?
+      team = Team.find(params[:team_id])
+      @task.team_id = team.id if team.present?
+      @task.project_id = team.project_id if team.present?
+    end
     @projects = Project.active
+    @teams = Team.for_user(current_user)
   end
 
   # GET /tasks/1/edit
@@ -32,7 +38,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.project_id = @task.team.project_id if @task.team.present?
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }

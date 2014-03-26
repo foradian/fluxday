@@ -6,7 +6,8 @@
 #  alert "page has loaded!"
 
 $(document).on "page:change", ->
-  $('select').select2({'width':'100%'});
+  $('select').not('.select_add').select2({'width':'100%'});
+#  $('.select_add').multiSelect({});
   $('.time-field').timepicker({ 'step': 15 });
   $('.date-input').datetimepicker();
   $('textarea').autosize();

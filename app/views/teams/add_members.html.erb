@@ -1,24 +1,13 @@
-<%= form_for(@team, :url => {:controller => 'teams', :action => 'add_members'}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
-    <div class="form-content form-below">
-      <div class="user-list-item large-6 columns">
-        
-        <% @users.each do |user| %>
-            <div class="user-min">
-              <div class="user-name">
-                <div class="left">
-                  <%= link_to image_tag(user.image.icon32, :class => 'rounded_pic'), user_path(user)%>
-                </div>
-                <div class="left info">
-                  <%= link_to user.name, user_path(user),:class=>'name' %><br/>
-                  <%= link_to raw("(#{user.nickname})"), user_path(user),:class=>'nickname' %>
-                </div>
-              </div>
-            </div>
-        <% end %>
-      </div>
-      <div class="user-list-item large-6 columns">
+<%= content_for :pane2 do %>
+    <%= render :partial => 'teams/team_index', :locals => {:teams => @teams} %>
+<% end %>
 
+<%= form_for(@team, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+    <div class="form-content form-below">
+      <div class="team-member-add">
+        <%= f.select :user_ids, options_for_select(@users.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @team.user_ids), {}, :multiple => true, :class => 'select_add' %>
       </div>
+
     </div>
     <div class="small-12 columns form-action-up">
       <div class="right">
@@ -28,5 +17,44 @@
       </div>
     </div>
 <% end %>
+<script type="text/javascript">
+    $('.team-card').removeClass('active')
+    $('.team-<%= @team.id %>').addClass('active')
 
+    $('.select_add').multiSelect({
+        selectableHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search users'>",
+        selectionHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search members'>",
+        afterInit:function (ms) {
+            var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function (e) {
+                        if (e.which === 40) {
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function (e) {
+                        if (e.which == 40) {
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+        },
+        afterSelect:function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect:function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });
+</script>
 

@@ -261,6 +261,8 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
   padding-top: 10px;
   margin-left: 45px;
   margin-right: 45px;
+}
+.form-row, .team-member-add{
   label,input{margin-bottom: 0px;margin-top: 20px;}
   input,input.active{
   border: none;
@@ -430,3 +432,20 @@ form.form-horizontal{padding-top: 100px;}
   .time{color: $grey-link}
   .comment-body{}
 }
+
+
+.team-card{
+  font-size: 0.9em;
+  line-height: 1.4em;
+  .team-name{font-size: 1.2em;}
+  a, a.team-project{color: $font-color;}
+  a:hover{color: $link-hover;}
+}
+
+
+.team-member-add{
+  padding: 0px 50px;
+}
+
+
+

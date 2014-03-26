@@ -38,7 +38,7 @@
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">
-        <%= link_to 'Add members', new_user_path, :remote => false, :class => 'dashed_link transition' %>
+        <%= link_to 'Add members', team_add_members_path(team), :remote => false, :class => 'dashed_link transition' %>
         <%= render :partial => 'users/user_list', :locals => {:users => members.present? ? members : team.members} %>
       </div>
       <div class="content" id="panel2-2">
@@ -48,6 +48,6 @@
   </div>
 </div>
 <script type="text/javascript">
-    $('.project.card').removeClass('active')
-    $('.prj-<%= team.project_id %>').addClass('active')
+    $('.team-card').removeClass('active')
+    $('.team-<%= team.id %>').addClass('active')
 </script>

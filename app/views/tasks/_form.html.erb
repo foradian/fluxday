@@ -3,8 +3,8 @@
     <%= f.hidden_field :team_id, :value => @root_task.team_id if @root_task.present? %>
     <%= f.hidden_field :project_id, :value => @root_task.project_id if @root_task.present? %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '[a-zA-Z]+', 'text', @task.name) %>
-    <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '[a-zA-Z]+', 'text_area', @task.description) %>
+    <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '', 'text', @task.name) %>
+    <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '', 'text_area', @task.description) %>
     <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field', @task.start_date) %>
     <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field', @task.end_date) %>
     <%#= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
@@ -37,3 +37,8 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/javascript">
+    $('select').not('.select_add').select2({'width':'100%'});
+    $('.date-input').datetimepicker();
+</script>

@@ -1,10 +1,11 @@
 <!--<div class="large-4 columns pane2">-->
-<%= content_for :pane2 do %>
     <%# @projects.each do |project| %>
-    <%= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
+<%= content_for :pane2 do %>
+    <%= render :partial => 'teams/team_index', :locals => {:teams => @teams} %>
+<% end %>
+    <%#= render :partial => 'projects/project_list', :locals => {:projects => @projects} %>
     <%# end %>
     <!--</div>-->
-<% end %>
 
 <!--<div class="large-6 columns pane3">-->
 <%= content_for :pane3 do %>
