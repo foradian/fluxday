@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
   has_many :task_assignees
   has_many :users, :through => :task_assignees
   has_many :comments, :as => :source
+  has_many :work_logs
 
   after_save :update_team_task_count
 

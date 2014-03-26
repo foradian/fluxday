@@ -1,34 +1,8 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :pane2 do %>
+    <%= render :partial => 'tasks/task_list' %>
+<% end %>
 
-<p>
-  <strong>User:</strong>
-  <%= @work_log.user_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @work_log.name %>
-</p>
-
-<p>
-  <strong>Task:</strong>
-  <%= @work_log.task %>
-</p>
-
-<p>
-  <strong>Start time:</strong>
-  <%= @work_log.start_time %>
-</p>
-
-<p>
-  <strong>End time:</strong>
-  <%= @work_log.end_time %>
-</p>
-
-<p>
-  <strong>Is deleted:</strong>
-  <%= @work_log.is_deleted %>
-</p>
-
-<%= link_to 'Edit', edit_work_log_path(@work_log) %> |
-<%= link_to 'Back', work_logs_path %>
+<div class="pane3-meta"></div>
+<div class="pane3-content">
+  <%= render :partial => 'show' %>
+</div>

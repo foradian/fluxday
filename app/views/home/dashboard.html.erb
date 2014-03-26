@@ -34,13 +34,13 @@
                       <%= link_to 'Today', calendar_day_path(:date => date.to_s), :remote => true, :class => 'cal-date' %>
                   <% end %>
                   <% if date <= Date.today && date >= 5.days.ago %>
-                      <%= link_to 'Add log', new_work_log_path(:date=>date), :remote => true, :class => 'btn btn-sec right' %>
+                      <%= link_to 'Add log', new_work_log_path(:date=>date), :remote => false, :class => 'btn btn-sec right' %>
                   <% end %>
                   <div class="entries">
                     <ul>
                       <% @entry_hash[date].each do |e| %>
                           <li>
-                            <%= link_to e.name, task_path(e), :remote => true %>
+                            <%= link_to e.name, work_log_path(e), :remote => true %>
                           </li>
                       <% end %>
                     </ul>
