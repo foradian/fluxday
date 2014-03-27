@@ -28,4 +28,9 @@ Tracker::Application.configure do
   config.assets.debug = true
   config.action_controller.permit_all_parameters = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.to_prepare do
+    Devise::SessionsController.layout "login"
+  end
+
 end

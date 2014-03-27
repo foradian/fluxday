@@ -1,6 +1,9 @@
 <div class="pane3-meta">
   <div class="title">
     <%= @date.strftime('%A %d %B %Y') %>
+    <% if @date <= Date.today && @date >= 5.days.ago %>
+        <%= link_to 'Add log', new_work_log_path(:date=>date), :remote => false, :class => 'btn btn-sec right' %>
+    <% end %>
   </div>
   <div class="right">
     <%= link_to raw("<div class='prev icon'></div>"), calendar_day_path(:date => (@date.to_date-1.days).to_s), :remote => true %>
