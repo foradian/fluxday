@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-  #load_and_authorize_resource
+  load_and_authorize_resource
   #load_and_authorize_resource :task, :through => [:team,:task], :shallow => true
 
   # GET /tasks
@@ -35,6 +35,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    @projects = Project.active
+    @teams = Team.for_user(current_user)
   end
 
   # POST /tasks

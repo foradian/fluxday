@@ -9,6 +9,9 @@
         <%= link_to task.name, task_path(task) %>
       </ul>
       <div class="right">
+        <% if can? :edit, task %>
+            <%= link_to raw("<div class='icon edit-link'></div>"), edit_task_path(task) %>
+        <% end %>
         <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
           <%= task.time_to_end %>
         </div>
@@ -54,7 +57,7 @@
     <% if @comment.present? %>
         <%= render :partial => 'comments/form' %>
     <% end %>
-    <%= link_to "#{task.comments_count.to_i} #{'comment'.pluralize(task.comments_count.to_i)}", task_comments_path(task),:remote=>true %>
+    <%= link_to "#{task.comments_count.to_i} #{'comment'.pluralize(task.comments_count.to_i)}", task_comments_path(task), :remote => true %>
   </div>
 
   <% if @sub_tasks.present? %>
@@ -63,7 +66,7 @@
       <% end %>
   <% end %>
   <% if can? :edit, task.team %>
-  <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
+      <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
   <% end %>
 
 </div>
