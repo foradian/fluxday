@@ -4,7 +4,9 @@
       <%= image_tag(project.image.thumbnail) %>
     </div>
     <div class="right options">
-      <%= link_to 'edit', edit_project_path(@project) %>
+      <% if can? :manage, @project %>
+          <%= link_to 'edit', edit_project_path(@project) %>
+      <% end %>
     </div>
     <div class="title">
       <div class="main-title"><%= project.name %></div>

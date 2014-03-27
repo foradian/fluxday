@@ -45,3 +45,11 @@ $link-active-bg: #1f2f3e;
 .icon-reports-16{
   background: url('/assets/iconsprite.png') no-repeat -96px 0px;
 }
+
+.icon{}
+.edit-link{
+  background: url('/assets/iconsprite.png') no-repeat -16px -30px;
+}
+.edit-link:hover{
+  background: url('/assets/iconsprite.png') no-repeat -16px -46px;
+}

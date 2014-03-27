@@ -2,11 +2,11 @@
   <div class="title">My teams</div>
 </div>
 <div class="pane2-content">
-  <% if defined? project %>
-      <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition' %>
-  <% else %>
-      <%= link_to 'New team', new_team_path, :remote => false, :class => 'dashed_link transition' %>
-  <% end %>
+  <%# if defined? project %>
+  <%#= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition' %>
+  <%# else %>
+  <%#= link_to 'New team', new_team_path, :remote => false, :class => 'dashed_link transition' %>
+  <%# end %>
   <% teams.each do |team| %>
       <div class="card-transparent transition team-card team-<%= team.id %>">
         <div class="team-name">
@@ -16,8 +16,10 @@
           <%= "#{team.members_count} #{'Member'.pluralize(team.members_count)}" %>
         </div>
         <div class="team-glymplse">
-          <%= link_to team.project.name, project_path(team.project_id),:class=>'team-project' %>
-          <%= link_to 'Add task', new_task_path(:team_id=>team.id), :remote => false, :class => 'btn btn-sec right' %>
+          <%= link_to team.project.name, project_path(team.project_id), :class => 'team-project' %>
+          <% if can? :edit, team %>
+              <%= link_to 'Add task', new_task_path(:team_id => team.id), :remote => false, :class => 'btn btn-sec right' %>
+          <% end %>
         </div>
       </div>
   <% end %>

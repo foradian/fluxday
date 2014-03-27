@@ -1,10 +1,12 @@
-<% if defined? project %>
-    <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition new-team' %>
+<% if can? :edit, @project %>
+    <% if defined? project %>
+        <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition new-team' %>
+    <% end %>
 <% end %>
 <% teams.each do |team| %>
     <div class="team-list-item">
       <div class="team-name">
-        <%= link_to team.name, team_path(team),:class=>'grey-link' %>
+        <%= link_to team.name, team_path(team), :class => 'grey-link' %>
       </div>
       <div class="team-glymplse">
         <%= team.members_count %>

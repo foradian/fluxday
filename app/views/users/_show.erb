@@ -1,11 +1,17 @@
 <div class="pane3-padding">
 <div class="head-row user centered">
+
+  <div class="right options">
+    <% if can? :edit, @user %>
+    <%= link_to raw("<div class='icon edit-link'></div>"), edit_user_path(@user) %>
+    <% end %>
+  </div>
+
   <div class="">
     <%= image_tag(@user.image.thumbnail, :class => 'rounded_pic centered') %>
   </div>
-  <div class="right options">
-    <%= link_to 'edit', edit_user_path(@user) %>
-  </div>
+
+
   <div class="user-title">
     <div class="name">
       <%= @user.name %>

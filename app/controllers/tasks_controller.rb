@@ -1,6 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
+  #load_and_authorize_resource
+  #load_and_authorize_resource :task, :through => [:team,:task], :shallow => true
+
   # GET /tasks
   # GET /tasks.json
   def index

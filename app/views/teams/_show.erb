@@ -1,7 +1,7 @@
 <div class="pane3-padding team-show">
   <div class="bc-div">
     <ul class="tracker-breadcrumbs">
-      <li><%= link_to team.project.name,projects_path(team.project_id) %></li>
+      <li><%= link_to team.project.name, projects_path(team.project_id) %></li>
       <li> ></li>
       <%= team.code %>
     </ul>
@@ -38,7 +38,9 @@
     </dl>
     <div class="tabs-content">
       <div class="content active" id="panel2-1">
-        <%= link_to 'Add members', team_add_members_path(team), :remote => false, :class => 'dashed_link transition' %>
+        <% if can? :edit, team %>
+            <%= link_to 'Add members', team_add_members_path(team), :remote => false, :class => 'dashed_link transition' %>
+        <% end %>
         <%= render :partial => 'users/user_list', :locals => {:users => members.present? ? members : team.members} %>
       </div>
       <div class="content" id="panel2-2">

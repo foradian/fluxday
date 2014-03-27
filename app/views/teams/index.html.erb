@@ -7,11 +7,11 @@
 
 <!--</div>-->
 <!--<div class="large-6 columns pane3">-->
-  <% if @project.present? %>
-      <%= link_to 'New team',new_project_team_path(@project),:remote=>true %>
-  <% else %>
-      <%= link_to 'New team',new_team_path(@project),:remote=>true %>
-  <% end %>
+  <%# if @project.present? %>
+      <%#= link_to 'New team',new_project_team_path(@project),:remote=>true %>
+  <%# else %>
+      <%#= link_to 'New team',new_team_path(@project),:remote=>true %>
+  <%# end %>
 <%#= content_for :pane3 do %>
   <% if @project.present? %>
       <%#= render :partial=>'projects/show',:locals=>{:project=>@project} %>

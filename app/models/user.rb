@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def manager?
-    role.downcase.in?('manager','admin')
+    role.downcase.in?(['manager','admin'])
   end
 
   def employee?

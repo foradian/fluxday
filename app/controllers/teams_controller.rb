@@ -1,5 +1,8 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  #load_and_authorize_resource
+  load_and_authorize_resource :project
+  load_and_authorize_resource :team, :through => :project, :shallow => true
 
   # GET /teams
   # GET /teams.json
@@ -31,7 +34,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @projects = Project.active
+    @projects = current_user.projects
     @users = User.active
     if params[:project_id].present?
       @project = Project.find(params[:project_id])

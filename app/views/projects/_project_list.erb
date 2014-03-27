@@ -2,8 +2,9 @@
   <div class="title">Projects</div>
 </div>
 <div class="pane2-content">
-
+  <% if can? :create, Project %>
   <%= link_to 'Create project', new_project_path, :remote => false, :class => 'dashed_link transition' %>
+  <% end %>
   <% projects = Project.active if projects.nil? %>
   <% projects.each do |project| %>
       <%= link_to project_path(project), :remote => false do %>
