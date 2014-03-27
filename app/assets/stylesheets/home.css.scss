@@ -22,34 +22,55 @@ $link-active-bg: #1f2f3e;
   height: 16px;
   width: 16px;
   display: inline-block;
-  margin: 0px 10px -2px 0px;
 }
 .icon-dashboard-16{
   background: url('/assets/iconsprite.png') no-repeat 0px 0px;
+  margin: 0px 10px -2px 0px;
 }
 .icon-tasks-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -16px 0px;
 }
 .icon-projects-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -32px 0px;
 }
 .icon-teams-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -48px 0px;
 }
 .icon-user-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -64px 0px;
 }
 .icon-calendar-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -80px 0px;
 }
 .icon-reports-16{
+  margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -96px 0px;
 }
 
-.icon{}
 .edit-link{
   background: url('/assets/iconsprite.png') no-repeat -16px -30px;
 }
 .edit-link:hover{
   background: url('/assets/iconsprite.png') no-repeat -16px -46px;
 }
+
+.icon.prev{
+  background: url('/assets/iconsprite.png') no-repeat -109px -32px;
+}
+.icon.prev:hover{
+  background: url('/assets/iconsprite.png') no-repeat -109px -48px;
+}
+.icon.next{
+  background: url('/assets/iconsprite.png') no-repeat -122px -32px;
+}
+.icon.next:hover{
+  background: url('/assets/iconsprite.png') no-repeat -122px -48px;
+}
+
+
+

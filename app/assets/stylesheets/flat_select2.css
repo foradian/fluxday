@@ -39,7 +39,7 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
     position: relative;
     height: 2.315rem;
     border: 1px solid #ccc;
-    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    /*padding: 0.5rem 1rem 0.5rem 0.5rem;*/
 
     white-space: nowrap;
     line-height: 1.3125rem;
@@ -160,12 +160,12 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 }
 
 .select2-drop-active {
-    border: 1px solid #999;
+    border: 1px solid #fff;
     border-top: none;
 }
 
 .select2-drop.select2-drop-above.select2-drop-active {
-    border-top: 1px solid #999;
+    border-top: 1px solid #ffffff;
 }
 
 .select2-container .select2-choice .select2-arrow {
@@ -247,11 +247,11 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
-    border: 1px solid #999;
+    border: 1px solid #fff;
     outline: none;
 
-    -webkit-box-shadow: 0 0 5px #999;
-    box-shadow: 0 0 5px #999;
+    -webkit-box-shadow: 0 0 5px #fff;
+    box-shadow: 0 0 5px #fff;
 }
 
 .select2-dropdown-open .select2-choice {

@@ -2,7 +2,10 @@
   <div class="title">
     <%= @date.strftime('%A %d %B %Y') %>
   </div>
-  <div class="right"><></div>
+  <div class="right">
+    <%= link_to raw("<div class='prev icon'></div>"), calendar_day_path(:date => (@date.to_date-1.days).to_s), :remote => true %>
+    <%= link_to raw("<div class='next icon'></div>"), calendar_day_path(:date => (@date.to_date+1.days).to_s), :remote => true %>
+  </div>
 </div>
 <div class="pane3-content no-padding">
   <dl class="accordion" data-accordion>

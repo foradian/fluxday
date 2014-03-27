@@ -287,9 +287,31 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 .select2-container{
   margin-bottom: 0px;
   .select2-choice{
-  border: none;
+  //border: none;
+  border-color: $pane3-bg;
   background: $pane3-bg;}
 }
+
+
+.select2-container {
+  .select2-choices {
+    border: none;
+    background: none;
+  }
+  .select2-choice{
+    padding: 0;
+    margin-left: 6px;
+    margin-top: 7px;
+    background: none;
+  }
+}
+.select2-drop{}
+.select2-container:hover{background: $pane3-bg;}
+.select2-drop.select2-drop-multi.select2-display-none.select2-drop-active{background: none !important;border: none !important;}
+
+
+
+
 .rounded_pic{
   border-radius: 100%;
 }
