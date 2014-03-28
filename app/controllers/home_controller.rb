@@ -24,5 +24,6 @@ class HomeController < ApplicationController
       @date = params[:date].to_date
     end
     @entries = Task.where('start_date <= ? && end_date >= ?',@date.end_of_day,@date.beginning_of_day)
+    @work_logs = WorkLog.find_all_by_date(@date)
   end
 end

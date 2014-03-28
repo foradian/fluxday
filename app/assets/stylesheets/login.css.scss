@@ -8,11 +8,21 @@
   background: #ecf0f1;
   height: 100%;
   width: 100%;
+  .remebrance label{
+    font-size: 0.8em;
+  }
   .login-title{
     color: #e74b3c;
     font-size: 2em;
     text-align: center;
     margin-bottom: 30px;
+  }
+  .login-links{
+    font-size: 0.8em;
+    a{color: #333333;}
+  }
+  .alter{
+    font-size: 0.8em;
   }
   .login-fields{
     margin: auto;

@@ -1,0 +1,20 @@
+<div class="logs">
+  <div class="title">
+    <% unless @work_logs.empty? %>
+        Log
+    <% end %>
+  </div>
+  <% @work_logs.each do |log| %>
+      <%= link_to work_log_path(log), :remote => true do %>
+          <div class="card-transparent transition log-<%= log.id %>">
+            <div class="left">
+              <%= log.task.try(&:name) %>
+            </div>
+            <div class="right">
+              <%= log.hours %>
+            </div>
+          </div>
+      <% end %>
+  <% end %>
+</div>
+
