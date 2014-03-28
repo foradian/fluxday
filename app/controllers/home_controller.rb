@@ -14,16 +14,26 @@ class HomeController < ApplicationController
     @end_date = date.end_of_week
     @entry_hash={}
     #entries = Task.where('start_date <= ? && end_date >= ?',@end_date.end_of_day,@start_date.beginning_of_day)
-    entries = WorkLog.where('date <= ? && date >= ?',@end_date.end_of_day,@start_date.beginning_of_day)
+    entries = WorkLog.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)
     (@start_date..@end_date).each do |dt|
-      @entry_hash[dt] = entries.where('date <= ? && date >= ?',dt.end_of_day,dt.beginning_of_day)
+      @entry_hash[dt] = entries.where('date <= ? && date >= ?', dt.end_of_day, dt.beginning_of_day)
     end
     unless params[:date].present?
       @date = Date.today
     else
       @date = params[:date].to_date
     end
-    @entries = Task.where('start_date <= ? && end_date >= ?',@date.end_of_day,@date.beginning_of_day)
+    @entries = Task.where('start_date <= ? && end_date >= ?', @date.end_of_day, @date.beginning_of_day)
     @work_logs = WorkLog.find_all_by_date(@date)
+  end
+
+  def search
+    @task = Task.find_by_tracker_id(params[:search][:keyword])
+    if @task.present?
+      redirect_to :controller=>'tasks',:action=>'show',:id=>@task.id
+    else
+      @tasks = Task.search('tracker_id_or_name_or_description_cont'=>params[:search][:keyword]).result.paginate(page: params[:page], per_page: 10).order('id DESC')
+      #render :layout => 'less_pane'
+    end
   end
 end

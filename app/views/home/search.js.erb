@@ -1,0 +1,7 @@
+$('#my-posts').append('<%= j render 'tasks/task_listings' %>');
+<% if @tasks.next_page %>
+$('.pagination').replaceWith('<%= j will_paginate @tasks %>');
+<% else %>
+$(window).off('scroll');
+$('.pagination').remove();
+<% end %>

@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title><%= content_for?(:title) ? yield(:title) : "Employee productivity tracker" %></title>
+  <!--<link href='http://fonts.googleapis.com/css?family=Raleway:300,600,400italic' rel='stylesheet' type='text/css'>-->
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
+
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+</head>
+
+<body>
+
+<div class="fixed">
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">Tracker</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="shas-dropdown">
+          <%= link_to '+Task', new_task_path,:remote=>false %>
+          <!--<ul class="dropdown">-->
+          <!--<li><a href="#">Ding</a></li>-->
+          <!--</ul>-->
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!--<ul class="left">-->
+      <!--<li><a href="#">Ding</a></li>-->
+      <!--</ul>-->
+    </section>
+  </nav>
+</div>
+
+<div class="row ep-tracker">
+  <div class="large-2 columns pane1">
+    <%= render 'layouts/sidebar' %>
+    <%= yield :sidebar %>
+  </div>
+  <div class="large-10 columns pane2">
+    <%= yield :pane2%>
+    <%= yield :pane3 %>
+    <%= yield %>
+  </div>
+
+</div>
+
+</body>
+</html>

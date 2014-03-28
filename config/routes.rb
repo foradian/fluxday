@@ -17,6 +17,8 @@ Tracker::Application.routes.draw do
 
   get "home/index"
   get "home/dashboard"
+  get "home/search"
+  post "home/search"
   devise_for :users
   resources :projects do
     resources :teams

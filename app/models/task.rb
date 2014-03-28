@@ -7,6 +7,8 @@ class Task < ActiveRecord::Base
   has_many :comments, :as => :source
   has_many :work_logs
 
+  before_create :add_tracker_id
+
   after_save :update_team_task_count
 
   belongs_to :root_task, :class_name => "Task", :foreign_key => "task_id"
@@ -31,6 +33,14 @@ class Task < ActiveRecord::Base
 
   def update_team_task_count
     team.update_attributes(:pending_tasks=>team.tasks.active.pending.count)
+  end
+
+  def add_tracker_id
+    self.tracker_id = Task.unscoped.last.tracker_id.to_i + 1
+  end
+
+  def timestamp
+    created_at.strftime('%d %B %Y %H:%M:%S')
   end
 
 end
