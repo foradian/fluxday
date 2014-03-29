@@ -25,7 +25,9 @@
 
     <hr/>
     <div class="alter">
-      Or sign in using <a>Foradian</a> mail
+      Or sign in using
+      <%= link_to 'Foradian',user_omniauth_authorize_path(:google_oauth2) %>
+      mail
     </div>
 
     <div><%#= f.submit "Sign in" %></div>

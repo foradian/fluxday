@@ -21,7 +21,7 @@ Tracker::Application.routes.draw do
   get "home/dashboard"
   get "home/search"
   post "home/search"
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :projects do
     resources :teams
   end
