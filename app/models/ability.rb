@@ -19,6 +19,9 @@ class Ability
       can :manage, Team, :project => {:id=>user.project_ids}
       can [:edit,:update], User, :id=>[user.id]+user.user_ids
 
+      can :read, Project
+      can :read, Team
+      can :read, User
       can :manage, Task do |task|
         task.id.nil? || task.user_id == user.id || user.project_ids.include?(task.project_id) || user.admin_team_ids.include?(task.team_id)
       end
@@ -27,9 +30,9 @@ class Ability
         task.id.nil? || task.user_id == user.id || task.user_ids.include?(user.id) || user.project_ids.include?(task.project_id) || user.admin_team_ids.include?(task.team_id)
       end
 
-      can :read, :all
+      #can :read, :all
     else
-      can :read, :all
+      #can :read, :all
     end
 
     #if user.role.downcase == 'admin'
