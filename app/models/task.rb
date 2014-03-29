@@ -36,7 +36,7 @@ class Task < ActiveRecord::Base
   end
 
   def add_tracker_id
-    self.tracker_id = Task.unscoped.last.tracker_id.to_i + 1
+    self.tracker_id = Task.unscoped.last.try(:tracker_id).to_i + 1
   end
 
   def timestamp

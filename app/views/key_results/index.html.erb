@@ -1,0 +1,37 @@
+<h1>Listing key_results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Objective</th>
+      <th>Author</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @key_results.each do |key_result| %>
+      <tr>
+        <td><%= key_result.name %></td>
+        <td><%= key_result.user_id %></td>
+        <td><%= key_result.objective_id %></td>
+        <td><%= key_result.author_id %></td>
+        <td><%= key_result.start_date %></td>
+        <td><%= key_result.end_date %></td>
+        <td><%= link_to 'Show', key_result %></td>
+        <td><%= link_to 'Edit', edit_key_result_path(key_result) %></td>
+        <td><%= link_to 'Destroy', key_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Key result', new_key_result_path %>

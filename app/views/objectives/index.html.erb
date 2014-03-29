@@ -1,0 +1,35 @@
+<h1>Listing objectives</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Author</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @objectives.each do |objective| %>
+      <tr>
+        <td><%= objective.name %></td>
+        <td><%= objective.user_id %></td>
+        <td><%= objective.author_id %></td>
+        <td><%= objective.start_date %></td>
+        <td><%= objective.end_date %></td>
+        <td><%= link_to 'Show', objective %></td>
+        <td><%= link_to 'Edit', edit_objective_path(objective) %></td>
+        <td><%= link_to 'Destroy', objective, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Objective', new_objective_path %>

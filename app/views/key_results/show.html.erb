@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @key_result.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @key_result.user_id %>
+</p>
+
+<p>
+  <strong>Objective:</strong>
+  <%= @key_result.objective_id %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @key_result.author_id %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @key_result.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @key_result.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_key_result_path(@key_result) %> |
+<%= link_to 'Back', key_results_path %>

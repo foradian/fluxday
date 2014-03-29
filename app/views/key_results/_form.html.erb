@@ -1,0 +1,41 @@
+<%= form_for(@key_result) do |f| %>
+  <% if @key_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@key_result.errors.count, "error") %> prohibited this key_result from being saved:</h2>
+
+      <ul>
+      <% @key_result.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :objective_id %><br>
+    <%= f.number_field :objective_id %>
+  </div>
+  <div class="field">
+    <%= f.label :author_id %><br>
+    <%= f.number_field :author_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

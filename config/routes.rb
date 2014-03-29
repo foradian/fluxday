@@ -1,6 +1,14 @@
 Tracker::Application.routes.draw do
+
+  resources :objectives do
+    resources :key_results
+  end
+
   get "reports/index"
   get "reports/activities"
+  get "reports/employees_daily"
+  get "reports/tasks"
+
   resources :work_logs
 
   get "calendar/index"

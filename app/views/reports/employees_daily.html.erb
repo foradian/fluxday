@@ -1,0 +1,17 @@
+<%=  %>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th width="800">Name</th>
+    <th width="200">Tasks</th>
+    <th width="200">Total hours</th>
+  </tr>
+  </thead>
+  <% @users.each do |user| %>
+  <td><%= link_to "#{user.name}(#{user.nickname})" %></td>
+  <td><%= link_to @tasks[user.id].length %></td>
+  <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id]%></td>
+  <% end %>
+</table>

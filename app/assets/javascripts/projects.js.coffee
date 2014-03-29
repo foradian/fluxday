@@ -10,6 +10,7 @@ $(document).on "page:change", ->
 #  $('.select_add').multiSelect({});
   $('.time-field').timepicker({ 'step': 15 });
   $('.date-input').datetimepicker();
+  $('.date-only-input').datetimepicker({timepicker:false,format:'d/m/Y'});
   $('textarea').autosize();
 #  $('.dates-input').fdatetimepicker({
 #    weekStart: 1,

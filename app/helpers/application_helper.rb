@@ -18,6 +18,8 @@ module ApplicationHelper
       html << text_area_tag("#{form_name}[#{field}]", value, :class => 'text_field', :required => '', :pattern => pattern, :placeholder => name,:rows=>1)
     elsif type == 'date_field'
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field date-input form-control', :required => '', :pattern => pattern, :placeholder => name)
+    elsif type == 'date_only_field'
+      html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field date-only-input form-control', :required => '', :pattern => pattern, :placeholder => name)
     elsif type == 'time-field'
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field time-field form-control', :required => '', :pattern => pattern, :placeholder => name)
     else
