@@ -2,16 +2,19 @@
   <div class="title">Users</div>
 </div>
 <div class="pane2-content">
-  <%= link_to 'Add user', new_user_path, :remote => false, :class => 'dashed_link transition' %>
+  <% if can? :manage, User %>
+      <%= link_to 'Add user', new_user_path, :remote => false, :class => 'dashed_link transition' %>
+  <% end %>
   <% @users.each do |user| %>
       <div class="user-min">
         <div class="user-name">
           <div class="left">
-            <%= link_to image_tag(user.image.icon, :class => 'rounded_pic pic48'), user_path(user)%>
+            <%= link_to image_tag(user.image.icon, :class => 'rounded_pic pic48'), user_path(user) %>
           </div>
           <div class="left info">
-            <%= link_to user.name, user_path(user),:class=>'name' %><br/>
-            <%= link_to raw("(#{user.nickname})"), user_path(user),:class=>'nickname' %>
+            <%= link_to user.name, user_path(user), :class => 'name' %>
+            <br/>
+            <%= link_to raw("(#{user.nickname})"), user_path(user), :class => 'nickname' %>
           </div>
         </div>
       </div>
