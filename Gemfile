@@ -58,3 +58,4 @@ gem "mini_magick"
 gem "select2-rails"
 #gem "cancan"
 gem 'cancancan', '~> 1.7'
+gem "omniauth-google-oauth2"

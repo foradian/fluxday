@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
 
   def employees_daily
     @report_type = params[:report][:type] if params[:report].present?
-    @report_type ||= 'user'
+    @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
       @projects = current_user.projects
       @project = @projects.find(params[:report][:project_id])
@@ -20,6 +20,8 @@ class ReportsController < ApplicationController
       @users = @team.members
     elsif @report_type == 'managing_users'
       @users = current_user.users
+    elsif @report_type == 'all_users'
+      @users = User.active
     elsif @report_type == 'employees' && params[:report].present? && params[:report][:user_id].present?
       @users = User.where(id: params[:report][:user_id])
     else
@@ -47,7 +49,7 @@ class ReportsController < ApplicationController
 
   def employees_time_range
     @report_type = params[:report][:type] if params[:report].present?
-    @report_type ||= 'user'
+    @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
       @projects = current_user.projects
       @project = @projects.find(params[:report][:project_id])
@@ -57,6 +59,8 @@ class ReportsController < ApplicationController
       @users = @team.members
     elsif @report_type == 'managing_users'
       @users = current_user.users
+    elsif @report_type == 'all_users'
+      @users = User.active
     elsif @report_type == 'employees' && params[:report].present? && params[:report][:user_id].present?
       @users = User.where(id: params[:report][:user_id])
     else
