@@ -7,7 +7,9 @@ Tracker::Application.routes.draw do
   get "reports/index"
   get "reports/activities"
   get "reports/employees_daily"
+  get "reports/employees_time_range"
   get "reports/tasks"
+  get "reports/get_selection_list"
 
   resources :work_logs
 

@@ -1,0 +1,7 @@
+<% if @projects.present? %>
+    <%= select_tag 'report[project_id]', options_for_select(@projects.map { |x| [x.name, x.id] }), :class => 'select_add report_type_select' %>
+<% elsif @teams.present? %>
+    <%= select_tag 'report[team_id]', options_for_select(@teams.map { |x| [x.name, x.id] }), :class => 'select_add report_type_select' %>
+<% else %>
+
+<% end %>

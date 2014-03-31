@@ -1,0 +1,19 @@
+<table class="table sortable-table">
+  <thead>
+  <tr>
+    <th width="800">Name<span class="text-right">↕</span></th>
+    <th width="200">Tasks<span class="text-right">↕</span></th>
+    <th width="200">Total hours<span class="text-right">↕</span></th>
+  </tr>
+  </thead>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to "#{user.name}(#{user.nickname})" %></td>
+        <td><%= link_to @tasks[user.id].length %></td>
+        <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id] %></td>
+      </tr>
+  <% end %>
+</table>
+<script type="text/javascript">
+    $(".sortable-table").tablesorter();
+</script>
