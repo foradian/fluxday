@@ -1,10 +1,10 @@
 <div class="report-options">
-  <form class="employee_daily_report_form" data-remote="true">
+  <form class="employee_daily_report_form" data-remote="false">
     <div class="report-type">
       <% if current_user.manager? %>
-          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']], @report_type), :class => 'select_add report_type_select' %>
+          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']], @report_type), :class => 'report_type_select' %>
       <% else %>
-          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ['Self', 'user']], @report_type), :class => 'select_add report_type_select' %>
+          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ['Self', 'user']], @report_type), :class => 'report_type_select' %>
       <% end %>
     </div>
     <div class="report_options">
@@ -24,6 +24,6 @@
 </div>
 <script type="text/javascript">
     $('.report_type_select').on("change", function () {
-        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
+        $.get('/reports/get_selection_list?type=' + $(this).val())
     });
 </script>

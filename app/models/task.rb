@@ -15,6 +15,8 @@ class Task < ActiveRecord::Base
   has_many :sub_tasks, :class_name => "Task", :foreign_key => "task_id"
 
   scope :active, -> { where(is_deleted: false) }
+  scope :root, -> { where(task_id: nil) }
+  scope :sub, -> { where("task_id IS NOT NULL") }
   scope :pending, -> { where(status: 'pending') }
 
 

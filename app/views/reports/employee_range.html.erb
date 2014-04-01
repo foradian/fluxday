@@ -1,7 +1,7 @@
 <div class="report-options">
-  <form class="employee_daily_report_form" data-remote="true">
-    <div class="report_options">
-
+  <form class="employee_daily_report_form" data-remote="false">
+    <div class="report-type">
+      <%= select_tag('employee_id', options_for_select(@users.map { |x| [x.name, x.id] }, @user.id)) %>
     </div>
     <div class="submit_button">
       <button>Go</button>
@@ -15,8 +15,3 @@
 <div class="report-renderer">
   <%= render :partial => 'reports/employee_range' %>
 </div>
-<script type="text/javascript">
-    $('.report_type_select').on("change", function () {
-        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
-    });
-</script>
