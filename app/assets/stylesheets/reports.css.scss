@@ -9,6 +9,21 @@
   margin-bottom: 20px;
 }
 .report-options{
-  .report-type,.report_options{}
-  .report-date,
+  .report-type,.report_options{float: left;}
+  .report-date,.submit_button{float: right;}
+  .report-type,.report_options,.report-date,.submit_button{margin-right: 1%;}
+  .report-type{width: 20%;}
+  .report_options{width: 40%;}
+  .report-date{
+    width: 25%;
+    input{float: left;width: 40%;margin-right: 10%;}
+  }
+  .submit_button{
+    width: 10%;
+    button{width: auto;padding: 5px 10px; background: #c0392b;}
+  }
+}
+
+.report-renderer{
+  clear: both;
 }

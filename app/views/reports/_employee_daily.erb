@@ -8,9 +8,9 @@
   </thead>
   <% @users.each do |user| %>
       <tr>
-        <td><%= link_to "#{user.name}(#{user.nickname})" %></td>
-        <td><%= link_to @tasks[user.id].length %></td>
-        <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id] %></td>
+        <td><%= link_to user.name,reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
+        <td><%= link_to @tasks[user.id].length,reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
+        <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id],reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
       </tr>
   <% end %>
 </table>

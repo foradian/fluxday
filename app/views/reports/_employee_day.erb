@@ -1,0 +1,22 @@
+<table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
+  <thead>
+  <tr>
+    <th width="400">Task</th>
+    <th width="300">Project</th>
+    <th width="300">Team</th>
+    <th width="200">Hours</th>
+  </tr>
+  </thead>
+  <% @work_logs.each do |log| %>
+      <tr>
+        <td><%= log.task.name %></td>
+        <td><%= log.task.project.name %></td>
+        <td><%= log.task.team.name %></td>
+        <td><%= log.hours %></td>
+      </tr>
+  <% end %>
+</table>
+<script type="text/javascript">
+    $(".sortable-table").tablesorter();
+    $('table.highchart').highchartTable();
+</script>

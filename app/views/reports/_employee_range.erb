@@ -1,0 +1,33 @@
+<table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
+  <thead>
+  <tr>
+    <th width="400">Task</th>
+    <th width="300">Project</th>
+    <th width="300">Team</th>
+    <th width="200">Hours</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |t| %>
+      <tr>
+        <td><%= t.name %></td>
+        <td><%= t.project.name %></td>
+        <td><%= t.team.name %></td>
+        <td><%= @work_logs[t.id] %></td>
+      </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td><%= "#{@total['tasks']} #{'Task'.pluralize(@total['tasks'])}" %> </td>
+    <td><%= "#{@total['projects']} #{'Project'.pluralize(@total['projects'])}" %></td>
+    <td><%= "#{@total['teams']} #{'Team'.pluralize(@total['teams'])}" %></td>
+    <td><%= @total['hours'] %> Hours</td>
+  </tr>
+  </tfoot>
+
+</table>
+<script type="text/javascript">
+    $(".sortable-table").tablesorter();
+    $('table.highchart').highchartTable();
+</script>

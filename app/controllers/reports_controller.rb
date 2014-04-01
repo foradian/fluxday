@@ -89,6 +89,33 @@ class ReportsController < ApplicationController
   end
 
 
+
+  def employee_day
+    @user=User.find(params[:employee_id])
+    @date = params[:start_date].to_date if  params[:start_date].present?
+    @date ||= Date.today
+    @work_logs = WorkLog.where(date: @date, user_id: @user.id).includes(:task=>[:project,:team])
+  end
+
+  def employee_range
+    @user=User.find(params[:employee_id])
+    @start_date = params[:start_date].to_date if  params[:start_date].present?
+    @start_date ||= Date.today.beginning_of_month
+    @end_date = params[:end_date].to_date if  params[:end_date].present?
+    @end_date ||= Date.today.end_of_month
+    @work_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @user.id)
+    logs = work_logs.group_by(&:task_id)
+    @tasks = Task.where(id:logs.keys).includes([:project,:team])
+    logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
+    @total={}
+    @total['tasks']=@tasks.count
+    @total['projects']=@tasks.collect(&:project_id).uniq.count
+    @total['teams']=@tasks.collect(&:team_id).uniq.count
+    @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
+  end
+
+
   def get_selection_list
     if params['type'] == 'project'
       @projects = current_user.projects

@@ -1,0 +1,22 @@
+<div class="report-options">
+  <form class="employee_daily_report_form" data-remote="true">
+    <div class="report_options">
+
+    </div>
+    <div class="submit_button">
+      <button>Go</button>
+    </div>
+    <div class="report-date">
+      <%= text_field_tag 'start_date', @start_date, :class => 'date-only-input' %>
+      <%= text_field_tag 'end_date', @end_date, :class => 'date-only-input' %>
+    </div>
+  </form>
+</div>
+<div class="report-renderer">
+  <%= render :partial => 'reports/employee_range' %>
+</div>
+<script type="text/javascript">
+    $('.report_type_select').on("change", function () {
+        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
+    });
+</script>
