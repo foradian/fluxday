@@ -1,24 +1,30 @@
-<table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
-  <thead>
-  <tr>
-    <th width="800">Name<span class="text-right"></span></th>
-    <th width="200">Tasks<span class="text-right"></span></th>
-    <th width="200">Total hours<span class="text-right"></span></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @users.each do |user| %>
+<% unless @users.empty? %>
+    <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
+      <thead>
       <tr>
-        <td><%= link_to user.name, reports_employee_range_path(:employee_id=>user.id,:start_date=>@start_date,:end_date=>@end_date) %></td>
-        <td><%= link_to @tasks[user.id].length, reports_employee_range_path(:employee_id=>user.id,:start_date=>@start_date,:end_date=>@end_date) %></td>
-        <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id], reports_employee_range_path(:employee_id=>user.id,:start_date=>@start_date,:end_date=>@end_date) %></td>
+        <th width="800">Name<span class="text-right"></span></th>
+        <th width="200">Tasks<span class="text-right"></span></th>
+        <th width="200">Total hours<span class="text-right"></span></th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
-<script type="text/javascript">
-    $(".sortable-table").tablesorter();
-    <% unless @report_type == 'user' %>
-    $('table.highchart').highchartTable();
-    <% end %>
-</script>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, reports_employee_range_path(:employee_id => user.id, :start_date => @start_date, :end_date => @end_date) %></td>
+            <td><%= link_to @tasks[user.id].length, reports_employee_range_path(:employee_id => user.id, :start_date => @start_date, :end_date => @end_date) %></td>
+            <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id], reports_employee_range_path(:employee_id => user.id, :start_date => @start_date, :end_date => @end_date) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <script type="text/javascript">
+        $(".sortable-table").tablesorter();
+        <% unless @report_type == 'user' %>
+        $('table.highchart').highchartTable();
+        <% end %>
+    </script>
+<% else %>
+    <div class="alert-box secondary">
+      No sufficient data yet.
+    </div>
+<% end %>

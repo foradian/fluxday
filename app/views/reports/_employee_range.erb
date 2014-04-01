@@ -1,33 +1,39 @@
-<table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
-  <thead>
-  <tr>
-    <th width="400">Task</th>
-    <th width="300">Project</th>
-    <th width="300">Team</th>
-    <th width="200">Hours</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @tasks.each do |t| %>
+<% unless @tasks.empty? %>
+    <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
+      <thead>
       <tr>
-        <td><%= t.name %></td>
-        <td><%= t.project.name %></td>
-        <td><%= t.team.name %></td>
-        <td><%= @work_logs[t.id] %></td>
+        <th width="400">Task</th>
+        <th data-graph-skip="1" width="300">Project</th>
+        <th data-graph-skip="1" width="300">Team</th>
+        <th width="200">Hours</th>
       </tr>
-  <% end %>
-  </tbody>
-  <tfoot>
-  <tr>
-    <td><%= "#{@total['tasks']} #{'Task'.pluralize(@total['tasks'])}" %> </td>
-    <td><%= "#{@total['projects']} #{'Project'.pluralize(@total['projects'])}" %></td>
-    <td><%= "#{@total['teams']} #{'Team'.pluralize(@total['teams'])}" %></td>
-    <td><%= @total['hours'] %> Hours</td>
-  </tr>
-  </tfoot>
+      </thead>
+      <tbody>
+      <% @tasks.each do |t| %>
+          <tr>
+            <td><%= link_to t.name,reports_employee_tasks_path(:user_id=>@user.id,:task_id=>t.id,:start_date=>@start_date,:end_date=>@end_date) %></td>
+            <td><%= t.project.name %></td>
+            <td><%= t.team.name %></td>
+            <td><%= @work_logs[t.id] %></td>
+          </tr>
+      <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td><%= "#{@total['tasks']} #{'Task'.pluralize(@total['tasks'])}" %> </td>
+        <td><%= "#{@total['projects']} #{'Project'.pluralize(@total['projects'])}" %></td>
+        <td><%= "#{@total['teams']} #{'Team'.pluralize(@total['teams'])}" %></td>
+        <td><%= @total['hours'] %> Hours</td>
+      </tr>
+      </tfoot>
 
-</table>
-<script type="text/javascript">
-    $(".sortable-table").tablesorter();
-    $('table.highchart').highchartTable();
-</script>
+    </table>
+    <script type="text/javascript">
+        $(".sortable-table").tablesorter();
+        $('table.highchart').highchartTable();
+    </script>
+<% else %>
+    <div class="alert-box secondary">
+      No sufficient data yet.
+    </div>
+<% end %>

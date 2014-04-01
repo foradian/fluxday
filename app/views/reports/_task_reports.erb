@@ -1,3 +1,4 @@
+<% unless @tasks.empty? %>
 <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
   <thead>
   <tr>
@@ -22,3 +23,8 @@
     $(".sortable-table").tablesorter();
     $('table.highchart').highchartTable();
 </script>
+<% else %>
+    <div class="alert-box secondary">
+      No sufficient data yet.
+    </div>
+<% end %>

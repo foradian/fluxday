@@ -1,19 +1,26 @@
-<table class="table sortable-table">
-  <thead>
-  <tr>
-    <th width="800">Name<span class="text-right">↕</span></th>
-    <th width="200">Tasks<span class="text-right">↕</span></th>
-    <th width="200">Total hours<span class="text-right">↕</span></th>
-  </tr>
-  </thead>
-  <% @users.each do |user| %>
+<% unless @users.empty? %>
+    <table class="table sortable-table highchart " data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
+      <thead>
       <tr>
-        <td><%= link_to user.name,reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
-        <td><%= link_to @tasks[user.id].length,reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
-        <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id],reports_employee_day_path(:employee_id=>user.id,:start_date=>@date) %></td>
+        <th width="800">Name<span class="text-right">↕</span></th>
+        <th width="200">Tasks<span class="text-right">↕</span></th>
+        <th width="200">Total hours<span class="text-right">↕</span></th>
       </tr>
-  <% end %>
-</table>
-<script type="text/javascript">
-    $(".sortable-table").tablesorter();
-</script>
+      </thead>
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, reports_employee_day_path(:employee_id => user.id, :start_date => @date) %></td>
+            <td><%= link_to @tasks[user.id].length, reports_employee_day_path(:employee_id => user.id, :start_date => @date) %></td>
+            <td><%= link_to @work_logs[user.id] == {} ? "00:00" : @work_logs[user.id], reports_employee_day_path(:employee_id => user.id, :start_date => @date) %></td>
+          </tr>
+      <% end %>
+    </table>
+    <script type="text/javascript">
+        $(".sortable-table").tablesorter();
+        $('table.highchart').highchartTable();
+    </script>
+<% else %>
+    <div class="alert-box secondary">
+      No sufficient data yet.
+    </div>
+<% end %>
