@@ -1,28 +1,30 @@
 <div class="report-options">
-  <form class="employee_daily_report_form" data-remote="false">
-    <div class="report-type">
-      <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team']], @report_type), :class => 'report_main_select' %>
-    </div>
-    <div class="report_options">
-      <%= render 'reports/selections' %>
-    </div>
-    <div class="submit_button">
-      <button>Go</button>
-    </div>
-    <div class="report-date">
-      <%= text_field_tag 'start_date', @start_date, :class => 'date-only-input' %>
-      <%= text_field_tag 'end_date', @end_date, :class => 'date-only-input' %>
-    </div>
-  </form>
+  <!--<form class="employee_daily_report_form" data-remote="false">-->
+  <%= form_for(:report, :url => {:controller => 'reports', :action => 'tasks'}, :method => :get, :remote => true, :class => 'employee_daily_report_form') do %>
+      <div class="report-type">
+        <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team']], @report_type), :class => 'report_main_select' %>
+      </div>
+      <div class="report_options">
+        <%= render 'reports/selections' %>
+      </div>
+      <div class="submit_button">
+        <button>Go</button>
+      </div>
+      <div class="report-date">
+        <%= text_field_tag 'start_date', @start_date, :class => 'date-only-input' %>
+        <%= text_field_tag 'end_date', @end_date, :class => 'date-only-input' %>
+      </div>
+  <% end %>
+  <!--</form>-->
 </div>
 <div class="report-renderer">
   <%= render :partial => 'reports/task_reports' %>
 </div>
 <script type="text/javascript">
-//    $('.report_type_select').on("change", function () {
-//        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
-//    });
-    $('.report_main_select').on("change", function(e) {
+    //    $('.report_type_select').on("change", function () {
+    //        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
+    //    });
+    $('.report_main_select').on("change", function (e) {
         $.get('/reports/get_selection_list?type=' + $(this).val())
     });
 </script>
