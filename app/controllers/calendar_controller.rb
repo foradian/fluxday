@@ -12,7 +12,7 @@ class CalendarController < ApplicationController
     @work_logs = WorkLog.find_all_by_date(@date)
   end
 
-  def weekly
+  def week
     unless params[:date].present?
       @start_date = Date.today.beginning_of_week
       @end_date = Date.today.end_of_week
@@ -21,6 +21,13 @@ class CalendarController < ApplicationController
       @start_date = date.beginning_of_week
       @end_date = date.end_of_week
     end
+    @entry_hash={}
+    entries = WorkLog.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)
+    (@start_date..@end_date).each do |dt|
+      @entry_hash[dt] = entries.where('date <= ? && date >= ?', dt.end_of_day, dt.beginning_of_day)
+    end
+
+
   end
 
   def monthly

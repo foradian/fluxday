@@ -1,0 +1,1 @@
+$('.weekdays-container').html("<%= escape_javascript(render :partial => 'calendar/week',:locals=>{:date=>@date,:entries=>@entries}) %>")

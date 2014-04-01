@@ -46,6 +46,7 @@ label{font-size: 16px;}
 .no-padding{padding: 0px !important;}
 .pane2-meta{height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
+.pane2-content-offset{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 40px;width: 100%;padding: 35px;}
 .pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;width: 100%}
 .pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
 .pane2-padding{padding: 35px;}
@@ -519,4 +520,37 @@ form.form-horizontal{padding-top: 100px;}
 .sortable-table{
   a{color: $font-color;}
   a:hover{color: $link-hover;}
+}
+
+
+.select2-container,.select2-results{
+ background: $pane3-bg;
+}
+
+.weekdays{
+  position: absolute;
+  top: 0px;
+  bottom: 60px;
+  overflow-y: scroll;
+  height: auto;
+  width: auto;
+  left: 0px;
+  right: 0px;
+}
+.week-nav{
+  position: absolute;
+  bottom: 0px;
+  height: 60px;
+  width: auto;
+  left: 0px;
+  right: 0px;
+  border-top: solid 1px $line;
+}
+
+.time-taken{
+  .select2-container .select2-choice{margin-top: 2px;}
+  .small-2.columns.left{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
