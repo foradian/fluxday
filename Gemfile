@@ -59,3 +59,5 @@ gem "select2-rails"
 #gem "cancan"
 gem 'cancancan', '~> 1.7'
 gem "omniauth-google-oauth2"
+gem "ransack"
+gem "will_paginate"

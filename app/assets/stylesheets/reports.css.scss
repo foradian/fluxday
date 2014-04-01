@@ -9,21 +9,83 @@
   margin-bottom: 20px;
 }
 .report-options{
+.select2-container ,input{
+  border: solid 1px #ccc;
+  border-radius: 2px;
+}
+.select2-container{
+  background: #FFFFFF;
+  .select2-choice{height: 30px;}
+}
+}
+.report-options{
   .report-type,.report_options{float: left;}
   .report-date,.submit_button{float: right;}
-  .report-type,.report_options,.report-date,.submit_button{margin-right: 1%;}
+//  .report-type,.report_options,.report-date,.submit_button{margin-right: 1%;}
   .report-type{width: 20%;}
-  .report_options{width: 40%;}
+  .report_options{width: 40%;margin-left: 3%;}
   .report-date{
     width: 25%;
-    input{float: left;width: 40%;margin-right: 10%;}
+    input{
+      float: right;
+      width: 40%;
+      margin-right: 10%;
+      height: 38px;
+
+    }
   }
   .submit_button{
-    width: 10%;
-    button{width: auto;padding: 5px 10px; background: #c0392b;}
+    width: 7%;
+    button{
+      width: 100%;
+//      padding: 8px 30px;
+      padding: 9px 0px;
+      height: 36px;
+      background: #c0392b;
+      border-radius: 3px;
+    }
   }
 }
 
 .report-renderer{
   clear: both;
+}
+
+@media all and (max-width: 640px) {
+  .report-options form{
+    overflow: hidden;
+    .report-type, .report_options .select2-container{
+      margin-bottom: 20px;
+    }
+  }
+.report-type,.report_options,.report-date,.submit_button{
+  overflow: hidden;
+  clear: both !important;
+  width: 100% !important;
+  margin-left: 0px !important;
+  input{
+    width: 100% !important;
+    margin-right: 0px !important;
+  }
+}
+  .report-options .report-date, .report-options .submit_button{
+    float: left;
+  }
+}
+
+@media all and (min-width:991px) and (max-width:1027px){}
+
+.full-pane{
+  padding-top: 110px;
+  h5{color: #666666;font-size: 14px;font-weight: bold;}
+  .main-title{
+    border-bottom: solid 1px #666666;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: auto;
+    top: 0px;
+    padding: 20px 20px 10px 40px;
+  }
+
 }

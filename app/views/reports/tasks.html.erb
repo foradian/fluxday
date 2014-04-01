@@ -1,3 +1,8 @@
+<div class="main-title">
+  <div class="element">
+    <h5>Reports</h5>
+  </div>
+</div>
 <div class="report-options">
   <!--<form class="employee_daily_report_form" data-remote="false">-->
   <%= form_for(:report, :url => {:controller => 'reports', :action => 'tasks'}, :method => :get, :remote => true, :class => 'employee_daily_report_form') do %>
@@ -7,12 +12,15 @@
       <div class="report_options">
         <%= render 'reports/selections' %>
       </div>
-      <div class="submit_button">
+      <div class="submit_button  show-for-medium-up">
         <button>Go</button>
       </div>
       <div class="report-date">
         <%= text_field_tag 'start_date', @start_date, :class => 'date-only-input' %>
         <%= text_field_tag 'end_date', @end_date, :class => 'date-only-input' %>
+      </div>
+      <div class="submit_button show-for-small-only">
+        <button>Go</button>
       </div>
   <% end %>
   <!--</form>-->
