@@ -259,6 +259,17 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 }
 }
 
+.li-showstopper:before{
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: $link;
+  right: 17px;
+  position: relative;
+  top: 17px;
+  display: block;
+}
+
 
 .form-row{
   border-bottom: solid 1px $line;
@@ -461,12 +472,15 @@ form.form-horizontal{padding-top: 100px;}
 }
 
 
+.team-card:hover{
+  a{color: $link;}
+}
 .team-card{
   font-size: 0.9em;
   line-height: 1.4em;
   .team-name{font-size: 1.2em;}
   a, a.team-project{color: $font-color;}
-  a:hover{color: $link-hover;}
+  a:hover{color: $link;}
 }
 
 
@@ -536,6 +550,7 @@ form.form-horizontal{padding-top: 100px;}
   width: auto;
   left: 0px;
   right: 0px;
+  padding: 30px;
 }
 .week-nav{
   position: absolute;
@@ -553,4 +568,15 @@ form.form-horizontal{padding-top: 100px;}
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.task-add-link a:hover{background: #9a2e22 !important;}
+.task-add-link a{
+  font-size: 1em !important;
+  font-weight: bold !important;
+}
+.assignees-select label{padding-top: 0px;}
+
+.accordion dd > a,.accordion .content.active {
+  padding: 1rem 2rem;
 }

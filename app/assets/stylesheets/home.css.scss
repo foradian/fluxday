@@ -80,6 +80,20 @@ $link-active-bg: #1f2f3e;
   background: url('/assets/iconsprite.png') no-repeat -122px -48px;
 }
 
-
+.datepicker{
+  .icon-chevron-left{
+    background: url('/assets/iconsprite.png') no-repeat -112px -32px;
+    width: 14px;
+    height: 16px;
+    display: block;
+  }
+  .icon-chevron-right{
+    background: url('/assets/iconsprite.png') no-repeat -125px -32px;
+    width: 14px;
+    height: 16px;
+    display: block;
+    float: right;
+  }
+}
 
 .next.icon.right,.prev.icon.left{margin: 20px;}

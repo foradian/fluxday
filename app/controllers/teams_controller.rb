@@ -93,6 +93,11 @@ class TeamsController < ApplicationController
     end
   end
 
+  def get_member_list
+    team = Team.find(params[:team_id])
+    @users = team.members
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_team

@@ -154,8 +154,10 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 
     padding-top: 0;
     margin-top: 0;
-    margin-bottom: -4.630rem;
-    padding-bottom: 2.315rem;
+    /*margin-bottom: -4.630rem;*/
+    /*padding-bottom: 2.315rem;*/
+    margin-bottom: 0;
+    padding-bottom: 0;
 
 }
 
@@ -595,4 +597,29 @@ disabled look for disabled choices in the results dropdown
     .select2-search input {
         background-position: 100% -21px !important;
     }
+}
+
+.select2-search-choice{
+    div{
+    float: left;
+    position: relative;
+    left: -10px;
+    }
+    a{
+      float:right;
+      position: relative;
+      top: 0px;
+    }
+    background: #ccc !important;
+    border: none !important;
+    font-size: 0.9em !important;
+}
+.select2-container:hover{border: none !important;border-color: #FFFFFF}
+.select2-container-multi.select2-container-active .select2-choices {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #fff;
 }

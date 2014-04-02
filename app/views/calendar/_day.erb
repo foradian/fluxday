@@ -1,7 +1,7 @@
 <div class="pane3-meta">
   <div class="title">
     <div class="left">
-    <%= @date.strftime('%A %d %B %Y') %>
+    <%= "Tasks for #{@date.strftime('%A %d %B %Y')}" %>
     </div>
     <% if @date <= Date.today && @date >= 5.days.ago %>
         <%= link_to 'Add log', new_work_log_path(:date=>date), :remote => true, :class => 'btn btn-sec left' %>

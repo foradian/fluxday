@@ -5,22 +5,27 @@
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '', 'text', @task.name) %>
     <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '', 'text_area', @task.description) %>
-    <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field', @task.start_date) %>
-    <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field', @task.end_date) %>
-    <%#= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
     <% unless @root_task.present? %>
         <div class='form-row'>
           <div class='small-3 columns'>
             <%= f.label :team_id, 'Team' %>
           </div>
           <div class='small-9 columns'>
-            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name) %>
+            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name,{},{:class=>"team-selector"}) %>
           </div>
         </div>
     <% end %>
+
+    <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field', @task.start_date) %>
+    <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field', @task.end_date) %>
+    <%#= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
     <%#= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
-    <%= build_validated_select('task', 'priority', 'Priority', 'Should select at least one', '', false, @task.priority, ['Low', 'Medium', 'High', 'Showstopper']) %>
-    <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, User.active.map { |x| [x.name, x.id] }) %>
+    <div class="priority-selector">
+      <%= build_validated_select('task', 'priority', 'Priority', 'Should select at least one', '', false, @task.priority, ['Low', 'Medium', 'High', 'Showstopper']) %>
+    </div>
+    <div class="assignees-select">
+    <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, @users.active.map { |x| [x.name, x.id] }) %>
+    </div>
     <!--<div class="field">-->
     <%#= f.label :tracker_id %><br>
     <!--<%#= f.text_field :tracker_id %>-->
@@ -39,6 +44,9 @@
 <% end %>
 
 <script type="text/javascript">
-    $('select').not('.select_add').select2({'width':'100%'});
+    $('select').not('.select_add').select2({'width': '100%'});
     $('.date-input').datetimepicker();
+    $('.team-selector').on("change", function () {
+        $.get('/teams/get_member_list?team_id=' + $(this).val())
+    });
 </script>

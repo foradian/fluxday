@@ -29,6 +29,9 @@ Tracker::Application.routes.draw do
   resources :teams do
     get 'add_members'
     post 'add_members'
+    collection do
+      get 'get_member_list'
+    end
   end
 
   get "home/index"

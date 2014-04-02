@@ -25,12 +25,14 @@ class TasksController < ApplicationController
     @root_task = Task.find(params[:task_id]) if params[:task_id].present?
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
     if params[:team_id].present?
-      team = Team.find(params[:team_id])
+      @team = Team.find(params[:team_id])
       @task.team_id = team.id if team.present?
       @task.project_id = team.project_id if team.present?
     end
     @projects = Project.active
     @teams = Team.for_user(current_user)
+    @team ||= @teams.first
+    @users = @team.try(&:members)
   end
 
   # GET /tasks/1/edit

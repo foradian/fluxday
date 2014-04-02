@@ -1,0 +1,2 @@
+<%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, '', @users.map { |x| [x.name, x.id] }) %>
+    
