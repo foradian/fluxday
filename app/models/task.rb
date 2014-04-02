@@ -7,6 +7,8 @@ class Task < ActiveRecord::Base
   has_many :comments, :as => :source
   has_many :work_logs
 
+  default_scope {where.not(is_deleted:true)}
+
   before_create :add_tracker_id
 
   after_save :update_team_task_count

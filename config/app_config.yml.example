@@ -1,0 +1,13 @@
+development:
+  google:
+    key:        'google access key'
+    secret:     'google secret'
+    scope:      "userinfo.email, userinfo.profile, http://gdata.youtube.com, https://www.googleapis.com/auth/youtube"
+    callback_url: "http://localhost:9292/users/auth/google_oauth2/callback"
+
+production:
+  google:
+    key:        'google access key'
+    secret:     'google secret'
+    scope:      "userinfo.email, userinfo.profile, http://gdata.youtube.com, https://www.googleapis.com/auth/youtube"
+    callback_url: "http://localhost:9292/users/auth/google_oauth2/callback"

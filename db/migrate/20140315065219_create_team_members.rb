@@ -4,7 +4,7 @@ class CreateTeamMembers < ActiveRecord::Migration
       t.integer :team_id
       t.integer :user_id
       t.string :role
-      t.string :status
+      t.string :status,:default=>'active'
 
       t.timestamps
     end

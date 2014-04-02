@@ -34,7 +34,11 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @projects = current_user.projects
+    if current_user.manager?
+      @projects = Project.active
+    else
+      @projects = current_user.projects.active
+    end
     @users = User.active
     if params[:project_id].present?
       @project = Project.find(params[:project_id])
@@ -86,7 +90,10 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    @team.destroy
+    if @team..update_attribute(:is_deleted, true)
+      @team.tasks.update_all(:is_deleted => true)
+      @team.team_members.update_all(:status => 'archived')
+    end
     respond_to do |format|
       format.html { redirect_to teams_url }
       format.json { head :no_content }
@@ -106,6 +113,6 @@ class TeamsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def team_params
-    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status, :team_lead_ids=>[],:user_ids=>[])
+    params.require(:team).permit(:name, :code, :description, :project_id, :members_count, :managers_count, :is_deleted, :pending_tasks, :status, :team_lead_ids => [], :user_ids => [])
   end
 end

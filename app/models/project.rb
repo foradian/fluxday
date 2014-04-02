@@ -8,6 +8,9 @@ class Project < ActiveRecord::Base
   has_many :project_members, :through=>:team_members, :source=>:user
   scope :active, -> {where(is_deleted: false)}
 
+  #default_scope where(is_deleted: false)
+  default_scope{ order("name ASC")}
+
   #after_save  :update_numbers
 
   def members
@@ -16,5 +19,15 @@ class Project < ActiveRecord::Base
 
   def update_numbers
     update_attributes(:team_count=>self.teams.count)
+  end
+
+  def destroy
+    if self.update_attribute(:is_deleted, true)
+      self.teams.update_all(:is_deleted => true)
+      self.teams.update_all(:is_deleted => true)
+      self.tasks.update_all(:is_deleted => true)
+      self.team_members.update_all(:status => 'archived')
+      self.project_managers.update_all(:status => 'archived')
+    end
   end
 end

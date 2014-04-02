@@ -10,9 +10,19 @@
       </ul>
       <div class="right">
         <% if can? :edit, task %>
-            <%= link_to raw("<div class='icon edit-link'></div>"), edit_task_path(task) %>
+            <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
+              <div class="icon settings-link"></div>
+            </a>
+            <ul id="drop1" data-dropdown-content class="f-dropdown">
+              <li>
+                <%= link_to "Edit", edit_task_path(task) %>
+              </li>
+              <li>
+                <%= link_to "Delete", task_path(task),:method=>:delete %>
+              </li>
+            </ul>
         <% end %>
-        <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
+        <div class="date right end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
           <%= task.time_to_end %>
         </div>
       </div>
@@ -47,9 +57,9 @@
     <div class="info">
       Assigned to
       <em>
-        <% task.users.each_with_index do |u,i| %>
+        <% task.users.each_with_index do |u, i| %>
             <%= link_to u.name, user_path(u) %>
-            <%= i+1 != task.users.count ? "," : ''%>
+            <%= i+1 != task.users.count ? "," : '' %>
         <% end %>
       </em>
     </div>

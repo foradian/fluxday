@@ -4,7 +4,7 @@ class WorkLogsController < ApplicationController
   # GET /work_logs
   # GET /work_logs.json
   def index
-    @work_logs = WorkLog.all
+    @work_logs = WorkLog.active
   end
 
   # GET /work_logs/1

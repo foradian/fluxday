@@ -9,7 +9,7 @@ class CreateTeams < ActiveRecord::Migration
       t.integer :managers_count, :default=>0
       t.boolean :is_deleted, :default=>false
       t.integer :pending_tasks
-      t.string :status
+      t.string :status,:default=>'active'
 
       t.timestamps
     end

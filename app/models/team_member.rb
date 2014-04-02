@@ -2,6 +2,8 @@ class TeamMember < ActiveRecord::Base
   belongs_to :team
   belongs_to :user
 
+  default_scope {where.not(status:'archived')}
+
   after_save :update_member_counts
 
   def update_member_counts

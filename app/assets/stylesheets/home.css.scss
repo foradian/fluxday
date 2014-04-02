@@ -66,6 +66,13 @@ $link-active-bg: #1f2f3e;
 .edit-link:hover{
   background: url('/assets/iconsprite.png') no-repeat -16px -46px;
 }
+.settings-link{
+  background: url('/assets/iconsprite.png') no-repeat -127px -80px;
+  margin: 3px;
+}
+.settings-link:hover{
+  background: url('/assets/iconsprite.png') no-repeat -127px -80px;
+}
 
 .icon.prev{
   background: url('/assets/iconsprite.png') no-repeat -109px -32px;

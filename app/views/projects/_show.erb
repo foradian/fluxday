@@ -5,7 +5,17 @@
     </div>
     <div class="right options">
       <% if can? :manage, @project %>
-          <%= link_to 'edit', edit_project_path(@project) %>
+          <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
+            <div class="icon settings-link"></div>
+          </a>
+          <ul id="drop1" data-dropdown-content class="f-dropdown">
+            <li>
+              <%= link_to "Edit", edit_project_path(@project) %>
+            </li>
+            <li>
+              <%= link_to "Delete", project_path(@project), :method => :delete,:confirm=>'Are you sure you want to archive this project?' %>
+            </li>
+          </ul>
       <% end %>
     </div>
     <div class="title">

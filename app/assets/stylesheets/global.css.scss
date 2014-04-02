@@ -48,12 +48,21 @@ body{
 label{font-size: 16px;}
 .no-padding{padding: 0px !important;}
 .pane2-meta{height: 80px;border-bottom: solid 1px $line;width: 100%}
-.pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
-.pane2-content-offset{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 40px;width: 100%;padding: 35px;}
+//.pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
+//.pane2-content-offset{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 40px;width: 100%;padding: 35px;}
+//.pane2-content-no-offset{height: auto;overflow-y: auto;position: absolute;top: 0px;bottom: 40px;width: 100%;padding: 8%;}
+//.pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;width: 100%}
+//.pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
+//.pane2-padding{padding: 35px;}
+//.pane3-padding{padding: 35px;}
+.pane2-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 8%;}
+.pane2-content-offset{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 40px;width: 100%;padding: 8%;}
+.pane2-content-no-offset{height: auto;overflow-y: auto;position: absolute;top: 0px;bottom: 40px;width: 100%;padding: 8%;}
 .pane3-meta{position:absolute;top:0px;height: 80px;border-bottom: solid 1px $line;width: 100%}
-.pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 35px;}
-.pane2-padding{padding: 35px;}
-.pane3-padding{padding: 35px;}
+.pane3-content{height: auto;overflow-y: auto;position: absolute;top: 80px;bottom: 0;width: 100%;padding: 8%;}
+.pane2-padding{padding: 8%;}
+.pane3-padding{padding: 8%;}
+
 .form-action-up{
   .title{font-weight: bold;font-size: 1em;float: left;padding: 30px;}
 }
@@ -146,8 +155,8 @@ label{font-size: 16px;}
 //    clear: right;
     overflow: hidden;
     margin-left: 140px;
-    .main-title{font-size: 2em;float: left;}
-    .main-title-helper{font-size: 1.2em;color: $grey-link;float: left;}
+    .main-title{font-size: 2em;float: left;line-height: 40px;}
+    .main-title-helper{font-size: 1.2em;color: $grey-link;float: left;line-height: 44px;vertical-align: baseline;}
   }
   .website{color: $grey-link}
   .description{margin-left: 150px;line-height: 1.5em;}
@@ -262,16 +271,19 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 }
 }
 
-.li-showstopper:before{
+.li-priority:before{
   content: '';
   width: 10px;
   height: 10px;
-  background: $link;
   right: 17px;
   position: relative;
   top: 17px;
   display: block;
 }
+.li-showstopper:before{background: $showstopper;}
+.li-high:before{background: $high;}
+.li-medium:before{background: $medium;}
+.li-low:before{background: $low;}
 
 
 .form-row{
@@ -550,7 +562,7 @@ form.form-horizontal{padding-top: 100px;}
   position: absolute;
   top: 0px;
   bottom: 60px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: auto;
   width: auto;
   left: 0px;
@@ -615,3 +627,4 @@ form.form-horizontal{padding-top: 100px;}
   .small-3{color: $grey-link}
 }
 .one-row{line-height: 2em;}
+.f-dropdown{text-align: left;}

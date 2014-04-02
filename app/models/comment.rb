@@ -4,8 +4,9 @@ class Comment < ActiveRecord::Base
   scope :active, -> {where(is_deleted: false)}
 
   after_save :update_comment_count
+  #default_scope where(is_deleted: false)
 
   def update_comment_count
-    source.update_attributes(:comments_count=>source.comments.count)
+    source.update_attributes(:comments_count=>source.comments.active.count)
   end
 end

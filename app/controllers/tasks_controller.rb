@@ -39,6 +39,8 @@ class TasksController < ApplicationController
   def edit
     @projects = Project.active
     @teams = Team.for_user(current_user)
+    @team ||= @task.team
+    @users = @team.try(&:members)
   end
 
   # POST /tasks
@@ -74,7 +76,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task.destroy
+    @task.update_attribute(:is_deleted,true)
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }

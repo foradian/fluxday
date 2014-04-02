@@ -17,7 +17,7 @@
     <% entries.each_with_index do |entry,i| %>
         <dd>
           <a href="#panel<%= i+1 %>" class="collapse-task">
-            <li class="task-name li-<%= entry.priority.to_s.downcase %>"><%= entry.name %></li>
+            <li class="task-name li-priority li-<%= entry.priority.to_s.downcase %>"><%= entry.name %></li>
             <li class="date-sub">
               <div class="date end-<%= (entry.end_date <= 7.day.from_now && entry.end_date >= Date.today) ? 'soon' : 'low' %>">
                 <%= entry.time_to_end %>

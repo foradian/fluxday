@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2] #, :registerable
   scope :active, -> { where(is_deleted: false) }
 
+  #default_scope {where.not(is_deleted:true).order("name ASC")}
+  default_scope {order("name ASC")}
+
   def admin?
     role.downcase == 'admin'
   end

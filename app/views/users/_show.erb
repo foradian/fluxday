@@ -1,56 +1,70 @@
 <div class="pane3-padding">
-<div class="head-row user centered">
+  <div class="head-row user centered">
 
-  <div class="right options">
-    <% if can? :edit, @user %>
-    <%= link_to raw("<div class='icon edit-link'></div>"), edit_user_path(@user) %>
-    <% end %>
-  </div>
-
-  <div class="">
-    <%= image_tag(@user.image.thumbnail, :class => 'rounded_pic centered') %>
-  </div>
-
-
-  <div class="user-title">
-    <div class="name">
-      <%= @user.name %>
-      <div class="nickname">(<%= @user.nickname %>)</div>
-    </div>
-  </div>
-  <div class="email"><a href="mail:<%= @user.email %>"><%= @user.email %></a> </div>
-  <div class="email">
-    Reporting managers:
-    <% @managers.each do |manager| %>
-    <%= link_to manager.name, user_path(manager) %>
-    <% end %>
-  </div>
-</div>
-
-<div class="data-container">
-  <dl class="tabs" data-tab>
-    <dd class="active"><a href="#panel2-1">
-      Pending
-      <div class="fig"><%= %></div>
-    </a></dd>
-    <dd><a href="#panel2-2">
-      Teams
-      <div class="fig"><%= @user.teams.count %></div>
-    </a></dd>
-    <div class="right meta">
-      Reports
+    <div class="left employee_code">
+      <strong>#<%= @user.employee_code %></strong>
     </div>
 
-  </dl>
-  <div class="tabs-content">
-    <div class="content active" id="panel2-1">
-      <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
+    <div class="right options">
+      <% if can? :edit, @user %>
+          <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
+            <div class="icon settings-link"></div>
+          </a>
+          <ul id="drop1" data-dropdown-content class="f-dropdown">
+            <li>
+              <%= link_to "Edit", edit_user_path(@user) %>
+            </li>
+            <li>
+              <%= link_to "Delete", user_path(user), :method => :delete, :confirm => 'Are you sure you want to archive this employee?' %>
+            </li>
+          </ul>
+      <% end %>
     </div>
-    <div class="content" id="panel2-2">
-      <%= render :partial => 'teams/team_list', :locals => {:teams => @teams.present? ? @teams : @user.teams} %>
+
+    <div class="">
+      <%= image_tag(@user.image.thumbnail, :class => 'rounded_pic centered') %>
+    </div>
+
+
+    <div class="user-title">
+      <div class="name">
+        <%= @user.name %>
+        <div class="nickname">(<%= @user.nickname %>)</div>
+      </div>
+    </div>
+    <div class="email"><a href="mail:<%= @user.email %>"><%= @user.email %></a></div>
+    <div class="email">
+      Reporting managers:
+      <% @managers.each do |manager| %>
+          <%= link_to manager.name, user_path(manager) %>
+      <% end %>
     </div>
   </div>
-</div>
+
+  <div class="data-container">
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">
+        Pending
+        <div class="fig"><%= %></div>
+      </a></dd>
+      <dd><a href="#panel2-2">
+        Teams
+        <div class="fig"><%= @user.teams.count %></div>
+      </a></dd>
+      <div class="right meta">
+        Reports
+      </div>
+
+    </dl>
+    <div class="tabs-content">
+      <div class="content active" id="panel2-1">
+        <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
+      </div>
+      <div class="content" id="panel2-2">
+        <%= render :partial => 'teams/team_list', :locals => {:teams => @teams.present? ? @teams : @user.teams} %>
+      </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
     $('.project.card').removeClass('active')
