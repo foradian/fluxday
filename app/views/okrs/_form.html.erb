@@ -1,0 +1,37 @@
+<%= form_for @okr do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :start_date %>
+      <br/>
+      <%= f.text_field :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %>
+      <br/>
+      <%= f.text_field :end_date %>
+    </div>
+    <h3>Objectives</h3>
+    <div id="objectives">
+      <%= f.fields_for :objectives do |ob| %>
+          <%= render 'objective_fields', :f => ob %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'add objective', f, :objectives %>
+      </div>
+    </div>
+    <%= f.submit %>
+<% end %>
+
+
+
+<script type="text/javascript">
+    $('select').not('.select_add').select2({'width':'100%'});
+    $('.date-input').datepicker();
+</script>
+
+
+

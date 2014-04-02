@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @okr.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @okr.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @okr.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @okr.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_okr_path(@okr) %> |
+<%= link_to 'Back', okrs_path %>

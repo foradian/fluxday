@@ -1,5 +1,7 @@
 Tracker::Application.routes.draw do
 
+  resources :okrs
+
   resources :objectives do
     resources :key_results
   end

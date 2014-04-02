@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :reporting_managers
   has_many :work_logs
-  has_many :objectives
-  accepts_nested_attributes_for :objectives
+  has_many :okrs
+  has_many :objectives, :through => :okrs
   has_many :key_results
   has_many :managers, :through => :reporting_managers, :class_name => 'User'
   has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
