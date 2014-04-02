@@ -1,24 +1,32 @@
-<%= form_for @objective, :html => {:class => 'form-horizontal', :data => {:abide => true}} do |f| %>
-    <%= build_validated_field('objective', 'name', 'Objective', 'Cannot be blank', '', 'text_area', @objective.name) %>
-    <%= build_validated_field('objective', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_only_field', @objective.start_date) %>
-    <%= build_validated_field('objective', 'end_date', 'End Date', 'Cannot be blank', '', 'date_only_field', @objective.end_date) %>
-    <%= build_validated_select('objective', 'user_id', 'Employee', 'Should select at least one', '', false, @objective.user_id, User.active.map { |x| ["#{x.name} (#{x.nickname})", x.id] }) %>
-    <!--<div class="field">-->
-    <%#= f.label :tracker_id %><br>
-    <!--<%#= f.text_field :tracker_id %>-->
-    <!--</div>-->
-    <!--<div class="field">-->
-    <%#= f.label :comments_count %><br>
-    <!--<%#= f.number_field :comments_count %>-->
-    <!--</div>-->
-    <div class="small-12 columns form-action-up">
-      <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    objectives_path, :class => 'btn cancel-btn' %>
+<%= form_for @objective do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :start_date %>
+      <br/>
+      <%= f.text_field :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %>
+      <br/>
+      <%= f.text_field :end_date %>
+    </div>
+    <h3>Tasks</h3>
+    <div id="key_results">
+      <%= f.fields_for :key_results do |kr| %>
+          <%= render 'key_result_fields', :f => kr %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'add task', f, :key_results %>
       </div>
     </div>
+    <%= f.submit %>
 <% end %>
+
+
 
 <script type="text/javascript">
     $('select').not('.select_add').select2({'width':'100%'});

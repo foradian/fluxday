@@ -1,20 +1,9 @@
-<% @objectives.each do |o| %>
-    <div class="objective">
-      <%= o.name %>
-      <div class="key-results">
-        <% o.key_results.each do |kr| %>
-            <%= kr.name %>
-        <% end %>
-      </div>
-    </div>
-<% end %>
-
 <table class="table">
   <thead>
   <tr>
-    <th width="'100">Sl no</th>
-    <th width="'450">Objective</th>
-    <th width="'450">Key results</th>
+    <th width="100">Sl no</th>
+    <th width="450">Objective</th>
+    <th width="450">Key results</th>
   </tr>
   </thead>
   <tbody>
@@ -24,7 +13,7 @@
         <td rowspan="<%= o.key_results.count %>"><%= o.name %></td>
         <!--<div class="key-results">-->
         <% o.key_results.each_with_index do |kr, j| %>
-            <td><%= kr.name %></td>
+            <td><%= "#{j+1}. #{kr.name}" %></td>
             <% unless j ==0 %>
                 </tr>
             <% end %>

@@ -20,10 +20,12 @@ class ObjectivesController < ApplicationController
   # GET /objectives/new
   def new
     @objective = @user.objectives.new(:start_date=>@start_date,:end_date=>@end_date)
+    @objective.key_results.build
   end
 
   # GET /objectives/1/edit
   def edit
+
   end
 
   # POST /objectives
@@ -83,6 +85,6 @@ class ObjectivesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def objective_params
-    params.require(:objective).permit(:name, :user_id, :author_id, :start_date, :end_date)
+    params.require(:objective).permit(:name, :user_id, :author_id, :start_date, :end_date,key_results_attributes: [:id, :name, :objective_id, :start_date, :end_date, :user_id, :_destroy])
   end
 end
