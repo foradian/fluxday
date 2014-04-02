@@ -590,9 +590,28 @@ form.form-horizontal{padding-top: 100px;}
 .task-priority{
   margin-left: 10px;
   padding: 3px 10px;
-  color: $pane3-bg;
+  color: #fff;
+  font-weight: bold;
 }
-.priority-Showstopper{background: $showstopper;color: #fff;}
+.priority-Showstopper{background: $showstopper;}
 .priority-High{background: $high;}
 .priority-Medium{background: $medium;}
 .priority-Low{background: $low;}
+
+.comments-link{
+  margin-bottom: 10px;
+}
+
+.entries ul{
+  margin-left: 0px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  li{clear: both}
+  .right{color: $grey-link}
+}
+
+.work-log-show{
+  strong{min-width: 100px}
+  .small-3{color: $grey-link}
+}
+.one-row{line-height: 2em;}

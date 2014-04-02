@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="comments-<%= task.id %>">
+  <div class="comments-link comments-<%= task.id %>">
     <% if @comment.present? %>
         <%= render :partial => 'comments/form' %>
     <% end %>

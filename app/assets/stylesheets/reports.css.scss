@@ -9,7 +9,11 @@
   margin-bottom: 20px;
 }
 .report-options{
-.select2-container ,input{
+  .select2-container:hover{
+    border: solid 1px #ccc !important;
+    border-radius: 2px !important;
+  }
+  .select2-container ,input{
   border: solid 1px #ccc;
   border-radius: 2px;
 }

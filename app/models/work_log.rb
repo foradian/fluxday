@@ -7,6 +7,6 @@ class WorkLog < ActiveRecord::Base
   end
 
   def hours
-    return "#{self.minutes.to_i/60}:#{self.minutes.to_i%60}"
+    return "#{self.minutes.to_i/60}:#{ '%02d' % (self.minutes.to_i%60)}"
   end
 end

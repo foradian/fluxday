@@ -8,33 +8,30 @@
   </div>
 </div>
 
-<div class="pane3-content">
-
-  <p>
-    <strong>Date:</strong>
-    <%= @work_log.date.strftime('%d %B %Y') %>
-  </p>
-
-
-  <p>
-    <strong>User:</strong>
-    <%= link_to @work_log.user.name,user_path() %>
-  </p>
-
-
-  <p>
-    <strong>Time consumed:</strong>
-    <%= @work_log.hours %>
-  </p>
-
-
-  <p>
-    <strong>Task:</strong>
-    <%= link_to @work_log.task.name, task_path(@work_log.task) %>
-  </p>
-
+<div class="pane3-content work-log-show">
+  <div class="row">
+    <div class="one-row">
+      <div class="small-3 columns">Date</div>
+      <div class="small-9 columns"><%= @work_log.date.strftime('%d %B %Y') %></div>
+    </div>
+    <div class="one-row">
+      <div class="small-3 columns">User</div>
+      <div class="small-9 columns"><%= link_to @work_log.user.name, user_path() %></div>
+    </div>
+    <div class="one-row">
+      <div class="small-3 columns">Time taken</div>
+      <div class="small-9 columns"><%= @work_log.hours %></div>
+    </div>
+    <div class="one-row">
+      <div class="small-3 columns">Task</div>
+      <div class="small-9 columns"><%= link_to @work_log.task.name, task_path(@work_log.task) %></div>
+    </div>
+    <div class="one-row">
+      <div class="small-3 columns">Description</div>
+      <div class="small-9 columns"><%= @work_log.description %></div>
+    </div>
+  </div>
 </div>
-
 
 
 <script type="text/javascript">

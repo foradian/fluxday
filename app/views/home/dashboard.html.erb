@@ -42,7 +42,7 @@
                       <ul>
                         <% @entry_hash[date].each do |e| %>
                             <li>
-                              <%= link_to "#{e.task.name}(#{e.hours})", work_log_path(e), :remote => true %>
+                              <%= link_to raw("<div class='left'>#{e.task.name}</div><div class='right'>#{e.hours}</div>"), work_log_path(e), :remote => true %>
                             </li>
                         <% end %>
                       </ul>
