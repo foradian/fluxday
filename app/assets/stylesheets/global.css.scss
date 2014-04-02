@@ -13,11 +13,14 @@ $border:#ffffff;
 $card-bg-hover:#ffffff;
 $card-border-hover:#e74c3c;
 $border-hover:#ffffff;
-$grey-link:#555555;
+$grey-link:#999999;
 $grey-link-hover:#333333;
 $line:#cccccc;
 $warning:#bf392d;
-
+$low:#2980b9;
+$medium:#1abc9c;
+$high:#f39c12;
+$showstopper:#c0392b;
 
 
 
@@ -377,6 +380,8 @@ form.form-horizontal{padding-top: 100px;}
   .task-name{font-size: 1.8em;line-height: 2em;}
   .info{font-size: 0.8em;color: $grey-link;
     em{color: $font-color;font-style: normal;}
+    a{color: $font-color}
+    a:hover{color: $link}
   }
   .descr{
     line-height: 1.2em;
@@ -580,3 +585,14 @@ form.form-horizontal{padding-top: 100px;}
 .accordion dd > a,.accordion .content.active {
   padding: 1rem 2rem;
 }
+
+
+.task-priority{
+  margin-left: 10px;
+  padding: 3px 10px;
+  color: $pane3-bg;
+}
+.priority-Showstopper{background: $showstopper;color: #fff;}
+.priority-High{background: $high;}
+.priority-Medium{background: $medium;}
+.priority-Low{background: $low;}

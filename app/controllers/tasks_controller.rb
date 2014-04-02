@@ -26,8 +26,8 @@ class TasksController < ApplicationController
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
     if params[:team_id].present?
       @team = Team.find(params[:team_id])
-      @task.team_id = team.id if team.present?
-      @task.project_id = team.project_id if team.present?
+      @task.team_id = @team.id if @team.present?
+      @task.project_id = @team.project_id if @team.present?
     end
     @projects = Project.active
     @teams = Team.for_user(current_user)
