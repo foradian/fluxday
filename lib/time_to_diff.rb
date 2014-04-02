@@ -1,5 +1,5 @@
 require 'active_support/inflections'
-module TimeDifference
+module TimeExtenstions
 
   def max_diff
     if Time.now >= self
@@ -14,20 +14,24 @@ module TimeDifference
       return self.strftime('%d-%m-%Y %H:%M')
     end
   end
-  #def time_ago
-  #  delta = Time.now - self
-  #  %w[years months days hours minutes seconds].collect do |step|
-  #    seconds = 1.send(step)
-  #    (delta / seconds).to_i.tap do
-  #      delta %= seconds
-  #    end
-  #  end
-  #end
+end
 
+module DateExtenstions
+
+  def to_quarters
+    date = self
+    qs = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]] #qs - quarters
+    q = qs[(date.month - 1) / 3]                         #q  - quarter
+    ["#{date.year}-#{q[0]}-1".to_date,("#{date.year}-#{q[2]+1}-1".to_date - 1.days)]
+  end
 end
 
 class Time
-  include TimeDifference
+  include TimeExtenstions
+end
+
+class Date
+  include DateExtenstions
 end
 
 

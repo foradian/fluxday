@@ -1,10 +1,15 @@
 class ObjectivesController < ApplicationController
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
+  before_action :date_and_user, only: [:new, :edit, :index]
+
+  layout 'less_pane'
 
   # GET /objectives
   # GET /objectives.json
+
   def index
-    @objectives = Objective.all
+    @users=User.active
+    @objectives = @user.objectives.includes(:key_results)
   end
 
   # GET /objectives/1
@@ -14,7 +19,7 @@ class ObjectivesController < ApplicationController
 
   # GET /objectives/new
   def new
-    @objective = Objective.new
+    @objective = @user.objectives.new(:start_date=>@start_date,:end_date=>@end_date)
   end
 
   # GET /objectives/1/edit
@@ -62,13 +67,22 @@ class ObjectivesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_objective
-      @objective = Objective.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_objective
+    @objective = Objective.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def objective_params
-      params.require(:objective).permit(:name, :user_id, :author_id, :start_date, :end_date)
-    end
+  def date_and_user
+    @user = User.find(params[:user_id]) if params[:user_id]
+    @user ||= current_user
+    @start_date = params[:start_date] if params[:start_date]
+    @start_date ||= Date.today.to_quarters[0]
+    @end_date = params[:end_date] if params[:end_date]
+    @end_date ||= Date.today.to_quarters[1]
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def objective_params
+    params.require(:objective).permit(:name, :user_id, :author_id, :start_date, :end_date)
+  end
 end

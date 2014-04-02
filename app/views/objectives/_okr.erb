@@ -1,0 +1,40 @@
+<% @objectives.each do |o| %>
+    <div class="objective">
+      <%= o.name %>
+      <div class="key-results">
+        <% o.key_results.each do |kr| %>
+            <%= kr.name %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th width="'100">Sl no</th>
+    <th width="'450">Objective</th>
+    <th width="'450">Key results</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @objectives.each_with_index do |o, i| %>
+      <tr class="objective">
+        <td rowspan="<%= o.key_results.count %>"><%= i+1 %></td>
+        <td rowspan="<%= o.key_results.count %>"><%= o.name %></td>
+        <!--<div class="key-results">-->
+        <% o.key_results.each_with_index do |kr, j| %>
+            <td><%= kr.name %></td>
+            <% unless j ==0 %>
+                </tr>
+            <% end %>
+            <tr>
+        <% end %>
+        </tr>
+        <!--</div>-->
+        </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New OKR', new_user_objective_path(:user_id => @user.id, :start_date => @start_date, :end_date => @end_date) %>

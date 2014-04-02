@@ -1,35 +1,29 @@
-<h1>Listing objectives</h1>
+<div class="main-title">
+  <div class="element">
+    <h5>Objectives</h5>
+  </div>
+</div>
+<div class="report-options">
+  <!--<form class="employee_daily_report_form" data-remote="false">-->
+  <%= form_for(:okr, :url => {:controller => 'objectives', :action => 'index'},:method=>:get,:remote=>true, :class => 'employee_daily_report_form') do %>
+      <div class="report-type">
+        <%= label_tag :user_id, "Employee" %>
+        <%= select_tag('user_id', options_for_select(@users.map { |x| [x.name, x.id] }, @user.id)) %>
+      </div>
+      <div class="submit_button  show-for-medium-up">
+        <button>Go</button>
+      </div>
+      <div class="report-date">
+        <%= text_field_tag 'end_date', @end_date, :class => 'date-only-input' %>
+        <%= text_field_tag 'start_date', @start_date, :class => 'date-only-input' %>
+      </div>
+      <div class="submit_button show-for-small-only">
+        <button>Go</button>
+      </div>
+      <!--</form>-->
+  <% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>Author</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @objectives.each do |objective| %>
-      <tr>
-        <td><%= objective.name %></td>
-        <td><%= objective.user_id %></td>
-        <td><%= objective.author_id %></td>
-        <td><%= objective.start_date %></td>
-        <td><%= objective.end_date %></td>
-        <td><%= link_to 'Show', objective %></td>
-        <td><%= link_to 'Edit', edit_objective_path(objective) %></td>
-        <td><%= link_to 'Destroy', objective, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Objective', new_objective_path %>
+<div class="okr-area">
+  <%= render :partial => 'objectives/okr' %>
+</div>

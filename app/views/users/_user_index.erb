@@ -16,6 +16,9 @@
             <br/>
             <%= link_to raw("(#{user.nickname})"), user_path(user), :class => 'nickname' %>
           </div>
+          <div class="right">
+            <%= link_to 'OKR',user_objectives_path(user) %>
+          </div>
         </div>
       </div>
   <% end %>
