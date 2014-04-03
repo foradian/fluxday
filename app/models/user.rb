@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :work_logs
   has_many :okrs
   has_many :objectives, :through => :okrs
-  has_many :key_results
+  has_many :key_results, :through => :objectives
   has_many :managers, :through => :reporting_managers, :class_name => 'User'
   has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
   has_many :users, :through => :reporting_employees, :class_name => 'User', :foreign_key => "user_id"

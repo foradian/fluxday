@@ -4,5 +4,12 @@ class Okr < ActiveRecord::Base
   has_many :key_results, :through =>:objectives
   accepts_nested_attributes_for :objectives, :reject_if => lambda { |a| a[:name].blank? },allow_destroy: true
 
+  after_save :update_children
+
   scope :active, -> { where(is_deleted: false) }
+
+  def update_children
+    objectives.update_all(:user_id=>id,:start_date=>start_date,:end_date=>end_date)
+    key_results.update_all(:user_id=>id,:start_date=>start_date,:end_date=>end_date)
+  end
 end

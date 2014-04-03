@@ -1,4 +1,4 @@
-<%= form_for @task, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+<%= form_for @task, :html => {:class => 'form-horizontal task-form', :multipart => true, :data => {:abide => true}} do |f| %>
     <%= f.hidden_field :task_id, :value => @root_task.id if @root_task.present? %>
     <%= f.hidden_field :team_id, :value => @root_task.team_id if @root_task.present? %>
     <%= f.hidden_field :project_id, :value => @root_task.project_id if @root_task.present? %>
@@ -11,7 +11,7 @@
             <%= f.label :team_id, 'Team' %>
           </div>
           <div class='small-9 columns'>
-            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name,{},{:class=>"team-selector"}) %>
+            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name, {}, {:class => "team-selector"}) %>
           </div>
         </div>
     <% end %>
@@ -24,7 +24,7 @@
       <%= build_validated_select('task', 'priority', 'Priority', 'Should select at least one', '', false, @task.priority, ['Low', 'Medium', 'High', 'Showstopper']) %>
     </div>
     <div class="assignees-select">
-    <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, (@users.nil? ? [] : @users.map{ |x| [x.name, x.id] } )) %>
+      <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, (@users.nil? ? [] : @users.map { |x| [x.name, x.id] })) %>
     </div>
     <!--<div class="field">-->
     <%#= f.label :tracker_id %><br>
@@ -45,8 +45,30 @@
 
 <script type="text/javascript">
     $('select').not('.select_add').select2({'width': '100%'});
-    $('.date-input').datetimepicker();
+//    $('.date-input').datetimepicker();
     $('.team-selector').on("change", function () {
-        $.get('/teams/get_member_list?team_id=' + $(this).val())
+        load_assignees()
+//        $.get('/teams/get_member_list?team_id=' + $(this).val())
     });
+
+//    $('.date-input').datetimepicker().on('onChangeDateTime', function () {load_assignees()});
+
+    $('.date-input').datetimepicker({
+        onChangeDateTime:function(){
+            load_assignees();
+        }
+    });
+
+    $('#task_start_date').bind("input", function () {load_assignees()});
+    $('#task_end_date').bind("input", function () {load_assignees()});
+    function load_assignees() {
+        if($('#task_team_id').val() == '' || $('#task_start_date').val() == '' || $('#task_end_date').val() == ''){
+            console.log('1');
+            $('.assignees-select').html('Choose end date, start date and team for the task');
+        }else{
+            console.log('2');
+            $('.assignees-select').html('satisfied');
+            $.get('/teams/get_member_list?team_id=' + $('#task_team_id').val()+'&start_date='+$('#task_start_date').val()+'&end_date='+$('#task_end_date').val())
+        }
+    }
 </script>

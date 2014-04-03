@@ -6,6 +6,8 @@ class Task < ActiveRecord::Base
   has_many :users, :through => :task_assignees
   has_many :comments, :as => :source
   has_many :work_logs
+  has_many :task_key_results
+  has_many :key_results,:through=>:task_key_results
 
   default_scope {where.not(is_deleted:true)}
 

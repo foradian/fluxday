@@ -3,6 +3,8 @@ class Team < ActiveRecord::Base
   has_many :team_members
   has_many :tasks
   has_many :users, :through=>:team_members
+  has_many :okrs, :through=>:users
+  has_many :key_results, :through=>:okrs
   has_many :leads, -> { where role: 'lead' }, class_name: 'TeamMember'
   has_many :team_leads, :through=>:leads, :source=>:user #,:foreign_key=>'user_id'
   has_many :members, -> {uniq}, :through=>:team_members, :source=>:user

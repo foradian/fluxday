@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_id: 1
+  key_result_id: 1
+
+two:
+  task_id: 1
+  key_result_id: 1
