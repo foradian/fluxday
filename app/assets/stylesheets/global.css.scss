@@ -628,3 +628,15 @@ form.form-horizontal{padding-top: 100px;}
 }
 .one-row{line-height: 2em;}
 .f-dropdown{text-align: left;}
+
+
+.assignee_key_results{
+  margin-top: 10px;
+  .user-krs{
+    background:$pane2-bg ;
+    border-radius: 3px;
+    border: solid 1px #cccccc;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+}

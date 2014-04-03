@@ -1,8 +1,23 @@
 <%#= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, '', @users.map { |x| [x.name, x.id] }) %>
 
-
-<div class="task-assignees">
-  <div class="card">
-
+<div class='form-row assignee_key_results'>
+  <div class='small-3 columns'>
+    Assignees
+  </div>
+  <div class='small-9 columns'>
+    <div class="task-assignees">
+      <% @users.each do |u| %>
+          <% unless @key_results[u.id].nil? %>
+              <div class="user-krs">
+                <div class="title"><%= u.name %></div>
+                <% @key_results[u.id].each do |kr| %>
+                    <%= check_box_tag 'task', 'key_result_ids' %>
+                    <%= kr.name %>
+                    <br/>
+                <% end %>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

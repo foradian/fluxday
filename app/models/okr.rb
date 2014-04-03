@@ -9,7 +9,7 @@ class Okr < ActiveRecord::Base
   scope :active, -> { where(is_deleted: false) }
 
   def update_children
-    objectives.update_all(:user_id=>id,:start_date=>start_date,:end_date=>end_date)
-    key_results.update_all(:user_id=>id,:start_date=>start_date,:end_date=>end_date)
+    objectives.update_all(:user_id=>user_id,:start_date=>start_date,:end_date=>end_date)
+    key_results.update_all(:user_id=>user_id,:start_date=>start_date,:end_date=>end_date)
   end
 end

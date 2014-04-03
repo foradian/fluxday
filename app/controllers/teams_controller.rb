@@ -103,6 +103,10 @@ class TeamsController < ApplicationController
   def get_member_list
     team = Team.find(params[:team_id])
     @users = team.members
+    start_date = params[:start_date].to_date
+    end_date = params[:end_date].to_date
+    @key_results = team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', end_date, start_date).group_by(&:user_id)
+    p @key_results.inspect
   end
 
   private
