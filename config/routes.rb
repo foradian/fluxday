@@ -46,7 +46,7 @@ Tracker::Application.routes.draw do
   end
 
   resources :users do
-    resources :objectives
+    resources :okrs
   end
 
 

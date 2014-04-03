@@ -1,5 +1,5 @@
-<h1>New okr</h1>
+<% content_for :pane2 do %>
+    <%= render :partial => 'okrs/okrs' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', okrs_path %>

@@ -1,28 +1,47 @@
 <div class="nested-fields">
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <!--<div class="field">-->
+  <div class="objective-set">
+
+
+    <div class='form-row'>
+      <!--<div class='small-3 columns'>-->
+      <%#= f.label :name, 'Objective' %>
+      <!--</div>-->
+      <!--<div class='small-9 columns'>-->
+      <%#= f.text_field :name %>
+      <!--</div>-->
+      <div class='small-11 columns'>
+        <%= f.text_field :name, :placeholder => 'Objective' %>
+      </div>
+      <div class='small-1 columns'>
+        <div class="remove-links">
+          <%= link_to_remove_association '', f %>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="field">-->
     <%#= f.label :start_date %>
     <%#= f.text_field :start_date %>
-  <!--</div>-->
-  <!--<div class="field">-->
+    <!--</div>-->
+    <!--<div class="field">-->
     <%#= f.label :end_date %>
     <%#= f.text_field :end_date %>
-  <!--</div>-->
+    <!--</div>-->
 
-  Key results
-  <div id="key_results">
-    <%= f.fields_for :key_results do |kr| %>
-        <%= render 'key_result_fields', :f => kr %>
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association 'add key result', f, :key_results %>
+    <div class="nested-title">
+      Key results:
     </div>
-  </div>
+    <div id="key_results">
+      <%= f.fields_for :key_results do |kr| %>
+          <%= render 'key_result_fields', :f => kr %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'add key result', f, :key_results %>
+      </div>
+    </div>
 
-  <%= link_to_remove_association "remove objective", f %>
+  </div>
 </div>
 
 

@@ -1,0 +1,16 @@
+<div class="pane2-meta">
+
+</div>
+<div class="pane2-content">
+  <%= link_to 'New OKR', new_user_okr_path(@user),:class => "dashed_link transition" %>
+
+  <% @okrs.each do |okr| %>
+    <%= link_to user_okr_path(@user, okr) do %>
+        <div class="card transition okr-<%= okr.id %>">
+          <div class="title"><%= okr.name %></div>
+          <br/>
+          <div class="text"><%= "#{okr.start_date.strftime("%d %B %Y")} - #{okr.end_date.strftime("%d %B %Y")}" %></div>
+        </div>
+    <% end %>
+<% end %>
+</div>

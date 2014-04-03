@@ -5,6 +5,7 @@ class CreateOkrs < ActiveRecord::Migration
       t.string :name
       t.date :start_date
       t.date :end_date
+      t.boolean :is_deleted, :default=>false
 
       t.timestamps
     end

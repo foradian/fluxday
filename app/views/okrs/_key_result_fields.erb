@@ -1,8 +1,23 @@
 <div class="nested-fields">
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+
+  <div class='form-row'>
+    <!--<div class='small-3 columns'>-->
+      <%#= f.label :name, 'Name' %>
+    <!--</div>-->
+    <!--<div class='small-9 columns'>-->
+      <%#= f.text_field :name %>
+    <!--</div>-->
+    <div class='small-11 columns'>
+      <%= f.text_field :name, :placeholder => 'Key result',:autofocus=>true %>
+    </div>
+    <div class='small-1 columns'>
+      <div class="remove-links">
+        <%= link_to_remove_association '', f %>
+      </div>
+    </div>
   </div>
+
+
   <!--<div class="field">-->
     <%#= f.label :start_date %>
     <%#= f.text_field :start_date %>
@@ -11,5 +26,5 @@
     <%#= f.label :end_date %>
     <%#= f.text_field :end_date %>
   <!--</div>-->
-  <%= link_to_remove_association "remove key result", f %>
+
 </div>

@@ -1,33 +1,7 @@
-<h1>Listing okrs</h1>
+<% content_for :pane2 do %>
+    <%= render :partial => 'okrs/okrs' %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @okrs.each do |okr| %>
-      <tr>
-        <td><%= okr.user_id %></td>
-        <td><%= okr.name %></td>
-        <td><%= okr.start_date %></td>
-        <td><%= okr.end_date %></td>
-        <td><%= link_to 'Show', okr %></td>
-        <td><%= link_to 'Edit', edit_okr_path(okr) %></td>
-        <td><%= link_to 'Destroy', okr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Okr', new_okr_path %>
+<div class="pane3-padding">
+  <%= render :partial => 'okrs/okr' %>
+</div>

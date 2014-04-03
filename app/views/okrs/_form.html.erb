@@ -1,36 +1,60 @@
-<%= form_for @okr do |f| %>
-    <div class="field">
-      <%= f.label :name %>
-      <br/>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-      <%= f.label :start_date %>
-      <br/>
-      <%= f.text_field :start_date %>
-    </div>
-    <div class="field">
-      <%= f.label :end_date %>
-      <br/>
-      <%= f.text_field :end_date %>
-    </div>
-    <h3>Objectives</h3>
-    <div id="objectives">
-      <%= f.fields_for :objectives do |ob| %>
-          <%= render 'objective_fields', :f => ob %>
-      <% end %>
-      <div class="links">
-        <%= link_to_add_association 'add objective', f, :objectives %>
+<%= form_for @okr, :html => {:class => 'form-horizontal okr-form', :multipart => true, :data => {:abide => true}} do |f| %>
+    <div class="form-content form-below">
+      <%= f.hidden_field :user_id,:value=>@user.id %>
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :name, 'Name' %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.text_field :name %>
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :start_date, 'Start date' %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.text_field :start_date, :class => 'date-input' %>
+        </div>
+      </div>
+      <div class='form-row'>
+        <div class='small-3 columns'>
+          <%= f.label :end_date %>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.text_field :end_date, :class => 'date-input' %>
+        </div>
+      </div>
+
+
+      <div class="nested-title">
+        Objectives:
+      </div>
+
+      <div id="objectives">
+        <%= f.fields_for :objectives do |ob| %>
+            <%= render 'objective_fields', :f => ob %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association 'add objective', f, :objectives %>
+        </div>
       </div>
     </div>
-    <%= f.submit %>
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    projects_path, :class => 'btn cancel-btn' %>
+      </div>
+    </div>
+
 <% end %>
 
 
 
 <script type="text/javascript">
-    $('select').not('.select_add').select2({'width':'100%'});
-    $('.date-input').datepicker();
+    $('select').not('.select_add').select2({'width': '100%'});
+    $('.date-input').datetimepicker({timepicker:false,format:'Y-m-d'});
 </script>
 
 
