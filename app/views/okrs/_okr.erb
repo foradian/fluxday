@@ -46,5 +46,5 @@
 
 <script type="text/javascript">
     $('.okr.card').removeClass('active')
-    $('.okr-<%= @okr.id %>').addClass('active')
+    $('.okr-<%= @okr.try(&:id) %>').addClass('active')
 </script>

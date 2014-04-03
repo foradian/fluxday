@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     @projects = Project.active
     @teams = Team.for_user(current_user)
     @team ||= @teams.first
-    @users = @team.try(&:members)
+    @users = @team.members if @team
   end
 
   # GET /tasks/1/edit
