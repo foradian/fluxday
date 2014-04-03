@@ -41,6 +41,9 @@ class TasksController < ApplicationController
     @teams = Team.for_user(current_user)
     @team ||= @task.team
     @users = @team.try(&:members)
+    start_date = @task.start_date
+    end_date = @task.end_date
+    @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', end_date, start_date).group_by(&:user_id)
   end
 
   # POST /tasks
@@ -91,6 +94,6 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count, :user_ids => [])
+    params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count, :key_result_ids=>[],:user_ids => [])
   end
 end

@@ -24,7 +24,9 @@
       <%= build_validated_select('task', 'priority', 'Priority', 'Should select at least one', '', false, @task.priority, ['Low', 'Medium', 'High', 'Showstopper']) %>
     </div>
     <div class="assignees-select">
-      <%= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, (@users.nil? ? [] : @users.map { |x| [x.name, x.id] })) %>
+      <%= render :partial => 'teams/members' %>
+
+      <%#= build_validated_select('task', 'user_ids', 'Assignees', 'Should select at least one', '', true, @task.user_ids, (@users.nil? ? [] : @users.map { |x| [x.name, x.id] })) %>
     </div>
     <!--<div class="field">-->
     <%#= f.label :tracker_id %><br>

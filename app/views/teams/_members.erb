@@ -11,7 +11,7 @@
               <div class="user-krs">
                 <div class="title"><%= u.name %></div>
                 <% @key_results[u.id].each do |kr| %>
-                    <%= check_box_tag 'task', 'key_result_ids' %>
+                    <%= check_box_tag "task[key_result_ids][]",kr.id %>
                     <%= kr.name %>
                     <br/>
                 <% end %>
