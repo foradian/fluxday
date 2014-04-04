@@ -24,11 +24,8 @@ Devise.setup do |config|
   require "omniauth-google-oauth2"
   config.omniauth :google_oauth2, AppConfig['google']['key'], AppConfig['google']['secret'],{
       :redirect_uri => AppConfig['google']['callback_url'],
-      :scope => AppConfig['google']['scope'],
       :auth_uri =>"https://accounts.google.com/o/oauth2/auth",
-      :token_uri => "https://accounts.google.com/o/oauth2/token",
-      :display => 'popup',
-      :prompt => 'consent'
+      :token_uri => "https://accounts.google.com/o/oauth2/token"
   }
 
   # ==> Configuration for any authentication mechanism
