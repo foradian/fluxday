@@ -14,7 +14,7 @@
         <td><%= task.name %></td>
         <td><%= task.project.name %></td>
         <td><%= task.team.name %></td>
-        <td><%= @assignees[task.id] %></td>
+        <td><%= @assignees[task.id].to_i %></td>
         <td><%= @work_logs[task.id] %></td>
       </tr>
   <% end %>

@@ -65,12 +65,10 @@
     $('#task_end_date').bind("input", function () {load_assignees()});
     function load_assignees() {
         if($('#task_team_id').val() == '' || $('#task_start_date').val() == '' || $('#task_end_date').val() == ''){
-            console.log('1');
             $('.assignees-select').html('Choose end date, start date and team for the task');
         }else{
-            console.log('2');
             $('.assignees-select').html('satisfied');
-            $.get('/teams/get_member_list?team_id=' + $('#task_team_id').val()+'&start_date='+$('#task_start_date').val()+'&end_date='+$('#task_end_date').val())
+            $.get('/teams/get_member_list?team_id=' + $('#task_team_id').val()+'&start_date='+$('#task_start_date').val()+'&end_date='+$('#task_end_date').val()+"&task_id=<%= @task.try(&:id) %>")
         }
     }
 </script>

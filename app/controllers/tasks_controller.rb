@@ -7,13 +7,14 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = current_user.assignments
+    #@tasks = current_user.assignments
+    @tasks = current_user.assigned_and_written_tasks
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @tasks = current_user.assignments
+    @tasks = current_user.assigned_and_written_tasks
     @team = @task.team
     @project = @team.project
     @sub_tasks = @task.sub_tasks
@@ -24,6 +25,8 @@ class TasksController < ApplicationController
   def new
     @root_task = Task.find(params[:task_id]) if params[:task_id].present?
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
+    @task.start_date = Time.now
+    @task.end_date = Time.now
     if params[:team_id].present?
       @team = Team.find(params[:team_id])
       @task.team_id = @team.id if @team.present?
@@ -33,6 +36,8 @@ class TasksController < ApplicationController
     @teams = Team.for_user(current_user)
     @team ||= @teams.first
     @users = @team.members if @team
+    @kr_ids = @task.key_result_ids
+    @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', @task.end_date, @task.start_date).group_by(&:user_id)
   end
 
   # GET /tasks/1/edit
@@ -43,6 +48,7 @@ class TasksController < ApplicationController
     @users = @team.try(&:members)
     start_date = @task.start_date
     end_date = @task.end_date
+    @kr_ids = @task.key_result_ids
     @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', end_date, start_date).group_by(&:user_id)
   end
 

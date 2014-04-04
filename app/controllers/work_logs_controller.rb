@@ -20,7 +20,7 @@ class WorkLogsController < ApplicationController
     else
       @date = params[:date].to_date
     end
-    @entries = Task.where('start_date <= ? && end_date >= ?',@date.end_of_day,@date.beginning_of_day)
+    @entries = current_user.assigned_and_written_tasks.where('start_date <= ? && end_date >= ?',@date.end_of_day,@date.beginning_of_day)
     @date = params[:date].present? ? params[:date].to_date : Date.today
     @work_log = WorkLog.new(:date=>@date)
     @hours = @work_log.minutes.to_i/60

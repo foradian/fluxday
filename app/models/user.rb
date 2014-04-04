@@ -10,14 +10,16 @@ class User < ActiveRecord::Base
   has_many :leads, -> { where role: 'lead' }, class_name: 'TeamMember'
   has_many :admin_teams, :through => :leads, :source => :team #,:foreign_key=>'user_id'
   has_many :joined_projects, :through => :teams, :source => :project
-  has_many :task_assignees
-  has_many :assignments, :through => :task_assignees, :source => :task
+  #has_many :task_assignees
+  #has_many :assignments, :through => :task_assignees, :source => :task
   has_many :comments
   has_many :reporting_managers
   has_many :work_logs
   has_many :okrs
+  has_many :tasks #authored ones
   has_many :objectives, :through => :okrs
   has_many :key_results, :through => :objectives
+  has_many :assignments,->{uniq}, :through => :key_results, :source => :tasks
   has_many :managers, :through => :reporting_managers, :class_name => 'User'
   has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
   has_many :users, :through => :reporting_employees, :class_name => 'User', :foreign_key => "user_id"
@@ -26,7 +28,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(is_deleted: false) }
 
   #default_scope {where.not(is_deleted:true).order("name ASC")}
-  default_scope {order("name ASC")}
+  #default_scope {order("name ASC")}
 
   def admin?
     role.downcase == 'admin'
@@ -38,6 +40,10 @@ class User < ActiveRecord::Base
 
   def employee?
     role.downcase == 'employee'
+  end
+
+  def assigned_and_written_tasks
+    Task.where(id:(task_ids + assignment_ids).uniq)
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

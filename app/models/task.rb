@@ -2,12 +2,14 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
   belongs_to :project
-  has_many :task_assignees
-  has_many :users, :through => :task_assignees
+  #has_many :task_assignees
+  #has_many :users, :through => :task_assignees
   has_many :comments, :as => :source
   has_many :work_logs
   has_many :task_key_results
   has_many :key_results,:through=>:task_key_results
+  has_many :users, -> {uniq},:through=>:key_results
+
 
   default_scope {where.not(is_deleted:true)}
 

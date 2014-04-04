@@ -11,9 +11,10 @@
               <div class="user-krs">
                 <div class="title"><%= u.name %></div>
                 <% @key_results[u.id].each do |kr| %>
-                    <%= check_box_tag "task[key_result_ids][]",kr.id %>
-                    <%= kr.name %>
-                    <br/>
+                    <!--<div class="large-12 columns">-->
+                      <%= check_box_tag "task[key_result_ids][]", kr.id, @kr_ids.include?(kr.id), :id => "task_key_result_ids_#{kr.id}" %>
+                      <%= label_tag "task[key_result_ids][#{kr.id}]", kr.name %>
+                    <!--</div>-->
                 <% end %>
               </div>
           <% end %>

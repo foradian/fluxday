@@ -31,13 +31,13 @@ class ReportsController < ApplicationController
     @date ||= Date.today
     @tasks=Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     if @report_type == 'project'
-      tasks = Task.joins(:task_assignees).where('start_date <= ? && end_date >= ? && task_assignees.user_id in (?) && project_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @project.id)
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && project_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @project.id)
       grouped_tasks = tasks.group_by(&:user_ids)
     elsif @report_type == 'team'
-      tasks = Task.joins(:task_assignees).where('start_date <= ? && end_date >= ? && task_assignees.user_id in (?) && team_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @team.id)
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && team_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @team.id)
       grouped_tasks = tasks.group_by(&:user_ids)
     else
-      tasks = Task.joins(:task_assignees).where('start_date <= ? && end_date >= ? && task_assignees.user_id in (?)', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id))
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id))
       grouped_tasks = tasks.group_by(&:user_ids)
     end
     grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]=grouped_tasks[x] } }
@@ -70,18 +70,18 @@ class ReportsController < ApplicationController
     @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
-    @tasks=Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    @tasks= {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     if @report_type == 'project'
-      tasks = Task.joins(:task_assignees).where('project_id = ? && start_date <= ? && end_date >= ? && task_assignees.user_id in (?)', @project.id, @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id))
+      tasks = Task.joins(:key_results).where('project_id = ? && tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @project.id, @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id)).includes(:users).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     elsif @report_type == 'team'
-      tasks = Task.joins(:task_assignees).where('team_id = ? && start_date <= ? && end_date >= ? && task_assignees.user_id in (?)', @team.id, @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id))
+      tasks = Task.joins(:key_results).where('team_id = ? && tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @team.id, @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id)).includes(:users).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     else
-      tasks = Task.joins(:task_assignees).where('start_date <= ? && end_date >= ? && task_assignees.user_id in (?)', @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id))
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @end_date.end_of_day, @start_date.beginning_of_day, @users.collect(&:id)).includes(:users).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     end
-    grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]=grouped_tasks[x] } }
+    grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]= @tasks[y].to_i + grouped_tasks[x].length } }
     @work_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id), task_id: tasks.collect(&:id)).select('id', 'user_id', 'minutes').group_by(&:user_id)
     work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{v.sum(&:minutes).to_i%60}" }
@@ -142,15 +142,16 @@ class ReportsController < ApplicationController
       @projects = current_user.manager? ? Project.active : current_user.projects
       @project = @projects.find(params[:report][:project_id]) if (params[:report] && params[:report][:project_id])
       @project ||= @projects.first
-      @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:task_assignees, :project, :team])
+      @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:users, :project, :team])
     elsif @report_type == 'team'
       @teams = Team.for_user(current_user)
       @team=Team.find(params[:report][:team_id]) if (params[:report] && params[:report][:team_id])
-      @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:task_assignees, :project, :team])
+      @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team])
     end
-    @work_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-    @assignees = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-    TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
+    @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
+    @tasks.each{|x| @assignees[x.id] = x.user_ids.length}
     work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
     logs = work_logs.group_by(&:task_id)
     logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }

@@ -21,6 +21,7 @@ class Ability
 
       can :read, Project
       can :read, Team
+      can :read, Okr
       can :read, User
       can :manage, Task do |task|
         task.id.nil? || task.user_id == user.id || user.project_ids.include?(task.project_id) || user.admin_team_ids.include?(task.team_id)
