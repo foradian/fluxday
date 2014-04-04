@@ -2,9 +2,9 @@ Tracker::Application.routes.draw do
 
   resources :okrs
 
-  resources :objectives do
-    resources :key_results
-  end
+  #resources :objectives do
+  #  resources :key_results
+  #end
 
   get "reports/index"
   get "reports/activities"

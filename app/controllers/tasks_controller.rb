@@ -32,8 +32,11 @@ class TasksController < ApplicationController
       @task.team_id = @team.id if @team.present?
       @task.project_id = @team.project_id if @team.present?
     end
-    @projects = Project.active
-    @teams = Team.for_user(current_user)
+    @teams = Team.admind_by_user(current_user).includes(:project)
+    @grouped_teams = @teams.inject({}) do |options, team|
+      (options[team.project.name] ||= []) << [team.name, team.id]
+      options
+    end
     @team ||= @teams.first
     @users = @team.members if @team
     @kr_ids = @task.key_result_ids
@@ -43,8 +46,13 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @projects = Project.active
-    @teams = Team.for_user(current_user)
     @team ||= @task.team
+    @teams = Team.admind_by_user(current_user).includes(:project)
+    @grouped_teams = @teams.inject({}) do |options, team|
+      (options[team.project.name] ||= []) << [team.name, team.id]
+      options
+    end
+
     @users = @team.try(&:members)
     start_date = @task.start_date
     end_date = @task.end_date

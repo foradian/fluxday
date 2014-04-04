@@ -19,6 +19,8 @@ class OkrsController < ApplicationController
   def new
     @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
     @okr = Okr.new(:user_id=>@user.id,:start_date=>@start_date,:end_date=>@end_date)
+    @okr.objectives.build
+    2.times{@okr.objectives.first.key_results.build}
   end
 
   # GET /okrs/1/edit

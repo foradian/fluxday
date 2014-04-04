@@ -5,7 +5,7 @@
   <div class="task-list">
     <% @tasks.each do |task| %>
         <%= link_to task_path(task) do %>
-            <div class="card transition task-card">
+            <div class="card transition task-card task task-<%= task.id %>">
               <div class="name">
                 <%= task.name %>
               </div>

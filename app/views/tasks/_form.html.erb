@@ -11,7 +11,8 @@
             <%= f.label :team_id, 'Team' %>
           </div>
           <div class='small-9 columns'>
-            <%= grouped_collection_select(:task, :team_id, @projects, :teams, :name, :id, :name, {}, {:class => "team-selector"}) %>
+            <%= select_tag "task[team_id]", grouped_options_for_select(@grouped_teams) %>
+            <%#= grouped_collection_select(:task, :team_id, @projects, @teams, :name, :id, :name, {}, {:class => "team-selector"}) %>
           </div>
         </div>
     <% end %>

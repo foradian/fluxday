@@ -1,5 +1,14 @@
 <div class="pane2-meta">
-
+  <div class="large-6 columns">
+    <div class="title">OKR</div>
+  </div>
+  <div class="large-6 columns">
+    <div class="pane-2-selector">
+      <% if current_user.manager? %>
+          <%= select_tag 'okr_user_id', options_for_select(User.active.map { |x| [x.name, x.id] },@user.id) %>
+      <% end %>
+    </div>
+  </div>
 </div>
 <div class="pane2-content">
   <% if can? :manage, Okr %>
@@ -16,3 +25,8 @@
       <% end %>
   <% end %>
 </div>
+<script type="text/javascript">
+    $('#okr_user_id').on('change',function(){
+        window.location = '/users/'+$('#okr_user_id').val()+'/okrs'
+    });
+</script>

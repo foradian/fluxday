@@ -20,6 +20,10 @@ class Team < ActiveRecord::Base
   end
 
   def self.for_user(user)
-    teams = (user.teams + user.admin_teams).uniq
+    teams = Team.where(id:(user.team_ids + user.admin_team_ids).uniq)
+  end
+
+  def self.admind_by_user(user)
+    teams = Team.where(id:(user.projects.collect(&:team_ids).flatten + user.admin_team_ids).uniq)
   end
 end

@@ -6,7 +6,7 @@
           <%= f.label :name, 'Name' %>
         </div>
         <div class='small-9 columns'>
-          <%= f.text_field :name %>
+          <%= f.text_field :name,:autofocus=>true %>
         </div>
       </div>
       <div class='form-row'>
@@ -41,10 +41,11 @@
       </div>
     </div>
     <div class="small-12 columns form-action-up">
+      <div class="title">Set OKR for <%= @user.name %></div>
       <div class="right">
         <%= f.submit nil, :class => 'button alert right' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    projects_path, :class => 'btn cancel-btn' %>
+                    okrs_path, :class => 'btn cancel-btn' %>
       </div>
     </div>
 
@@ -53,6 +54,7 @@
 
 
 <script type="text/javascript">
+    $('#okr_name').focus()
     $('select').not('.select_add').select2({'width': '100%'});
     $('.date-input').datetimepicker({timepicker:false,format:'Y-m-d'});
 </script>
