@@ -1,4 +1,5 @@
 <% unless @okr.nil? %>
+
     <div class="right options">
       <% if can? :manage, @okr %>
           <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
@@ -6,42 +7,60 @@
           </a>
           <ul id="drop1" data-dropdown-content class="f-dropdown">
             <li>
-              <%= link_to "Edit", edit_user_okr_path(@user,@okr) %>
+              <%= link_to "Edit", edit_user_okr_path(@user, @okr) %>
             </li>
             <li>
-              <%= link_to "Delete", okr_path(@okr), :method => :delete,:confirm=>'Are you sure you want to archive this project?' %>
+              <%= link_to "Delete", okr_path(@okr), :method => :delete, :confirm => 'Are you sure you want to archive this project?' %>
             </li>
           </ul>
       <% end %>
     </div>
     <br/>
-    <table class="table">
-      <thead>
-      <tr>
-        <th width="100">Sl no</th>
-        <th width="450">Objective</th>
-        <th width="450">Key results</th>
-      </tr>
-      </thead>
-      <tbody>
+    <div class="okr-details">
+      <div class="name"><%= @okr.name %></div>
+      <div class="period"><%= "#{@okr.start_date.strftime('%d %B %Y')} - #{@okr.end_date.strftime('%d %B %Y')}" %></div>
+    </div>
+
+    <ol class="objectives">
       <% @okr.objectives.each_with_index do |o, i| %>
-          <tr class="objective">
-            <td rowspan="<%= o.key_results.count %>"><%= i+1 %></td>
-            <td rowspan="<%= o.key_results.count %>"><%= o.name %></td>
-            <!--<div class="key-results">-->
+          <li><%= o.name %></li>
+          <!--<div class="key-results">-->
+          <ol class="key_results">
             <% o.key_results.each_with_index do |kr, j| %>
-                <td><%= "#{j+1}. #{kr.name}" %></td>
-                <% unless j ==0 %>
-                    </tr>
-                <% end %>
-                <tr>
+                <li><%= kr.name %></li>
             <% end %>
-            </tr>
-            <!--</div>-->
-            </tr>
+          </ol>
       <% end %>
-      </tbody>
-    </table>
+    </ol>
+
+
+    <!--<table class="table">-->
+    <!--<thead>-->
+    <!--<tr>-->
+    <!--<th width="100">Sl no</th>-->
+    <!--<th width="450">Objective</th>-->
+    <!--<th width="450">Key results</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<%# @okr.objectives.each_with_index do |o, i| %>-->
+    <!--<tr class="objective">-->
+    <!--<td rowspan="<%#= o.key_results.count %>"><%#= i+1 %></td>-->
+    <!--<td rowspan="<%#= o.key_results.count %>"><%#= o.name %></td>-->
+    <!--&lt;!&ndash;<div class="key-results">&ndash;&gt;-->
+    <!--<%# o.key_results.each_with_index do |kr, j| %>-->
+    <!--<td><%#= "#{j+1}. #{kr.name}" %></td>-->
+    <!--<%# unless j ==0 %>-->
+    <!--</tr>-->
+    <!--<%# end %>-->
+    <!--<tr>-->
+    <!--<%# end %>-->
+    <!--</tr>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</tr>-->
+    <!--<%# end %>-->
+    <!--</tbody>-->
+    <!--</table>-->
 <% end %>
 
 <script type="text/javascript">

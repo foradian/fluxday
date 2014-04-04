@@ -34,3 +34,15 @@
 .pane-2-selector{
   margin-top: -11px;
 }
+ol.objectives{
+//list-style-type:lower-alpha
+}
+ol.key_results{
+  list-style-type:lower-alpha
+}
+
+.okr-details{
+  line-height: 1.8em;
+  .name{font-weight: bold;}
+  .period{font-size: 0.8em}
+}
