@@ -32,7 +32,7 @@ class TasksController < ApplicationController
       @task.team_id = @team.id if @team.present?
       @task.project_id = @team.project_id if @team.present?
     end
-    @teams = Team.admind_by_user(current_user).includes(:project)
+    @teams = Team.assignable_by_user(current_user).includes(:project)
     @grouped_teams = @teams.inject({}) do |options, team|
       (options[team.project.name] ||= []) << [team.name, team.id]
       options
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
   def edit
     @projects = Project.active
     @team ||= @task.team
-    @teams = Team.admind_by_user(current_user).includes(:project)
+    @teams = Team.assignable_by_user(current_user).includes(:project)
     @grouped_teams = @teams.inject({}) do |options, team|
       (options[team.project.name] ||= []) << [team.name, team.id]
       options
