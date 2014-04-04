@@ -19,3 +19,4 @@
 /public/assets
 /Gemfile.lock
 /db/schema.rb
+/config/app_config.yml
