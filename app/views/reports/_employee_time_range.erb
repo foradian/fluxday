@@ -20,7 +20,7 @@
     <script type="text/javascript">
         $(".sortable-table").tablesorter();
         <% unless @report_type == 'user' %>
-        $('table.highchart').highchartTable();
+        if ($('.table tbody tr').length > 1){$('table.highchart').highchartTable();}
         <% end %>
     </script>
 <% else %>

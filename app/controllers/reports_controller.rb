@@ -31,13 +31,13 @@ class ReportsController < ApplicationController
     @date ||= Date.today
     @tasks=Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     if @report_type == 'project'
-      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && project_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @project.id)
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && project_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @project.id).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     elsif @report_type == 'team'
-      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && team_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @team.id)
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?) && team_id = ?', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id), @team.id).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     else
-      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id))
+      tasks = Task.joins(:key_results).where('tasks.start_date <= ? && tasks.end_date >= ? && key_results.user_id in (?)', @date.end_of_day, @date.beginning_of_day, @users.collect(&:id)).uniq
       grouped_tasks = tasks.group_by(&:user_ids)
     end
     grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]=grouped_tasks[x] } }
@@ -52,6 +52,7 @@ class ReportsController < ApplicationController
     @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
       @projects = current_user.projects
+      @projects = Project.active if current_user.manager?
       @project = @projects.find(params[:report][:project_id])
       @users = @project.members if @project.present?
     elsif @report_type == 'team' && params[:report].present? && params[:report][:team_id].present?

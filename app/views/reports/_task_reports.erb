@@ -21,7 +21,7 @@
 </table>
 <script type="text/javascript">
     $(".sortable-table").tablesorter();
-    $('table.highchart').highchartTable();
+    if ($('.table tbody tr').length > 1){$('table.highchart').highchartTable();}
 </script>
 <% else %>
     <div class="alert-box secondary">

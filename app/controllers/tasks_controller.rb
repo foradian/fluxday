@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     @team ||= @teams.first
     @users = @team.members if @team
     @kr_ids = @task.key_result_ids
-    @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', @task.end_date, @task.start_date).group_by(&:user_id)
+    @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', @task.end_date, @task.start_date).group_by(&:user_id) if @team
   end
 
   # GET /tasks/1/edit

@@ -6,18 +6,22 @@
   </div>
   <div class='small-9 columns'>
     <div class="task-assignees">
-      <% @users.each do |u| %>
-          <% unless @key_results[u.id].nil? %>
-              <div class="user-krs">
-                <div class="title"><%= u.name %></div>
-                <% @key_results[u.id].each do |kr| %>
-                    <!--<div class="large-12 columns">-->
-                      <%= check_box_tag "task[key_result_ids][]", kr.id, @kr_ids.include?(kr.id), :id => "task_key_result_ids_#{kr.id}" %>
-                      <%= label_tag "task[key_result_ids][#{kr.id}]", kr.name %>
-                    <!--</div>-->
-                <% end %>
-              </div>
+      <% if @users %>
+          <% @users.each do |u| %>
+              <% unless @key_results[u.id].nil? %>
+                  <div class="user-krs">
+                    <div class="title"><%= u.name %></div>
+                    <% @key_results[u.id].each do |kr| %>
+                        <!--<div class="large-12 columns">-->
+                        <%= check_box_tag "task[key_result_ids][]", kr.id, @kr_ids.include?(kr.id), :id => "task_key_result_ids_#{kr.id}" %>
+                        <%= label_tag "task[key_result_ids][#{kr.id}]", kr.name %>
+                        <!--</div>-->
+                    <% end %>
+                  </div>
+              <% end %>
           <% end %>
+      <% else %>
+          <label>No employees in this team</label>
       <% end %>
     </div>
   </div>

@@ -9,7 +9,7 @@ class CalendarController < ApplicationController
       @date = params[:date].to_date
     end
     @entries = current_user.assigned_and_written_tasks.where('start_date <= ? && end_date >= ?',@date.end_of_day,@date.beginning_of_day)
-    @work_logs = WorkLog.find_all_by_date(@date)
+    @work_logs = current_user.work_logs.find_all_by_date(@date)
   end
 
   def week
@@ -22,7 +22,7 @@ class CalendarController < ApplicationController
       @end_date = date.end_of_week
     end
     @entry_hash={}
-    entries = WorkLog.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)
+    entries = current_user.work_logs.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)
     (@start_date..@end_date).each do |dt|
       @entry_hash[dt] = entries.where('date <= ? && date >= ?', dt.end_of_day, dt.beginning_of_day)
     end
