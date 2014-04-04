@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   #check_authorization
   #before_filter :authorize_resource
 
-  #rescue_from CanCan::AccessDenied do |exception|
-  #  redirect_to root_url, :alert => exception.message
-  #end
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
 end
