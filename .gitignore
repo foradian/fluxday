@@ -14,3 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/config/database.yml
+/public/uploads
+/public/assets
+/Gemfile.lock
+/db/schema.rb
