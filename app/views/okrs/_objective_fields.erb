@@ -36,8 +36,8 @@
       <%= f.fields_for :key_results do |kr| %>
           <%= render 'key_result_fields', :f => kr %>
       <% end %>
-      <div class="links">
-        <%= link_to_add_association 'add key result', f, :key_results %>
+      <div class="links okr-field-add">
+        <%= link_to_add_association 'Add key result', f, :key_results %>
       </div>
     </div>
 

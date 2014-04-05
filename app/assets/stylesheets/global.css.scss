@@ -346,12 +346,17 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
 }
 .centered{text-align: center;}
 
-.btn-sec{
+.btn-sec, .okr-field-add a{
   padding: 5px 10px;
   border: solid 1px $line;
   border-radius: 3px;
   color: $link;
   font-size: 14px;
+}
+.okr-field-add a{
+  width: 100%;
+  display: block;
+  text-align: center;
 }
 
 .form-row label, .form-row input{margin-top: 0px;}

@@ -36,8 +36,8 @@
         <%= f.fields_for :objectives do |ob| %>
             <%= render 'objective_fields', :f => ob %>
         <% end %>
-        <div class="links">
-          <%= link_to_add_association 'add objective', f, :objectives %>
+        <div class="links okr-field-add">
+          <%= link_to_add_association 'Add objective', f, :objectives %>
         </div>
       </div>
     </div>
