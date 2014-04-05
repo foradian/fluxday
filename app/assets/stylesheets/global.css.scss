@@ -647,7 +647,8 @@ form.form-horizontal{padding-top: 100px;}
     }
   }
 }
-.report-list{
+.accordion.report-list{
+  .active{border-bottom: none;}
   .reports-link,.active .reports-link{
     padding: 0px;
     color: #759bc0;
@@ -660,7 +661,18 @@ form.form-horizontal{padding-top: 100px;}
 //    color: #1cc7ff;
     background: #1f2f3e;
   }
-}
+
+  .report-options{
+    padding: 0px;
+    background: $pane1-bg;
+    li{
+      list-style: square;
+      a{
+        font-size: 0.8em;
+      }
+    }
+  }
+  }
 .top-set{
   position: absolute;
   top: 60px;
