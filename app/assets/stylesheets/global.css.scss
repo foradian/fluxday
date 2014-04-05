@@ -65,6 +65,7 @@ label{font-size: 16px;}
 
 .form-action-up{
   .title{font-weight: bold;font-size: 1em;float: left;padding: 30px;}
+  input.button,a.btn{float: right}
 }
 .pane2-meta,.pane3-meta{
   padding: 30px;
@@ -645,3 +646,4 @@ form.form-horizontal{padding-top: 100px;}
     }
   }
 }
+
