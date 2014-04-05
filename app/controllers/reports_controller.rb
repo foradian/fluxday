@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
     @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
       @projects = current_user.projects
-      @project = @projects.find(params[:report][:project_id])
+      @project = current_user.manager? ? Project.find(params[:report][:project_id]) : @projects.find(params[:report][:project_id])
       @users = @project.members if @project.present?
     elsif @report_type == 'team' && params[:report].present? && params[:report][:team_id].present?
       @team = Team.find(params[:report][:team_id])
