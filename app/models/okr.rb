@@ -6,6 +6,8 @@ class Okr < ActiveRecord::Base
 
   after_save :update_children
 
+  validates_presence_of :name, :user_id, :start_date, :end_date
+
   scope :active, -> { where(is_deleted: false) }
 
   def update_children

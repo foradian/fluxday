@@ -1,4 +1,5 @@
 <%= form_for @okr, :html => {:class => 'form-horizontal okr-form', :multipart => true, :data => {:abide => true}} do |f| %>
+
     <div class="form-content form-below">
       <%= f.hidden_field :user_id,:value=>@user.id %>
       <div class='form-row'>
@@ -6,7 +7,7 @@
           <%= f.label :name, 'Name' %>
         </div>
         <div class='small-9 columns'>
-          <%= f.text_field :name,:autofocus=>true %>
+          <%= f.text_field :name,:autofocus=>true,:required=>true %>
         </div>
       </div>
       <div class='form-row'>
@@ -14,7 +15,7 @@
           <%= f.label :start_date, 'Start date' %>
         </div>
         <div class='small-9 columns'>
-          <%= f.text_field :start_date, :class => 'date-input' %>
+          <%= f.text_field :start_date, :class => 'date-input',:required=>true %>
         </div>
       </div>
       <div class='form-row'>
@@ -22,7 +23,7 @@
           <%= f.label :end_date %>
         </div>
         <div class='small-9 columns'>
-          <%= f.text_field :end_date, :class => 'date-input' %>
+          <%= f.text_field :end_date, :class => 'date-input',:required=>true %>
         </div>
       </div>
 

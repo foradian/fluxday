@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2] #, :registerable
   scope :active, -> { where(is_deleted: false) }
 
+  validates_presence_of :name, :nickname
+  validate :email, :presence=>true,:uniqueness=>true
+  validate :employee_code, :presence=>true,:uniqueness=>true
+
   #default_scope {where.not(is_deleted:true).order("name ASC")}
   #default_scope {order("name ASC")}
 

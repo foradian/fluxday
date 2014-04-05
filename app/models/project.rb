@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
   has_many :project_members, :through=>:team_members, :source=>:user
   scope :active, -> {where(is_deleted: false)}
 
+  validates_presence_of :name, :code
+
   #default_scope where(is_deleted: false)
   default_scope{ order("name ASC")}
 

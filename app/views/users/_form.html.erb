@@ -1,7 +1,15 @@
 <%= form_for(@user, :url => {:controller => 'users', :action => 'create'}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
     <div class="form-content form-below">
+      <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
       <%= build_validated_field('user', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.name) %>
-      <%= build_field('user', 'nickname', 'Nickname', 'text', @user.nickname) %>
+      <%= build_validated_field('user', 'nickname', 'Nickname', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.nickname) %>
       <%= build_field('user', 'image', 'Profile picture', 'file', @user.image) %>
       <%= build_validated_field('user', 'email', 'Email', '', '', 'text', @user.email) %>
       <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.employee_code) %>

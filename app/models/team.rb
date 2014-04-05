@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
   has_many :team_leads, :through => :leads, :source => :user #,:foreign_key=>'user_id'
   has_many :members, -> { uniq }, :through => :team_members, :source => :user
 
+  validates_presence_of :name, :code, :project_id
+
   default_scope { where.not(is_deleted: true).order("name ASC") }
 
   scope :active, -> { where(status: 'active') }

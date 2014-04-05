@@ -1,6 +1,6 @@
 class OkrsController < ApplicationController
   before_action :set_okr, only: [:show, :edit, :update, :destroy]
-  before_action :date_and_user, only: [:new, :edit, :index,:show]
+  before_action :date_and_user, only: [:new, :edit, :index,:show,:create,:update]
 
   # GET /okrs
   # GET /okrs.json
@@ -17,7 +17,6 @@ class OkrsController < ApplicationController
 
   # GET /okrs/new
   def new
-    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
     @okr = Okr.new(:user_id=>@user.id,:start_date=>@start_date,:end_date=>@end_date)
     @okr.objectives.build
     2.times{@okr.objectives.first.key_results.build}
@@ -77,10 +76,12 @@ class OkrsController < ApplicationController
   def date_and_user
     @user = User.find(params[:user_id]) if params[:user_id]
     @user ||= current_user
+    @user ||= User.find(params[:okr][:user_id]) if (params[:okr] && params[:okr][:user_id].present?)
     @start_date = params[:start_date] if params[:start_date]
     @start_date ||= Date.today.to_quarters[0]
     @end_date = params[:end_date] if params[:end_date]
     @end_date ||= Date.today.to_quarters[1]
+    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

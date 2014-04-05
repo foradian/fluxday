@@ -17,6 +17,7 @@ $grey-link:#999999;
 $grey-link-hover:#333333;
 $line:#cccccc;
 $warning:#bf392d;
+$error-text:#bf161a;
 $low:#2980b9;
 $medium:#1abc9c;
 $high:#f39c12;
@@ -646,4 +647,44 @@ form.form-horizontal{padding-top: 100px;}
     }
   }
 }
+.report-list{
+  .reports-link,.active .reports-link{
+    padding: 0px;
+    color: #759bc0;
+    font-size: 16px;
+    padding: 3% 10%;
+    background: $pane1-bg;
+    border-bottom: none;
+  }
+  .reports-link:hover, .active .reports-link{
+//    color: #1cc7ff;
+    background: #1f2f3e;
+  }
+}
+.top-set{
+  position: absolute;
+  top: 60px;
+  bottom: 110px;
+  overflow-y: auto;
+  width: 100%;
 
+}
+
+.error{
+//  color: $warning;
+  ::-webkit-input-placeholder {
+    color: $error-text;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $error-text;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: $error-text;
+  }
+
+  :-ms-input-placeholder {
+    color: $error-text;
+  }
+}

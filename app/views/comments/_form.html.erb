@@ -1,8 +1,8 @@
-<%= form_for(@comment, :remote => true) do |f| %>
+<%= form_for(@comment, :remote => true, :data => {:abide => true}) do |f| %>
     <%= f.hidden_field :source_id, :value => @comment.source_id %>
     <%= f.hidden_field :source_type, :value => @comment.source_type %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <div class="field">
-      <%= f.text_field :body, :placeholder => 'Add comment' %>
+      <%= f.text_field :body, :placeholder => 'Add comment',:required => '' %>
     </div>
 <% end %>

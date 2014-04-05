@@ -16,9 +16,11 @@
             <br/>
             <%= link_to raw("(#{user.nickname})"), user_path(user), :class => 'nickname' %>
           </div>
-          <div class="right">
-            <%= link_to 'OKR',user_okrs_path(user) %>
-          </div>
+          <% if can? :manage, Okr %>
+              <div class="right">
+                <%= link_to 'OKR', user_okrs_path(user) %>
+              </div>
+          <% end %>
         </div>
       </div>
   <% end %>

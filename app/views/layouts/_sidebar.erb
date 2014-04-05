@@ -1,7 +1,9 @@
-<ul class="side-nav sidebar-links">
-  <%= form_for :search, :url => {:controller => 'home', :action => 'search'},:method=>'get' do |f| %>
-      <%= f.text_field :keyword, :class=>'quick-search',:placeholder=>'Tracker id or keyword' %>
+<ul class="side-nav sidebar-links search-box">
+  <%= form_for :search, :url => {:controller => 'home', :action => 'search'}, :method => 'get' do |f| %>
+      <%= f.text_field :keyword, :class => 'quick-search', :placeholder => 'Tracker id or keyword' %>
   <% end %>
+</ul>
+<ul class="side-nav sidebar-links top-set">
   <li><a href="/"><span class="icon icon-dashboard-16"></span> Dashboard</a></li>
   <li><%= link_to raw('<span class="icon icon-tasks-16"></span>My tasks'), tasks_path %></li>
   <li><%= link_to raw('<span class="icon icon-projects-16"></span>Projects'), projects_path %></li>
@@ -11,6 +13,18 @@
   <li><%= link_to raw('<span class="icon icon-reports-16"></span>Reports'), reports_index_path %></li>
   <li><%= link_to raw('<span class="icon icon-reports-16"></span>OKR'), okrs_path %></li>
 
+  <dl class="accordion report-list" data-accordion>
+    <dd>
+      <a href="#report_list" class="reports-link"><span class="icon icon-reports-16"></span>Reports</a>
+      <div id="report_list" class="content">
+        <li><%= link_to 'Combined Employee daily report',reports_employees_daily_path %></li>
+        <li><%= link_to 'Combined Employee report for a time range',reports_employees_time_range_path %></li>
+        <li><%= link_to 'Employee report for a day',reports_employee_day_path %></li>
+        <li><%= link_to 'Employee report for a time range',reports_employee_range_path %></li>
+        <li><%= link_to 'Task reports',reports_tasks_path %></li>
+      </div>
+    </dd>
+  </dl>
 </ul>
 
 

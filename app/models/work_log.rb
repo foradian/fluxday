@@ -2,6 +2,8 @@ class WorkLog < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
 
+  validates_presence_of :task_id
+
   #default_scope{ where.not(is_deleted: true) }
 
   scope :active, -> { where(is_deleted: false) }

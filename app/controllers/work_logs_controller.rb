@@ -41,6 +41,16 @@ class WorkLogsController < ApplicationController
     @work_log = WorkLog.new(work_log_params)
     @work_log.user_id = current_user.id
     @work_log.minutes = params[:work_log][:hours].to_i*60+params[:work_log][:mins].to_i
+    unless params[:date].present?
+      @date = Date.today
+    else
+      @date = params[:date].to_date
+    end
+    @entries = current_user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@date.end_of_day,@date.beginning_of_day)
+    @date = params[:date].present? ? params[:date].to_date : Date.today
+    @work_log = WorkLog.new(:date=>@date)
+    @hours = @work_log.minutes.to_i/60
+    @mins = @work_log.minutes.to_i%60
     respond_to do |format|
       if @work_log.save
         format.html { redirect_to @work_log, notice: 'Work log was successfully created.' }

@@ -1,5 +1,14 @@
 <%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+
     <div class="form-content form-below">
+      <% if @work_log.errors.any? %>
+          <div id="error_explanation">
+            <% @work_log.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
       <%= f.hidden_field :date, :value => @date %>
       <%#= build_validated_field('work_log', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@work_log.name) %>
       <%= build_validated_select('work_log', 'task_id', 'Task', 'Should select at least one', '', false, @work_log.task_id, @entries.map { |x| [x.name, x.id] }) %>
