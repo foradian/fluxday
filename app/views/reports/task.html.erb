@@ -1,0 +1,18 @@
+<div class="main-title">
+  <div class="element">
+    <h5>Reports</h5>
+  </div>
+</div>
+<div class="report-options">
+</div>
+<div class="report-renderer">
+  <%= render :partial => 'reports/task_report' %>
+</div>
+<script type="text/javascript">
+    //    $('.report_type_select').on("change", function () {
+    //        $.get('/reports/get_selection_list?type=' + $('.report_type_select').val())
+    //    });
+    $('.report_main_select').on("change", function (e) {
+        $.get('/reports/get_selection_list?type=' + $(this).val())
+    });
+</script>

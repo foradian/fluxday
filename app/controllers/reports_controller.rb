@@ -168,4 +168,13 @@ class ReportsController < ApplicationController
     @end_date ||= Date.today.end_of_month
     @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id:@user.id)
   end
+
+  def task
+    @task = Task.find(params[:id])
+    @logs = @task.work_logs.includes(:user).order('date asc')
+    @stats={}
+    @stats['users'] = @logs.collect(&:user_id).uniq.count
+    @stats['days'] = @logs.collect(&:date).uniq.count
+    @stats['time'] = @logs.sum('minutes').to_duration
+  end
 end

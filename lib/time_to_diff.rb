@@ -26,6 +26,12 @@ module DateExtenstions
   end
 end
 
+module IntExtenstions
+  def to_duration
+    return "#{self/60}:#{ '%02d' % (self%60)}"
+  end
+end
+
 class Time
   include TimeExtenstions
 end
@@ -34,4 +40,6 @@ class Date
   include DateExtenstions
 end
 
-
+class Fixnum
+  include IntExtenstions
+end

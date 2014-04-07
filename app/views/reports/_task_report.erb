@@ -1,0 +1,36 @@
+<% if @task.present? %>
+    <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
+      <thead>
+      <tr>
+        <th width="200">Date</th>
+        <th width="300">Employee</th>
+        <th width="200">Hours</th>
+        <th width="400">Description</th>
+      </tr>
+      </thead>
+      <% @logs.each do |log| %>
+          <tr>
+            <td><%= log.date %></td>
+            <td><%= log.user.name %></td>
+            <td><%= log.hours %></td>
+            <td><%= log.description %></td>
+          </tr>
+      <% end %>
+      <tfoot>
+      <tr>
+        <td><%= "#{@stats['days']} Days" %></td>
+        <td><%= "#{@stats['users']} users" %></td>
+        <td><%= "#{@stats['time']}" %></td>
+        <td></td>
+      </tr>
+      </tfoot>
+    </table>
+    <script type="text/javascript">
+        $(".sortable-table").tablesorter();
+        //    if ($('.table tbody tr').length > 1){$('table.highchart').highchartTable();}
+    </script>
+<% else %>
+    <div class="alert-box secondary">
+      Task not found
+    </div>
+<% end %>

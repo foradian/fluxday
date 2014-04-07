@@ -11,7 +11,7 @@
   </thead>
   <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.name %></td>
+        <td><%= link_to task.name, reports_task_path(:id=>task.id) %></td>
         <td><%= task.project.name %></td>
         <td><%= task.team.name %></td>
         <td><%= @assignees[task.id].to_i %></td>
