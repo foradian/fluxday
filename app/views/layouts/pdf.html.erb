@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <%= wicked_pdf_stylesheet_link_tag "/stylesheets/pdf.css" %>
+  <%= wicked_pdf_stylesheet_link_tag "stylesheets/pdf.css" -%>
+  <%= wicked_pdf_javascript_include_tag "number_pages" %>
+</head>
+<body onload='number_pages()'>
+<!--<body>-->
+<div id="header">
+  <h1>
+    Tracker
+  </h1>
+  <%#= wicked_pdf_image_tag 'mysite.jpg' %>
+</div>
+<div id="content">
+  <%= yield %>
+</div>
+<script type="text/javascript">
+  $('td').html('sssssssssssssss')
+</script>
+</body>
+</html>

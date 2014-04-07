@@ -1,0 +1,28 @@
+.pdf{
+
+}
+
+body{
+    font-size: 12px;
+}
+.table, tr, td, th{
+    padding: 10px;
+    border:solid 1px #000;
+    border-collapse: collapse;
+}
+th{
+    background: #cccccc;
+}
+h1{
+    text-align: center;
+}
+.title{
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    border-bottom: solid 1px #000000;
+}
+#footer{
+    border-top: solid;
+}

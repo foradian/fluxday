@@ -195,5 +195,10 @@ class ReportsController < ApplicationController
     work_logs = @user.work_logs.where(task_id:tasks.collect(&:id)).group_by(&:task_id)
     @work_logs ={}
     work_logs.each{|k,v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration}
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4',:show_as_html=> params[:debug].present?,:disable_javascript => false, :layout => 'pdf.html', :footer => { :center => '[page] of [topage]' } }
+    end
    end
 end

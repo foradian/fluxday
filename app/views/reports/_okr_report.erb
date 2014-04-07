@@ -12,19 +12,21 @@
 
       <tbody>
       <% @key_results.each do |k| %>
-      <%# @tasks.each do |k, v| %>
+          <%# @tasks.each do |k, v| %>
           <% unless @tasks[k.id].nil? %>
-              <% @tasks[k.id].each do |task| %>
-                  <tr>
-                    <td><%= task.name %></td>
-                    <td><%= k.objective.okr.name %></td>
-                    <td><%= k.objective.name %></td>
-                    <td><%= k.name %></td>
-                    <td><%= @work_logs[task.id] %></td>
-                  </tr>
+              <% 30.times do |task| %>
+                  <% @tasks[k.id].each do |task| %>
+                      <tr>
+                        <td><%= task.name %></td>
+                        <td><%= k.objective.okr.name %></td>
+                        <td><%= k.objective.name %></td>
+                        <td><%= k.name %></td>
+                        <td><%= @work_logs[task.id] %></td>
+                      </tr>
+                  <% end %>
               <% end %>
           <% end %>
-      <%# end %>
+          <%# end %>
       <% end %>
       </tbody>
 
