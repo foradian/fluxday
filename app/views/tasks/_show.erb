@@ -6,9 +6,21 @@
         <li> ></li>
         <li><%= link_to team.name, project_team_path(project, team) %></li>
         <li> ></li>
-        <%= link_to task.name, task_path(task) %>
+        <%= link_to "##{task.tracker_id}", task_path(task) %>
       </ul>
       <div class="right">
+        <% unless task.status == 'completed' %>
+            <a href="#" class="button alert right status" data-options="align:left" data-dropdown="contentDrop">
+              <div class="icon completion-link"></div>
+            </a>
+        <% else %>
+            <a href="#" class="right" data-options="align:left" data-dropdown="contentDrop">
+              <div class="icon completed-link"></div>
+            </a>
+        <% end %>
+        <div class="completion-area drop-task-<%= task.id %>">
+          <%= render :partial => 'tasks/completion', :locals => {:task => task} %>
+        </div>
         <% if can? :edit, task %>
             <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
               <div class="icon settings-link"></div>
@@ -18,10 +30,11 @@
                 <%= link_to "Edit", edit_task_path(task) %>
               </li>
               <li>
-                <%= link_to "Delete", task_path(task),:method=>:delete %>
+                <%= link_to "Delete", task_path(task), :method => :delete %>
               </li>
             </ul>
         <% end %>
+
         <div class="date right end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
           <%= task.time_to_end %>
         </div>

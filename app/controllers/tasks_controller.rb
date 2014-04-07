@@ -93,10 +93,17 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task.update_attribute(:is_deleted,true)
+    @task.update_attribute(:is_deleted, true)
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
+    end
+  end
+
+  def completion
+    @task = Task.find(params[:id])
+    if request.post?
+      @task.update_attributes(:completed_on => params[:task][:completed_on].to_time, :status => 'completed') if (params[:task] && params[:task][:completed_on])
     end
   end
 
@@ -108,6 +115,6 @@ class TasksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def task_params
-    params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count, :key_result_ids=>[],:user_ids => [])
+    params.require(:task).permit(:name, :description, :start_date, :task_id, :end_date, :project_id, :team_id, :user_id, :tracker_id, :priority, :comments_count, :key_result_ids => [], :user_ids => [])
   end
 end

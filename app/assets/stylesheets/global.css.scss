@@ -646,9 +646,11 @@ form.form-horizontal{padding-top: 100px;}
     padding: 20px;
     margin-bottom: 20px;
     overflow: hidden;
+    .title{margin-bottom: 10px}
     label{
       width: 89%;
       vertical-align: text-top;
+      font-size: 0.9em;
     }
   }
 }
@@ -703,5 +705,41 @@ form.form-horizontal{padding-top: 100px;}
 
   :-ms-input-placeholder {
     color: $error-text;
+  }
+}
+.task-completion{
+   padding-left: 0px;
+  padding-right: 25px;
+  input{
+    -webkit-box-shadow:none;
+    box-shadow: none;
+    border: none;
+    width: 140px !important;
+  }
+   label,input,button{
+     font-size: 14px;margin: 0px;
+     width: auto;
+   }
+}
+.f-dropdown.content.completion-option.open{
+  padding: 0px;
+  border: none;
+//  left: auto;
+//  right: 60px;
+}
+.text-right{}
+
+.task-details{
+  .settings-link{
+    margin-top: 5px;
+  }
+  .completed-link{
+    margin-top: 3px;
+  }
+  .button.alert.status{
+    background: $grey-link;
+  }
+.button.alert:hover.status{
+    background: $link-hover;
   }
 }

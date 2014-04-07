@@ -26,6 +26,9 @@ Tracker::Application.routes.draw do
 
   resources :tasks do
     resources :comments
+    member do
+      post 'completion'
+    end
   end
 
   resources :teams do

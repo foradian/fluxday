@@ -66,6 +66,12 @@ $link-active-bg: #1f2f3e;
 .edit-link:hover{
   background: url('/assets/iconsprite.png') no-repeat -16px -46px;
 }
+.completion-link{
+  background: url('/assets/iconsprite.png') no-repeat -96px -30px;
+}
+.completed-link{
+  background: url('/assets/iconsprite.png') no-repeat 0px -78px;
+}
 
 .icon-delete{
   background: url('/assets/iconsprite.png') no-repeat -32px -30px;

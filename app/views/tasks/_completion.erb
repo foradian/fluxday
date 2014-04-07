@@ -1,0 +1,20 @@
+<div id="contentDrop" class="f-dropdown content small completion-option" data-dropdown-content="" style="position: absolute;">
+  <% if task.status == 'completed' %>
+      <div class="text-right">Completed on <%= task.completed_on.strftime('%d/%m/%Y %H:%M') %></div>
+  <% else %>
+      <%= form_for :task, :url => completion_task_path(task.id), :remote => true do |f| %>
+          <div class="row task-completion">
+            <!--<div class="small-4 columns">-->
+            <!--</div>-->
+            <!--<div class="small-6 columns">-->
+            <button class="button alert right">Done</button>
+            <%= f.text_field :completed_on, :value => Time.now.strftime('%d/%m/%Y %H:%M'), :class => 'right' %>
+            <%= f.label :completed_on, :class => 'right inline' %>
+
+            <!--</div>-->
+            <!--<div class="small-2 columns">-->
+            <!--</div>-->
+          </div>
+      <% end %>
+  <% end %>
+</div>
