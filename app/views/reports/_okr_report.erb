@@ -2,28 +2,30 @@
     <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
       <thead>
       <tr>
-        <th width="200">OKR</th>
+        <th width="500">Task</th>
+        <th data-graph-skip="1" width="200">OKR</th>
         <th data-graph-skip="1" width="300">Objective</th>
         <th data-graph-skip="1" width="300">Key result</th>
-        <th data-graph-skip="1" width="500">Task</th>
         <th width="100">Hours</th>
       </tr>
       </thead>
 
       <tbody>
-      <%# @key_results.each do |k, v| %>
-      <% @tasks.each do |k, v| %>
-          <% v.each do |task| %>
-              <tr>
-                <td><%= k.objective.okr.name %></td>
-                <td><%= k.objective.name %></td>
-                <td><%= k.name %></td>
-                <td><%= task.name %></td>
-                <td></td>
-              </tr>
+      <% @key_results.each do |k| %>
+      <%# @tasks.each do |k, v| %>
+          <% unless @tasks[k.id].nil? %>
+              <% @tasks[k.id].each do |task| %>
+                  <tr>
+                    <td><%= task.name %></td>
+                    <td><%= k.objective.okr.name %></td>
+                    <td><%= k.objective.name %></td>
+                    <td><%= k.name %></td>
+                    <td><%= @work_logs[task.id] %></td>
+                  </tr>
+              <% end %>
           <% end %>
-      <% end %>
       <%# end %>
+      <% end %>
       </tbody>
 
     </table>

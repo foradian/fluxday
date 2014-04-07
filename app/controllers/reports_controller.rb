@@ -186,7 +186,14 @@ class ReportsController < ApplicationController
     @users = User.active
     @user = User.find(params[:employee_id]) if params[:employee_id]
     @user ||= @users.first
-    @key_results = KeyResult.where(user_id:@user.id).active.includes(:task_key_results=>[:task=>:work_logs],:objective=>:okr)
-    @tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq)
+    @key_results = KeyResult.where(user_id:@user.id).active.includes(:task_key_results=>[:task],:objective=>:okr)
+    #@tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq).includes(:)
+    task_ids = @key_results.collect(&:task_ids).flatten
+    tasks = Task.where(id:task_ids)
+    @tasks = {}
+    @key_results.each{|k| @tasks[k.id] = tasks.where(id:k.task_ids)}
+    work_logs = @user.work_logs.where(task_id:tasks.collect(&:id)).group_by(&:task_id)
+    @work_logs ={}
+    work_logs.each{|k,v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration}
    end
 end
