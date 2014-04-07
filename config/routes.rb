@@ -14,6 +14,7 @@ Tracker::Application.routes.draw do
   get "reports/employee_range"
   get "reports/tasks"
   get "reports/task"
+  get "reports/okrs"
   get "reports/get_selection_list"
   get "reports/employee_tasks"
 

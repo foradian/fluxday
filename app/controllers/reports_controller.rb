@@ -177,4 +177,16 @@ class ReportsController < ApplicationController
     @stats['days'] = @logs.collect(&:date).uniq.count
     @stats['time'] = @logs.sum('minutes').to_duration
   end
+
+  def okrs
+    @start_date = params[:start_date] if params[:start_date]
+    @start_date ||= Date.today.to_quarters[0]
+    @end_date = params[:end_date] if params[:end_date]
+    @end_date ||= Date.today.to_quarters[1]
+    @users = User.active
+    @user = User.find(params[:employee_id]) if params[:employee_id]
+    @user ||= @users.first
+    @key_results = KeyResult.where(user_id:@user.id).active.includes(:task_key_results=>[:task=>:work_logs],:objective=>:okr)
+    @tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq)
+   end
 end
