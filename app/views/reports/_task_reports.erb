@@ -1,4 +1,4 @@
-<% unless @tasks.empty? %>
+<% if @tasks.present? %>
     <div class="export-options">
       <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
       <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
