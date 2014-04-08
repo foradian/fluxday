@@ -1,10 +1,16 @@
 <% unless @users.empty? %>
+    <div class="export-options">
+      <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
+      <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
+      <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
+    </div>
+
     <table class="table sortable-table highchart " data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
       <thead>
       <tr>
-        <th width="800">Name<span class="text-right">↕</span></th>
-        <th width="200">Tasks<span class="text-right">↕</span></th>
-        <th width="200">Total hours<span class="text-right">↕</span></th>
+        <th width="800">Name</th>
+        <th width="200">Tasks</th>
+        <th width="200">Total hours</th>
       </tr>
       </thead>
       <% @users.each do |user| %>

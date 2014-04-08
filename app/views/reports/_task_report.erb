@@ -1,4 +1,10 @@
 <% if @task.present? %>
+    <div class="export-options">
+      <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
+      <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
+      <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
+    </div>
+
     <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
       <thead>
       <tr>

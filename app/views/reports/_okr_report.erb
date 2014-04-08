@@ -1,7 +1,10 @@
-<%= link_to "PDF", current_url(:format => :pdf ),:target=>"_blank" %>
-<%= link_to "CSV", current_url(:format => :csv ),:target=>"_blank" %>
-<%= link_to "Excel", current_url(:format => :xls ),:target=>"_blank" %>
 <% unless @key_results.empty? %>
+    <div class="export-options">
+      <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
+      <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
+      <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
+    </div>
+
     <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
       <thead>
       <tr>
@@ -16,15 +19,15 @@
       <% @key_results.each do |k| %>
           <%# @tasks.each do |k, v| %>
           <% unless @tasks[k.id].nil? %>
-                  <% @tasks[k.id].each do |task| %>
-                      <tr>
-                        <td><%= task.name %></td>
-                        <td><%= k.objective.okr.name %></td>
-                        <td><%= k.objective.name %></td>
-                        <td><%= k.name %></td>
-                        <td><%= @work_logs[task.id] %></td>
-                      </tr>
-                  <% end %>
+              <% @tasks[k.id].each do |task| %>
+                  <tr>
+                    <td><%= task.name %></td>
+                    <td><%= k.objective.okr.name %></td>
+                    <td><%= k.objective.name %></td>
+                    <td><%= k.name %></td>
+                    <td><%= @work_logs[task.id] %></td>
+                  </tr>
+              <% end %>
           <% end %>
           <%# end %>
       <% end %>

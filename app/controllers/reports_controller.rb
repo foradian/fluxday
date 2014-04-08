@@ -45,6 +45,26 @@ class ReportsController < ApplicationController
     work_logs = WorkLog.where(date: @date, user_id: @users.collect(&:id), task_id: tasks.collect(&:id)).select('id', 'user_id', 'minutes').group_by(&:user_id)
     work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{v.sum(&:minutes).to_i%60}" }
     #work_logs.keys.each{|x| @work_logs[x]="#{work_logs[x].sum(&:minutes).to_i/60}:#{work_logs[x].sum(&:minutes).to_i%60}"}
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Name","Task","Total hours"]
+      @fields=[]
+      @users.each do |user|
+        @fields << ["#{user.name}", "#{@tasks[user.id].length}", "#{@work_logs[user.id] == {} ? "00:00" : @work_logs[user.id]}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
   def employees_time_range
@@ -87,6 +107,26 @@ class ReportsController < ApplicationController
     work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id), task_id: tasks.collect(&:id)).select('id', 'user_id', 'minutes').group_by(&:user_id)
     work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{v.sum(&:minutes).to_i%60}" }
     #work_logs.keys.each{|x| @work_logs[x]="#{work_logs[x].sum(&:minutes).to_i/60}:#{work_logs[x].sum(&:minutes).to_i%60}"}
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Name","Task","Total hours"]
+      @fields=[]
+      @users.each do |user|
+        @fields << ["#{user.name}", "#{@tasks[user.id].to_i}", "#{@work_logs[user.id] == {} ? "00:00" : @work_logs[user.id]}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
 
@@ -97,6 +137,26 @@ class ReportsController < ApplicationController
     @date = params[:start_date].to_date if  params[:start_date].present?
     @date ||= Date.today
     @work_logs = WorkLog.where(date: @date, user_id: @user.id).includes(:task => [:project, :team])
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Task","Project","Team","Hours"]
+      @fields=[]
+      @work_logs.each do |log|
+        @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
   def employee_range
@@ -117,6 +177,26 @@ class ReportsController < ApplicationController
     @total['projects']=@tasks.collect(&:project_id).uniq.count
     @total['teams']=@tasks.collect(&:team_id).uniq.count
     @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Task","Project","Team","Hours"]
+      @fields=[]
+      @tasks.each do |t|
+        @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
 
@@ -156,6 +236,26 @@ class ReportsController < ApplicationController
     work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
     logs = work_logs.group_by(&:task_id)
     logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Task","Project","Team","Employees","Hours"]
+      @fields=[]
+      @tasks.each do |task|
+        @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
   def employee_tasks
@@ -167,6 +267,26 @@ class ReportsController < ApplicationController
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
     @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id: @user.id)
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Date","Total Hours","Description"]
+      @fields=[]
+      @work_logs.each do |log|
+            @fields << ["#{log.date.strftime('%d %B %Y')}","#{log.hours}","#{log.description}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
   def task
@@ -176,6 +296,26 @@ class ReportsController < ApplicationController
     @stats['users'] = @logs.collect(&:user_id).uniq.count
     @stats['days'] = @logs.collect(&:date).uniq.count
     @stats['time'] = @logs.sum('minutes').to_duration
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Date","Employee","Hours","Description"]
+      @fields=[]
+      @logs.each do |log|
+        @fields << ["#{log.date}", "#{log.user.name}", "#{log.hours}", "#{log.description}"]
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
   def okrs
@@ -195,18 +335,28 @@ class ReportsController < ApplicationController
     work_logs = @user.work_logs.where(task_id: tasks.collect(&:id)).group_by(&:task_id)
     @work_logs ={}
     work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
+    if ['csv','xls'].include?(request.format)
+      @titles = ["Task", "OKR", "Objective", "Key result", "Hours"]
+      @fields=[]
+      @key_results.each do |k|
+        unless @tasks[k.id].nil?
+          @tasks[k.id].each do |task|
+            @fields << ["#{task.name}","#{k.objective.okr.name}","#{k.objective.name}","#{k.name}","#{@work_logs[task.id]}"]
+          end
+        end
+      end
+    end
     respond_to do |format|
       format.js { render :layout => false }
       format.html
       format.csv do
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
-        render "reports/okrs.csv.erb"
+        render "reports/csv_report.csv.erb"
       end
       format.xls do
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
-        render "reports/okrs.xls.erb"
+        render "reports/excel_report.xls.erb"
       end
-      format.xls #{ render text: excel_report }
       format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
