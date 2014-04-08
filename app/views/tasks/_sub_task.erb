@@ -3,16 +3,25 @@
   <%= count %>:
   <%= link_to task.name,task_path(task) %>
 
+  <div class="info">
+    <div class="icon icon-author"></div> Added by
+    <em><%= task.user.name %></em>
+    on
+    <em><%= task.created_at.strftime('%d %B %Y') %></em>
+      <span class="task-priority priority-<%= task.priority %>">
+        Priority: <%= task.priority %>
+      </span>
+  </div>
 
   <div class="info">
-    Start date
+    <div class="icon icon-timer"></div> Start date
     <em><%= task.start_date.strftime('%d %B %Y') %></em>
     End date
     <em><%= task.end_date.strftime('%d %B %Y') %></em>
   </div>
 
   <div class="info">
-    Assigned to
+    <div class="icon icon-assignee"></div> Assigned to
     <em>
       <% task.users.each_with_index do |u, i| %>
           <%= link_to u.name, user_path(u) %>
