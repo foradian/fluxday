@@ -9,10 +9,10 @@
         <%= link_to team.name, team_path(team), :class => 'grey-link' %>
       </div>
       <div class="team-glymplse">
-        <%= team.members_count %>
+        <%= team.members_count %><div class="icon icon-members-16"></div>
       </div>
       <% if can? :edit, team %>
-          <%= link_to 'Add task', new_task_path(:team_id => team.id), :remote => false, :class => 'btn btn-sec right' %>
+          <%= link_to 'Add task', new_task_path(:team_id => team.id), :remote => false, :class => 'btn btn-sec right transition' %>
       <% end %>
     </div>
 <% end %>

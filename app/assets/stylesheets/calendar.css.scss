@@ -5,24 +5,3 @@
 //.month-calendar-field{visibility: hidden;}
 //.datepicker.datepicker-dropdown.dropdown-menu{display: block !important;}
 
-@import "global";
-.datepicker.datepicker-inline{
-  width: auto;
-  left: 30px;
-  right: 30px;
-  top: 30px;
-//  width: 80%;
-//  margin: 30px 10%;
-  table{
-    width: 100%;
-    background: $pane2-bg;
-    border-collapse: collapse;
-    td{height: 35px;}
-    th,td.old,td.new{background: $pane2-bg;}
-    span.active,td.active{background: $link;}
-    td{border: solid 1px $line;border-collapse: collapse;}
-  }
-}
-.month-calendar-field{
-  min-height: 250px;
-}

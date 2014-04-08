@@ -10,7 +10,16 @@
   }
   .team-glymplse{
     float: right;
+    margin-left: 10px;
+
   }
+  .btn.btn-sec{
+    margin-top: -3px;
+    opacity: 0;
+  }
+}
+.team-list-item:hover{
+  .btn-sec{opacity: 1;}
 }
 
 .new-team{

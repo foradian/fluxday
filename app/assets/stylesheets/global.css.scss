@@ -744,3 +744,41 @@ form.form-horizontal{padding-top: 100px;}
     background: $link-hover;
   }
 }
+
+.datepicker.datepicker-inline{
+  width: auto;
+  left: 30px;
+  right: 30px;
+  top: 30px;
+  //  width: 80%;
+  //  margin: 30px 10%;
+  table{
+    width: 100%;
+    background: $pane2-bg;
+    border-collapse: collapse;
+    td{height: 35px;}
+    th,td.old,td.new{background: $pane2-bg;}
+    span.active,td.active{background: $link;}
+    td{border: solid 1px $line;border-collapse: collapse;}
+  }
+}
+.month-calendar-field{
+  min-height: 250px;
+  thead tr{
+    border-top: solid 1px $line;
+    border-bottom: solid 1px $line;
+    border-collapse: collapse;
+    th{
+      line-height: 1.4em;
+      font-weight: normal;
+    }
+    .dow{line-height: 2em}
+    .date-switch{
+      font-size: 1em;
+    }
+  }
+}
+.row{height: auto}
+.small-9.columns textarea{
+  margin-bottom: 0px;
+}

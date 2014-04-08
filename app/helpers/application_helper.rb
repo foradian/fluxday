@@ -54,7 +54,7 @@ module ApplicationHelper
     elsif type == 'checkbox'
       html << check_box_tag("#{form_name}[#{field}]", value, :class => 'text_field', :placeholder => name)
     elsif type == 'text_area'
-      html << text_area_tag("#{form_name}[#{field}]", value, :class => 'text_field', :placeholder => name)
+      html << text_area_tag("#{form_name}[#{field}]", value, :class => 'text_field', :placeholder => name,:rows=>1)
     else
       html << text_field_tag("#{form_name}[#{field}]", value, :class => 'text_field', :placeholder => name)
     end

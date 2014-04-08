@@ -51,6 +51,10 @@ $link-active-bg: #1f2f3e;
   margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -96px 0px;
 }
+.icon-okr-16{
+  margin: 0px 10px -2px 0px;
+  background: url('/assets/iconsprite.png') no-repeat -143px 0px;
+}
 .icon-profile-16{
   margin: 0px 10px -2px 0px;
   background: url('/assets/iconsprite.png') no-repeat -113px 0px;
@@ -85,6 +89,10 @@ $link-active-bg: #1f2f3e;
 }
 .settings-link:hover{
   background: url('/assets/iconsprite.png') no-repeat -127px -80px;
+}
+.icon-members-16{
+  margin: 0px 10px -2px 5px;
+  background: url('/assets/iconsprite.png') no-repeat -33px -80px;
 }
 
 .icon.prev{
