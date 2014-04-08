@@ -10,7 +10,7 @@ class WorkLogsController < ApplicationController
   # GET /work_logs/1
   # GET /work_logs/1.json
   def show
-    @tasks = current_user.assignments
+    @tasks = current_user.assigned_and_written_tasks.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /work_logs/new

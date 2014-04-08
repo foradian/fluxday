@@ -24,6 +24,7 @@ class Task < ActiveRecord::Base
   scope :root, -> { where(task_id: nil) }
   scope :sub, -> { where("task_id IS NOT NULL") }
   scope :pending, -> { where(status: 'pending') }
+  scope :searchable_for_user, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids ,user.project_ids, user.team_ids)}
 
 
   def time_to_end
@@ -38,6 +39,7 @@ class Task < ActiveRecord::Base
       'Due '+end_date.strftime('%d %B %Y')
     end
   end
+
 
   def update_team_task_count
     team.update_attributes(:pending_tasks=>team.tasks.active.pending.count)

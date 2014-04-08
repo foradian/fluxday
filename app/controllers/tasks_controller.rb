@@ -8,13 +8,13 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     #@tasks = current_user.assignments
-    @tasks = current_user.assigned_and_written_tasks
+    @tasks = current_user.assigned_and_written_tasks.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @tasks = current_user.assigned_and_written_tasks
+    @tasks = current_user.assigned_and_written_tasks.paginate(page: params[:page], per_page: 10)
     @team = @task.team
     @project = @team.project
     @sub_tasks = @task.sub_tasks

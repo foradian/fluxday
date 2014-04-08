@@ -3,9 +3,9 @@
       <div class="pane2-meta">
         <div class="title">Results for <%= params[:search][:keyword] %></div>
       </div>
-      <div class="pane2-content">
+      <div class="pane2-content scroll2watch">
 
-        <div id="my-posts">
+        <div id="paginator">
           <%= render 'tasks/task_listings' %>
         </div>
 
@@ -19,19 +19,5 @@
 
 
 <script type="text/javascript">
-    jQuery(function () {
-        if ($('#infinite-scrolling').size() > 0) {
-            return $('.pane2-content').on('scroll', function () {
-                var more_posts_url;
-                more_posts_url = $('.pagination a.next_page').attr('href');
-//                if (more_posts_url && $('.pane2-content').scrollTop() > $(document).height() - $('.pane2-content').height() - 60) {
-                if (more_posts_url && $('#my-posts').height() - $('.pane2-content').scrollTop() < $('.pane2-content').height()) {
-                    $('.pagination').html('loading...');
-                    $.getScript(more_posts_url);
-                }
-                return;
-            });
-        }
-    });
-
+        infiniteScroll()
 </script>

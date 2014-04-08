@@ -1,26 +1,17 @@
 <div class="pane2-meta">
   <div class="title">My tasks</div>
 </div>
-<div class="pane2-content">
-  <div class="task-list">
-    <% @tasks.each do |task| %>
-        <%= link_to task_path(task) do %>
-            <div class="card transition task-card task task-<%= task.id %>">
-              <div class="name">
-                <%= task.name %>
-              </div>
-              <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
-                <%= task.time_to_end %>
-                <div class="right">
-                  <%= raw("<div class='icon icon-author'></div>") if task.user_id == current_user.id %>
-                  <%= raw("<div class='icon icon-assignee'></div>") if task.user_ids.include?(current_user.id) %>
-                </div>
-              </div>
-              <div class="team">
-                <%= task.team.name %>
-              </div>
-            </div>
-        <% end %>
-    <% end %>
+<div class="pane2-content scroll2watch">
+  <div class="task-list" id="my-tasks">
+  <div id="paginator">
+    <%= render :partial=>'tasks/task_page' %>
+  </div>
+    <div id="infinite-scrolling">
+      <%= will_paginate(@tasks, :params => { :controller => "tasks", :action => "index" }) %>
+
+    </div>
   </div>
 </div>
+<script type="text/javascript">
+    infiniteScroll()
+</script>

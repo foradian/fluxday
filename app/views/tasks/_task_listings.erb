@@ -7,6 +7,10 @@
             </div>
             <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
               <%= task.time_to_end %>
+              <div class="right">
+                <%= raw("<div class='icon icon-author'></div>") if task.user_id == current_user.id %>
+                <%= raw("<div class='icon icon-assignee'></div>") if task.user_ids.include?(current_user.id) %>
+              </div>
             </div>
             <div class="team">
               <%= task.team.name %>

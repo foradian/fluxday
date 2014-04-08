@@ -20,3 +20,19 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+
+function infiniteScroll() {
+    if ($('#infinite-scrolling').size() > 0) {
+        return $('.scroll2watch').on('scroll', function () {
+            var load_more_url;
+            load_more_url = $('.pagination a.next_page').attr('href');
+//                if (more_posts_url && $('.pane2-content').scrollTop() > $(document).height() - $('.pane2-content').height() - 60) {
+            if (load_more_url && $('#paginator').height() - $('.scroll2watch').scrollTop() < $('.scroll2watch').height()) {
+                $('.pagination').html('loading...');
+                $.getScript(load_more_url);
+            }
+            return;
+        });
+    }
+}

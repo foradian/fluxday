@@ -17,7 +17,12 @@
     <% entries.each_with_index do |entry,i| %>
         <dd>
           <a href="#panel<%= i+1 %>" class="collapse-task">
-            <li class="task-name li-priority li-<%= entry.priority.to_s.downcase %>"><%= entry.name %></li>
+            <li class="task-name li-priority li-<%= entry.priority.to_s.downcase %>"><%= entry.name %>
+              <div class="right">
+                <%= raw("<div class='icon icon-author'></div>") if entry.user_id == current_user.id %>
+                <%= raw("<div class='icon icon-assignee'></div>") if entry.user_ids.include?(current_user.id) %>
+              </div>
+            </li>
             <li class="date-sub">
               <div class="date end-<%= (entry.end_date <= 7.day.from_now && entry.end_date >= Date.today) ? 'soon' : 'low' %>">
                 <%= entry.time_to_end %>

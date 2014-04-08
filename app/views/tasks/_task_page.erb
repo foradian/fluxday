@@ -1,0 +1,19 @@
+<% @tasks.each do |task| %>
+    <%= link_to task_path(task),:remote=>true do %>
+        <div class="card transition task-card task task-<%= task.id %>">
+          <div class="name">
+            <%= task.name %>
+          </div>
+          <div class="date end-<%= (task.end_date <= 7.day.from_now && task.end_date >= Date.today) ? 'soon' : 'low' %>">
+            <%= task.time_to_end %>
+            <div class="right">
+              <%= raw("<div class='icon icon-author'></div>") if task.user_id == current_user.id %>
+              <%= raw("<div class='icon icon-assignee'></div>") if task.user_ids.include?(current_user.id) %>
+            </div>
+          </div>
+          <div class="team">
+            <%= task.team.name %>
+          </div>
+        </div>
+    <% end %>
+<% end %>
