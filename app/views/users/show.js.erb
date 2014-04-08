@@ -1,4 +1,4 @@
-$('.pane3').html("<%= escape_javascript(render :partial => 'users/show') %>")
+$('.pane3').html("<%= escape_javascript(render :partial => 'users/show',:locals=>{:user=>@user}) %>")
 $(document).foundation({
     tab: {
         callback: function (tab) {

@@ -1,1 +1,1 @@
-$('.completion-area.drop-task-<%= task.id %>').html("<%= escape_javascript(render :partial => 'tasks/completion',:locals => {:task => @task}) %>")
+$('.completion-area.drop-task-<%= @task.id %>').html("<%= escape_javascript(render :partial => 'tasks/completion',:locals => {:task => @task}) %>")

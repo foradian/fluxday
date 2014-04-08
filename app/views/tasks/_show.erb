@@ -10,22 +10,22 @@
       </ul>
       <div class="right">
         <% unless task.status == 'completed' %>
-            <a href="#" class="button alert right status" data-options="align:left" data-dropdown="contentDrop">
+            <a href="#" class="button alert right status" data-options="align:left" data-dropdown="contentDrop-<%= task.id %>">
               <div class="icon completion-link"></div>
             </a>
         <% else %>
-            <a href="#" class="right" data-options="align:left" data-dropdown="contentDrop">
+            <a href="#" class="right" data-options="align:left" data-dropdown="contentDrop-<%= task.id %>">
               <div class="icon completed-link"></div>
             </a>
         <% end %>
-        <div class="completion-area drop-task-<%= task.id %>">
+        <div id="contentDrop-<%= task.id %>" data-dropdown-content class="f-dropdown content small completion-option completion-area drop-task-<%= task.id %>" style="display: block">
           <%= render :partial => 'tasks/completion', :locals => {:task => task} %>
         </div>
         <% if can? :edit, task %>
-            <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
+            <a href="#" data-options="align:left" data-dropdown="drop-<%= task.id %>" class="dropdown right">
               <div class="icon settings-link"></div>
             </a>
-            <ul id="drop1" data-dropdown-content class="f-dropdown">
+            <ul id="drop-<%= task.id %>" data-dropdown-content class="f-dropdown">
               <li>
                 <%= link_to "Edit", edit_task_path(task) %>
               </li>
