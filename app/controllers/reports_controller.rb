@@ -223,11 +223,11 @@ class ReportsController < ApplicationController
       @projects = current_user.manager? ? Project.active : current_user.projects
       @project = @projects.find(params[:report][:project_id]) if (params[:report] && params[:report][:project_id])
       @project ||= @projects.first
-      @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:users, :project, :team])
+      @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:users, :project, :team]) if @project
     elsif @report_type == 'team'
       @teams = Team.for_user(current_user)
       @team=Team.find(params[:report][:team_id]) if (params[:report] && params[:report][:team_id])
-      @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team])
+      @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team]) if @team
     end
     @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
