@@ -11,7 +11,8 @@
         <th width="400">Task</th>
         <th data-graph-skip="1" width="300">Project</th>
         <th data-graph-skip="1" width="300">Team</th>
-        <th width="200">Hours</th>
+        <th width="100">Hours</th>
+        <th width="100">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -21,6 +22,7 @@
             <td><%= t.project.name %></td>
             <td><%= t.team.name %></td>
             <td><%= @work_logs[t.id] %></td>
+            <td><%= t.status == 'active' ? 'Pending' : t.status.capitalize  %></td>
           </tr>
       <% end %>
       </tbody>
@@ -30,6 +32,7 @@
         <td><%= "#{@total['projects']} #{'Project'.pluralize(@total['projects'])}" %></td>
         <td><%= "#{@total['teams']} #{'Team'.pluralize(@total['teams'])}" %></td>
         <td><%= @total['hours'] %> Hours</td>
+        <td></td>
       </tr>
       </tfoot>
 

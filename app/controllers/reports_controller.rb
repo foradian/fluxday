@@ -138,10 +138,10 @@ class ReportsController < ApplicationController
     @date ||= Date.today
     @work_logs = WorkLog.where(date: @date, user_id: @user.id).includes(:task => [:project, :team])
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours"]
+      @titles = ["Task", "Project", "Team", "Hours","Status"]
       @fields=[]
       @work_logs.each do |log|
-        @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}"]
+        @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}","#{log.task.status == 'active' ? 'Pending' : log.task.status.capitalize}"]
       end
     end
     respond_to do |format|
@@ -178,10 +178,10 @@ class ReportsController < ApplicationController
     @total['teams']=@tasks.collect(&:team_id).uniq.count
     @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours"]
+      @titles = ["Task", "Project", "Team", "Hours","Status"]
       @fields=[]
       @tasks.each do |t|
-        @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}"]
+        @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}","#{t.status == 'active' ? 'Pending' : t.status.capitalize}"]
       end
     end
     respond_to do |format|
@@ -239,10 +239,10 @@ class ReportsController < ApplicationController
       logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
     end
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Employees", "Hours"]
+      @titles = ["Task", "Project", "Team", "Employees", "Hours","Status"]
       @fields=[]
       @tasks.each do |task|
-        @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}"]
+        @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}","#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
       end
     end
     respond_to do |format|
@@ -338,12 +338,12 @@ class ReportsController < ApplicationController
     @work_logs ={}
     work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "OKR", "Objective", "Key result", "Hours"]
+      @titles = ["Task", "OKR", "Objective", "Key result", "Hours","Status"]
       @fields=[]
       @key_results.each do |k|
         unless @tasks[k.id].nil?
           @tasks[k.id].each do |task|
-            @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}"]
+            @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}","#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
           end
         end
       end

@@ -12,6 +12,7 @@
         <th data-graph-skip="1" width="300">Project</th>
         <th width="300">Team</th>
         <th width="200">Hours</th>
+        <th width="200">Status</th>
       </tr>
       </thead>
       <% @work_logs.each do |log| %>
@@ -20,6 +21,7 @@
             <td><%= log.task.project.name %></td>
             <td><%= log.task.team.name %></td>
             <td><%= log.hours %></td>
+            <td><%= log.task.status == 'active' ? 'Pending' : log.task.status.capitalize  %></td>
           </tr>
       <% end %>
     </table>

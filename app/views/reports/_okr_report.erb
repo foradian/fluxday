@@ -13,6 +13,7 @@
         <th data-graph-skip="1" width="300">Objective</th>
         <th data-graph-skip="1" width="300">Key result</th>
         <th width="100">Hours</th>
+        <th data-graph-skip="1" width="100">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -26,6 +27,7 @@
                     <td><%= k.objective.name %></td>
                     <td><%= k.name %></td>
                     <td><%= @work_logs[task.id] %></td>
+                    <td><%= task.status == 'active' ? 'Pending' : task.status.capitalize  %></td>
                   </tr>
               <% end %>
           <% end %>
