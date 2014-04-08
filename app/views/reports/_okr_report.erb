@@ -1,3 +1,6 @@
+<%= link_to "PDF", current_url(:format => :pdf ),:target=>"_blank" %>
+<%= link_to "CSV", current_url(:format => :csv ),:target=>"_blank" %>
+<%= link_to "Excel", current_url(:format => :xls ),:target=>"_blank" %>
 <% unless @key_results.empty? %>
     <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="pie" data-graph-xaxis-rotation="-45">
       <thead>
@@ -9,7 +12,6 @@
         <th width="100">Hours</th>
       </tr>
       </thead>
-
       <tbody>
       <% @key_results.each do |k| %>
           <%# @tasks.each do |k, v| %>

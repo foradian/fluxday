@@ -152,7 +152,7 @@ class ReportsController < ApplicationController
     @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
-    @tasks.each{|x| @assignees[x.id] = x.user_ids.length}
+    @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
     work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
     logs = work_logs.group_by(&:task_id)
     logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
@@ -166,7 +166,7 @@ class ReportsController < ApplicationController
     @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
-    @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id:@user.id)
+    @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id: @user.id)
   end
 
   def task
@@ -186,19 +186,28 @@ class ReportsController < ApplicationController
     @users = User.active
     @user = User.find(params[:employee_id]) if params[:employee_id]
     @user ||= @users.first
-    @key_results = KeyResult.where(user_id:@user.id).active.includes(:task_key_results=>[:task],:objective=>:okr)
+    @key_results = KeyResult.where(user_id: @user.id).active.includes(:task_key_results => [:task], :objective => :okr)
     #@tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq).includes(:)
     task_ids = @key_results.collect(&:task_ids).flatten
-    tasks = Task.where(id:task_ids)
+    tasks = Task.where(id: task_ids)
     @tasks = {}
-    @key_results.each{|k| @tasks[k.id] = tasks.where(id:k.task_ids)}
-    work_logs = @user.work_logs.where(task_id:tasks.collect(&:id)).group_by(&:task_id)
+    @key_results.each { |k| @tasks[k.id] = tasks.where(id: k.task_ids) }
+    work_logs = @user.work_logs.where(task_id: tasks.collect(&:id)).group_by(&:task_id)
     @work_logs ={}
-    work_logs.each{|k,v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration}
+    work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
     respond_to do |format|
       format.js { render :layout => false }
       format.html
-      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4',:show_as_html=> params[:debug].present?,:disable_javascript => false, :layout => 'pdf.html', :footer => { :center => '[page] of [topage]' } }
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+        render "reports/okrs.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+        render "reports/okrs.xls.erb"
+      end
+      format.xls #{ render text: excel_report }
+      format.pdf { render :pdf => "OKR report #{@user.employee_code} - #{@user.name}", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
-   end
+  end
 end

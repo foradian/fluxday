@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def current_url(new_params)
+    params.merge!(new_params)
+    string = params.map{ |k,v| "#{k}=#{v}" }.join("&")
+    request.original_url.split("?")[0] + "?" + string
+  end
+
   def build_validated_field(form_name, field, name, message, pattern, type, value)
     html = ""
     html << "<div class='form-row'>"
