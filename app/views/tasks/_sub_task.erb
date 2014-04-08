@@ -14,8 +14,9 @@
   <div class="info">
     Assigned to
     <em>
-      <% task.users.each do |u| %>
+      <% task.users.each_with_index do |u, i| %>
           <%= link_to u.name, user_path(u) %>
+          <%= i+1 != task.users.count ? "," : '' %>
       <% end %>
     </em>
   </div>

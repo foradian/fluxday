@@ -22,7 +22,7 @@
   <% end %>
 </div>
 <div class="week-nav">
-  <%= link_to calendar_week_path(:date => @start_date-1.days), :remote => true do %>
+  <%= link_to calendar_week_path(:date => @start_date-7.days), :remote => true do %>
       <div class="prev icon left"></div>
   <% end %>
   <%= link_to calendar_week_path(:date => @end_date+1.days), :remote => true do %>

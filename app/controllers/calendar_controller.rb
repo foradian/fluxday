@@ -14,12 +14,12 @@ class CalendarController < ApplicationController
 
   def week
     unless params[:date].present?
-      @start_date = Date.today.beginning_of_week
-      @end_date = Date.today.end_of_week
+      @start_date = Date.today#.beginning_of_week
+      @end_date = Date.today#.end_of_week
     else
       date = params[:date].to_date
-      @start_date = date.beginning_of_week
-      @end_date = date.end_of_week
+      @start_date = date#.beginning_of_week
+      @end_date = date+6.days#.end_of_week
     end
     @entry_hash={}
     entries = current_user.work_logs.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)

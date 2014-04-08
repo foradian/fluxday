@@ -90,8 +90,10 @@
           <%= render :partial => 'tasks/sub_task', :locals => {:task => task, :count => i+1} %>
       <% end %>
   <% end %>
-  <% if can? :manage, task %>
-      <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
+  <% unless task.task_id.present? %>
+      <% if can? :manage, task %>
+          <%= link_to 'Add subtask', new_task_path(:task_id => task.id), :class => 'dashed_link transition' %>
+      <% end %>
   <% end %>
 
 </div>

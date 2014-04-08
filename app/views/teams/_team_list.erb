@@ -11,5 +11,8 @@
       <div class="team-glymplse">
         <%= team.members_count %>
       </div>
+      <% if can? :edit, team %>
+          <%= link_to 'Add task', new_task_path(:team_id => team.id), :remote => false, :class => 'btn btn-sec right' %>
+      <% end %>
     </div>
 <% end %>

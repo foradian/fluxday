@@ -10,8 +10,8 @@ class HomeController < ApplicationController
 
   def dashboard
     date = params[:date].present? ? parama[:date].to_date : Date.today
-    @start_date = date.beginning_of_week
-    @end_date = date.end_of_week
+    @start_date = date#.beginning_of_week
+    @end_date = date+6.days#.end_of_week
     @entry_hash={}
     #entries = Task.where('start_date <= ? && end_date >= ?',@end_date.end_of_day,@start_date.beginning_of_day)
     entries = current_user.work_logs.where('date <= ? && date >= ?', @end_date.end_of_day, @start_date.beginning_of_day)
