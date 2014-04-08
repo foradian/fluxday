@@ -1,10 +1,8 @@
 "Task", "OKR", "Objective", "Key result", "Hours"
 <% @key_results.each do |k| %>
     <% unless @tasks[k.id].nil? %>
-        <% 30.times do |task| %>
             <% @tasks[k.id].each do |task| %>
 <%= task.name %>,<%= k.objective.okr.name %>,<%= k.objective.name %>,<%= k.name %>,<%= @work_logs[task.id] %>
             <% end %>
-        <% end %>
     <% end %>
 <% end %>

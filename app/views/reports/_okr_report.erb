@@ -16,7 +16,6 @@
       <% @key_results.each do |k| %>
           <%# @tasks.each do |k, v| %>
           <% unless @tasks[k.id].nil? %>
-              <% 30.times do |task| %>
                   <% @tasks[k.id].each do |task| %>
                       <tr>
                         <td><%= task.name %></td>
@@ -26,7 +25,6 @@
                         <td><%= @work_logs[task.id] %></td>
                       </tr>
                   <% end %>
-              <% end %>
           <% end %>
           <%# end %>
       <% end %>

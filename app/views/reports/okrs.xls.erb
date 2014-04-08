@@ -15,7 +15,6 @@
       </Row>
       <% @key_results.each do |k| %>
           <% unless @tasks[k.id].nil? %>
-              <% 30.times do |task| %>
                   <% @tasks[k.id].each do |task| %>
                       <Row>
                         <Cell><Data ss:Type="String"><%= task.name %></Data></Cell>
@@ -25,7 +24,6 @@
                         <Cell><Data ss:Type="String"><%= @work_logs[task.id] %></Data></Cell>
                       </Row>
                   <% end %>
-              <% end %>
           <% end %>
       <% end %>
     </Table>
