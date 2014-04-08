@@ -26,3 +26,14 @@ h1{
 #footer{
     border-top: solid;
 }
+.export-options{
+    display: none;
+}
+a{
+    text-decoration: none;
+    color: #000000;
+}
+tfoot{
+    font-weight: bold;
+    background: #DDDDDD;
+}
