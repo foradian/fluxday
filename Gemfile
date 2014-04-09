@@ -63,3 +63,4 @@ gem "ransack"
 gem "will_paginate"
 gem "cocoon"
 gem 'wicked_pdf'
+gem 'friendly_id', '~> 5.0.0'
