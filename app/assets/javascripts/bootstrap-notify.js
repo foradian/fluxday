@@ -31,8 +31,8 @@
     else this.$note.addClass('fade').addClass('in');
 
     if(this.options.type)
-      this.$note.addClass(this.options.type);
-    else this.$note.addClass('info');
+      this.$note.addClass(this.options.type+' radius');
+    else this.$note.addClass('info radius');
 
     if(!this.options.message && this.$element.data("message") !== '') // dom text
       this.$note.html(this.$element.data("message"));
@@ -79,7 +79,7 @@
   };
 
   $.fn.notify.defaults = {
-    type: 'success',
+    type: 'info',
     closable: true,
     transition: 'fade',
     fadeOut: {

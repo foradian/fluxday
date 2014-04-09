@@ -24,7 +24,12 @@ Tracker::Application.routes.draw do
   get "calendar/monthly"
   get "calendar/day"
   get "calendar/week"
-  resources :comments
+  resources :comments do
+    member do
+      get 'reply'
+      post 'post_reply'
+    end
+  end
 
   resources :tasks do
     resources :comments

@@ -1,0 +1,3 @@
+<% unless @comment.errors.present? %>
+$('.comments-<%= @task.id %>').html("<%= escape_javascript(render :partial => 'comments/comments') %>")
+<% end %>

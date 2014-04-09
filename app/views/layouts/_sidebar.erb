@@ -16,13 +16,14 @@
   <dl class="accordion report-list" data-accordion>
     <dd>
       <a href="#report_list" class="reports-link"><span class="icon icon-reports-16"></span>Reports</a>
+
       <div id="report_list" class="content report-options">
-        <li><%= link_to 'Combined Employee daily report',reports_employees_daily_path %></li>
-        <li><%= link_to 'Combined Employee report for a time range',reports_employees_time_range_path %></li>
-        <li><%= link_to 'Employee report for a day',reports_employee_day_path %></li>
-        <li><%= link_to 'Employee report for a time range',reports_employee_range_path %></li>
-        <li><%= link_to 'Task reports',reports_tasks_path %></li>
-        <li><%= link_to 'OKR',reports_okrs_path %></li>
+        <li><%= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>
+        <li><%= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>
+        <li><%= link_to 'Employee report for a day', reports_employee_day_path %></li>
+        <li><%= link_to 'Employee report for a time range', reports_employee_range_path %></li>
+        <li><%= link_to 'Task reports', reports_tasks_path %></li>
+        <li><%= link_to 'OKR', reports_okrs_path %></li>
       </div>
     </dd>
   </dl>
@@ -46,12 +47,10 @@
 <div class='notifications top-rights alert-area'></div>
 
 <script type="text/javascript">
-  <% if flash.now[:alert].present?  %>
-    $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>",type:'warning' }}).show();
-//    console.log("<%#= flash.now[:alert] %>")
-  <% end %>
-  <% if flash.now[:notice].present?  %>
-      $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }}).show();
-//      console.log("<%#= flash.now[:notice] %>")
-  <% end %>
+    <% if flash.now[:alert].present?  %>
+        $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 30000 }}).show();
+    <% end %>
+    <% if flash.now[:notice].present?  %>
+        $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 30000 }}).show();
+    <% end %>
 </script>

@@ -31,7 +31,8 @@
 }
 
 .alert-area{
+    position: fixed;
     right: 40px;
-    top: 60px;
+    bottom: 40px;
     z-index: 6;
 }
