@@ -1,5 +1,7 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <h2 class="login-title">Tracker</h2>
+    <h2 class="login-title">
+      <div class="app-logo-login"></div>
+    </h2>
     <div class="set">
       <div class="field">
         <%= f.email_field :email, autofocus: true, :placeholder => 'Email', :class => 'login-field' %>
@@ -19,7 +21,7 @@
     <% end -%>
 
     <div class="login-links">
-    <%= render "devise/shared/links" %>
+    <%#= render "devise/shared/links" %>
     </div>
 
 
