@@ -43,13 +43,13 @@
 
   <div class="data-container">
     <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">
-        Pending
-        <div class="fig"><%= %></div>
-      </a></dd>
-      <dd><a href="#panel2-2">
+      <dd class="active"><a href="#user-teams">
         Teams
         <div class="fig"><%= @user.teams.count %></div>
+      </a></dd>
+      <dd><a href="#user-tasks">
+        Pending
+        <div class="fig"><%= %></div>
       </a></dd>
       <div class="right meta">
         Reports
@@ -57,11 +57,11 @@
 
     </dl>
     <div class="tabs-content">
-      <div class="content active" id="panel2-1">
-        <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
-      </div>
-      <div class="content" id="panel2-2">
+      <div class="content active" id="user-teams">
         <%= render :partial => 'teams/team_list', :locals => {:teams => @teams.present? ? @teams : @user.teams} %>
+      </div>
+      <div class="content" id="user-tasks">
+        <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
       </div>
     </div>
   </div>

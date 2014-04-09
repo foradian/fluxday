@@ -27,16 +27,16 @@
   </div>
 
   <div class="data-container">
-    <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">
+    <dl class="tabs" data-tab  data-options="deep_linking: true">
+      <dd class="active"><a href="#project-teams">
         Teams
         <div class="fig"><%= project.team_count %></div>
       </a></dd>
-      <dd><a href="#panel2-2">
+      <dd><a href="#project-members">
         Members
         <div class="fig"><%= project.member_count %></div>
       </a></dd>
-      <dd><a href="#panel2-3">
+      <dd><a href="#project-managers">
         Managers
         <div class="fig"><%= project.project_managers.count %></div>
       </a></dd>
@@ -47,13 +47,13 @@
 
     </dl>
     <div class="tabs-content">
-      <div class="content active" id="panel2-1">
+      <div class="content active" id="project-teams">
         <%= render :partial => 'teams/team_list', :locals => {:project => @project, :teams => @teams.present? ? @teams : @project.teams} %>
       </div>
-      <div class="content" id="panel2-2">
+      <div class="content" id="project-members">
         <%= render :partial => 'users/user_list', :locals => {:users => @members.present? ? @members : @project.members} %>
       </div>
-      <div class="content" id="panel2-3">
+      <div class="content" id="project-managers">
         <%= render :partial => 'users/user_list', :locals => {:users => @managers.present? ? @managers : @project.users} %>
       </div>
     </div>

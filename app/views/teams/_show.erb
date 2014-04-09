@@ -33,12 +33,12 @@
   </div>
 
   <div class="data-container">
-    <dl class="tabs" data-tab>
-      <dd class="active"><a href="#panel2-1">
+    <dl class="tabs" data-tab  data-options="scroll_to_content: false">
+      <dd class="active"><a href="#team-members">
         Members
         <div class="fig"><%= team.members_count %></div>
       </a></dd>
-      <dd><a href="#panel2-2">
+      <dd><a href="#team-leads">
         Leads
         <div class="fig"><%= team.managers_count %></div>
       </a></dd>
@@ -49,13 +49,13 @@
 
     </dl>
     <div class="tabs-content">
-      <div class="content active" id="panel2-1">
+      <div class="content active" id="team-members">
         <% if can? :edit, team %>
             <%= link_to 'Add members', team_add_members_path(team), :remote => false, :class => 'dashed_link transition' %>
         <% end %>
         <%= render :partial => 'users/user_list', :locals => {:users => members.present? ? members : team.members} %>
       </div>
-      <div class="content" id="panel2-2">
+      <div class="content" id="team-leads">
         <%= render :partial => 'users/user_list', :locals => {:users => team_leads.present? ? team_leads : team.team_leads} %>
       </div>
     </div>

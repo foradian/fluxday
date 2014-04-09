@@ -1,11 +1,11 @@
 <%= content_for :pane2 do %>
     <div class="pane2-meta">
       <div class="title">Entries</div>
-      <dl class="tabs right" data-tab>
-        <dd class="active clear-tab"><a href="#panel3-1">
+      <dl class="tabs right" data-tab data-options="deep_linking: true">
+        <dd class="active clear-tab"><a href="#week">
           Week
         </a></dd>
-        <dd class="clear-tab"><a href="#panel3-2">
+        <dd class="clear-tab"><a href="#month">
           Month
         </a></dd>
       </dl>
@@ -25,12 +25,12 @@
         <!--</a></dd>-->
         <!--</dl>-->
         <div class="tabs-content">
-          <div class="content active" id="panel3-1">
+          <div class="content active" id="week">
             <div class="weekdays-container">
               <%= render :partial => 'calendar/week' %>
             </div>
           </div>
-          <div class="content" id="panel3-2">
+          <div class="content" id="month">
             <div class="calendar">
               <div class="month-calendar-field"></div>
             </div>
