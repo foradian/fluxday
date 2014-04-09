@@ -359,41 +359,49 @@ class ReportsController < ApplicationController
     @start_date ||= Date.today.to_quarters[0]
     @end_date = params[:end_date] if params[:end_date]
     @end_date ||= Date.today.to_quarters[1]
-    @users = User.active
+    if current_user.manager?
+      @users = User.active
+    else
+      @users = ([current_user]+current_user.users).uniq
+    end
     @user = User.find(params[:employee_id]) if params[:employee_id]
     @user ||= @users.first
-    @key_results = KeyResult.where(user_id: @user.id).active.includes(:task_key_results => [:task], :objective => :okr)
-    #@tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq).includes(:)
-    task_ids = @key_results.collect(&:task_ids).flatten
-    tasks = Task.where(id: task_ids)
-    @tasks = {}
-    @key_results.each { |k| @tasks[k.id] = tasks.where(id: k.task_ids) }
-    work_logs = @user.work_logs.where(task_id: tasks.collect(&:id)).group_by(&:task_id)
-    @work_logs ={}
-    work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
-    if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "OKR", "Objective", "Key result", "Hours", "Status"]
-      @fields=[]
-      @key_results.each do |k|
-        unless @tasks[k.id].nil?
-          @tasks[k.id].each do |task|
-            @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}", "#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
+    unless @users.include?(@user)
+      redirect_to root_path, :alert => 'Unauthorized access'
+    else
+      @key_results = KeyResult.where(user_id: @user.id).active.includes(:task_key_results => [:task], :objective => :okr)
+      #@tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq).includes(:)
+      task_ids = @key_results.collect(&:task_ids).flatten
+      tasks = Task.where(id: task_ids)
+      @tasks = {}
+      @key_results.each { |k| @tasks[k.id] = tasks.where(id: k.task_ids) }
+      work_logs = @user.work_logs.where(task_id: tasks.collect(&:id)).group_by(&:task_id)
+      @work_logs ={}
+      work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
+      if ['csv', 'xls'].include?(request.format)
+        @titles = ["Task", "OKR", "Objective", "Key result", "Hours", "Status"]
+        @fields=[]
+        @key_results.each do |k|
+          unless @tasks[k.id].nil?
+            @tasks[k.id].each do |task|
+              @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}", "#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
+            end
           end
         end
       end
-    end
-    respond_to do |format|
-      format.js { render :layout => false }
-      format.html
-      format.csv do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
-        render "reports/csv_report.csv.erb"
+      respond_to do |format|
+        format.js { render :layout => false }
+        format.html
+        format.csv do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+          render "reports/csv_report.csv.erb"
+        end
+        format.xls do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
-      format.xls do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
-        render "reports/excel_report.xls.erb"
-      end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
