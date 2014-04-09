@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap-notify
 //= require jquery_ujs
 //= require foundation
 //= require turbolinks
