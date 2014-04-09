@@ -51,6 +51,8 @@ class TasksController < ApplicationController
     else
       @users = @team.team_leads
     end
+    else
+      redirect_to root_path, :alert => 'You have no access to a team inorder to assign a task.'
     end
     @kr_ids = @task.key_result_ids
     @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', @task.end_date, @task.start_date).group_by(&:user_id) if @team

@@ -153,5 +153,8 @@ $link-active-bg: #1f2f3e;
     background: #9a2e22 !important;
   }
 }
+.user-links{
+  border-top: solid 1px #1f2f3e;
+}
 .top-bar-section ul li > a,.title.back.js-generated{background: #2c3e50;}
-.top-bar-section ul li:hover:not(.has-form) > a,.title.back.js-generated:hover{background: #1f2f3e !important;}
+.top-bar-section ul .show-for-small li:hover:not(.has-form) > a,.title.back.js-generated:hover{background: #1f2f3e !important;}
