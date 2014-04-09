@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-notify
 //= require jquery_ujs
 //= require foundation
 //= require turbolinks
 //= require jquery.turbolinks
+//= require bootstrap-notify
 //= require select2
 //= require cocoon
 //= require_tree .

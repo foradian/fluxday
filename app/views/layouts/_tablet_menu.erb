@@ -1,0 +1,33 @@
+<li class="has-dropdown show-for-medium">
+  <a href="#">Menu</a>
+  <ul class="dropdown">
+    <li><%= link_to raw('<span class="icon icon-tasks-16"></span>My tasks'), tasks_path %></li>
+    <li><%= link_to raw('<span class="icon icon-projects-16"></span>Projects'), projects_path %></li>
+    <li><%= link_to raw('<span class="icon icon-teams-16"></span>Team'), teams_path %></li>
+    <li><%= link_to raw('<span class="icon icon-user-16"></span>Users'), users_path %></li>
+
+    <li class="has-dropdown">
+      <a href="#"><span class="icon icon-reports-16"></span>Reports</a>
+      <ul class="dropdown">
+        <li><%= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>
+        <li><%= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>
+        <li><%= link_to 'Employee report for a day', reports_employee_day_path %></li>
+        <li><%= link_to 'Employee report for a time range', reports_employee_range_path %></li>
+        <li><%= link_to 'Task reports', reports_tasks_path %></li>
+        <li><%= link_to 'OKR', reports_okrs_path %></li>
+      </ul>
+    </li>
+    <% if user_signed_in? %>
+        <li>
+          <%= link_to(raw("<span class='icon icon-profile-16'></span>#{current_user.name}"), user_path(current_user)) %>
+        </li>
+        <li>
+          <%= link_to(raw('<span class="icon icon-logout-16"></span>Logout'), destroy_user_session_path, :method => :delete) %>
+        </li>
+    <% else %>
+        <li>
+          <%= link_to('Login', new_user_session_path) %>
+        </li>
+    <% end %>
+  </ul>
+</li>

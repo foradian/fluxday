@@ -33,6 +33,14 @@ html {
   text-rendering: optimizeLegibility !important;
 }
 
+
+.app-logo{
+  height: 32px;
+  width: 62px;
+  display: inline-block;
+  background: url("/assets/iconsprite.png") no-repeat 0px -110px;
+  margin: 6px 10px -2px 0px;
+}
 body{
 //  font-family: 'Raleway', sans-serif;
   font-family: 'Source Sans Pro', sans-serif;
@@ -799,3 +807,4 @@ form.form-horizontal{padding-top: 100px;}
   padding: 20px 40px 20px 20px;
   color: $link-hover;
 }
+

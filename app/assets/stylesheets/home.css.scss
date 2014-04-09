@@ -137,3 +137,21 @@ $link-active-bg: #1f2f3e;
 }
 
 .next.icon.right,.prev.icon.left{margin: 20px;}
+
+
+.top-bar-section ul li:hover:not(.has-form) > a{
+  background: #9a2e22 !important;
+
+}
+
+.show-for-medium{
+  a:not(.button):hover{background: #9a2e22 !important;}
+  li:hover:not(.has-form) > a{
+    background: #9a2e22 !important;
+  }
+  li a:hover{
+    background: #9a2e22 !important;
+  }
+}
+.top-bar-section ul li > a,.title.back.js-generated{background: #2c3e50;}
+.top-bar-section ul li:hover:not(.has-form) > a,.title.back.js-generated:hover{background: #1f2f3e !important;}
