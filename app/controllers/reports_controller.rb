@@ -9,6 +9,15 @@ class ReportsController < ApplicationController
   end
 
   def employees_daily
+    @opts = []
+    if current_user.manager?
+      @opts = [['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+    else
+      @opts << ['Project', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
+      @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
+      @opts << ['Self', 'user']
+    end
     @report_type = params[:report][:type] if params[:report].present?
     @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
@@ -68,6 +77,15 @@ class ReportsController < ApplicationController
   end
 
   def employees_time_range
+    @opts = []
+    if current_user.manager?
+      @opts = [['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+    else
+      @opts << ['Project', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
+      @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
+      @opts << ['Self', 'user']
+    end
     @report_type = params[:report][:type] if params[:report].present?
     @report_type ||= current_user.manager? ? 'all_users' : 'user'
     if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
@@ -131,17 +149,21 @@ class ReportsController < ApplicationController
 
 
   def employee_day
-    @users = User.active
+    if current_user.manager?
+      @users = User.active
+    else
+      @users = ([current_user]+current_user.users).uniq
+    end
     @user=User.find(params[:employee_id]) if params[:employee_id]
     @user ||= @users.first
     @date = params[:start_date].to_date if  params[:start_date].present?
     @date ||= Date.today
     @work_logs = WorkLog.where(date: @date, user_id: @user.id).includes(:task => [:project, :team])
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours","Status"]
+      @titles = ["Task", "Project", "Team", "Hours", "Status"]
       @fields=[]
       @work_logs.each do |log|
-        @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}","#{log.task.status == 'active' ? 'Pending' : log.task.status.capitalize}"]
+        @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}", "#{log.task.status == 'active' ? 'Pending' : log.task.status.capitalize}"]
       end
     end
     respond_to do |format|
@@ -160,7 +182,11 @@ class ReportsController < ApplicationController
   end
 
   def employee_range
-    @users = User.active
+    if current_user.manager?
+      @users = User.active
+    else
+      @users = ([current_user]+current_user.users).uniq
+    end
     @user=User.find(params[:employee_id]) if params[:employee_id]
     @user ||= @users.first
     @start_date = params[:start_date].to_date if  params[:start_date].present?
@@ -178,10 +204,10 @@ class ReportsController < ApplicationController
     @total['teams']=@tasks.collect(&:team_id).uniq.count
     @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours","Status"]
+      @titles = ["Task", "Project", "Team", "Hours", "Status"]
       @fields=[]
       @tasks.each do |t|
-        @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}","#{t.status == 'active' ? 'Pending' : t.status.capitalize}"]
+        @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}", "#{t.status == 'active' ? 'Pending' : t.status.capitalize}"]
       end
     end
     respond_to do |format|
@@ -213,50 +239,54 @@ class ReportsController < ApplicationController
   end
 
   def tasks
-    @report_type = params[:report][:type] if params[:report].present?
-    @report_type ||= 'project'
-    @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
-    @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
-    @start_date ||= Date.today.beginning_of_month
-    @end_date ||= Date.today.end_of_month
-    if @report_type == 'project'
-      @projects = current_user.manager? ? Project.active : current_user.projects
-      @project = @projects.find(params[:report][:project_id]) if (params[:report] && params[:report][:project_id])
-      @project ||= @projects.first
-      @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:users, :project, :team]) if @project
-    elsif @report_type == 'team'
-      @teams = Team.for_user(current_user)
-      @team=Team.find(params[:report][:team_id]) if (params[:report] && params[:report][:team_id])
-      @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team]) if @team
-    end
-    @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-    @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-    #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
-    if @tasks.present?
-      @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
-      work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
-      logs = work_logs.group_by(&:task_id)
-      logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
-    end
-    if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Employees", "Hours","Status"]
-      @fields=[]
-      @tasks.each do |task|
-        @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}","#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
+    unless (current_user.admin_teams_count.to_i + current_user.admin_projects_count.to_i) > 0
+      redirect_to root_path, :alert => 'Nothing to show'
+    else
+      @report_type = params[:report][:type] if params[:report].present?
+      @report_type ||= 'project'
+      @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
+      @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
+      @start_date ||= Date.today.beginning_of_month
+      @end_date ||= Date.today.end_of_month
+      if @report_type == 'project'
+        @projects = current_user.manager? ? Project.active : current_user.projects
+        @project = @projects.find(params[:report][:project_id]) if (params[:report] && params[:report][:project_id])
+        @project ||= @projects.first
+        @tasks = Task.where('start_date <= ? && end_date >= ? && project_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @project.id).includes([:users, :project, :team]) if @project
+      elsif @report_type == 'team'
+        @teams = Team.for_user(current_user)
+        @team=Team.find(params[:report][:team_id]) if (params[:report] && params[:report][:team_id])
+        @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team]) if @team
       end
-    end
-    respond_to do |format|
-      format.js { render :layout => false }
-      format.html
-      format.csv do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
-        render "reports/csv_report.csv.erb"
+      @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+      @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+      #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
+      if @tasks.present?
+        @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
+        work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
+        logs = work_logs.group_by(&:task_id)
+        logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
       end
-      format.xls do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
-        render "reports/excel_report.xls.erb"
+      if ['csv', 'xls'].include?(request.format)
+        @titles = ["Task", "Project", "Team", "Employees", "Hours", "Status"]
+        @fields=[]
+        @tasks.each do |task|
+          @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}", "#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
+        end
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      respond_to do |format|
+        format.js { render :layout => false }
+        format.html
+        format.csv do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+          render "reports/csv_report.csv.erb"
+        end
+        format.xls do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      end
     end
   end
 
@@ -292,31 +322,35 @@ class ReportsController < ApplicationController
   end
 
   def task
-    @task = Task.find(params[:id])
-    @logs = @task.work_logs.includes(:user).order('date asc')
-    @stats={}
-    @stats['users'] = @logs.collect(&:user_id).uniq.count
-    @stats['days'] = @logs.collect(&:date).uniq.count
-    @stats['time'] = @logs.sum('minutes').to_duration
-    if ['csv', 'xls'].include?(request.format)
-      @titles = ["Date", "Employee", "Hours", "Description"]
-      @fields=[]
-      @logs.each do |log|
-        @fields << ["#{log.date}", "#{log.user.name}", "#{log.hours}", "#{log.description}"]
+    unless (current_user.admin_teams_count.to_i + current_user.admin_projects_count.to_i) > 0
+      redirect_to root_path, :alert => 'Nothing to show'
+    else
+      @task = Task.find(params[:id])
+      @logs = @task.work_logs.includes(:user).order('date asc')
+      @stats={}
+      @stats['users'] = @logs.collect(&:user_id).uniq.count
+      @stats['days'] = @logs.collect(&:date).uniq.count
+      @stats['time'] = @logs.sum('minutes').to_duration
+      if ['csv', 'xls'].include?(request.format)
+        @titles = ["Date", "Employee", "Hours", "Description"]
+        @fields=[]
+        @logs.each do |log|
+          @fields << ["#{log.date}", "#{log.user.name}", "#{log.hours}", "#{log.description}"]
+        end
       end
-    end
-    respond_to do |format|
-      format.js { render :layout => false }
-      format.html
-      format.csv do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
-        render "reports/csv_report.csv.erb"
+      respond_to do |format|
+        format.js { render :layout => false }
+        format.html
+        format.csv do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+          render "reports/csv_report.csv.erb"
+        end
+        format.xls do
+          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
-      format.xls do
-        response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
-        render "reports/excel_report.xls.erb"
-      end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -338,12 +372,12 @@ class ReportsController < ApplicationController
     @work_logs ={}
     work_logs.each { |k, v| @work_logs[k] = v.sum(&:minutes).to_i.to_duration }
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "OKR", "Objective", "Key result", "Hours","Status"]
+      @titles = ["Task", "OKR", "Objective", "Key result", "Hours", "Status"]
       @fields=[]
       @key_results.each do |k|
         unless @tasks[k.id].nil?
           @tasks[k.id].each do |task|
-            @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}","#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
+            @fields << ["#{task.name}", "#{k.objective.okr.name}", "#{k.objective.name}", "#{k.name}", "#{@work_logs[task.id]}", "#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
           end
         end
       end
@@ -360,6 +394,14 @@ class ReportsController < ApplicationController
         render "reports/excel_report.xls.erb"
       end
       format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
+  end
+
+  protected
+
+  def redirect_for_unauthorized(users, user)
+    unless users.include?(users)
+      redirect_to root_path, :alert => 'Unauthorized access'
     end
   end
 end

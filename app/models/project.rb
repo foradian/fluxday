@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   has_many :teams
   has_many :tasks
   has_many :project_managers
-  has_many :users,:through=>:project_managers
+  has_many :users,:through=>:project_managers,:after_remove => :update_user_project_count
   has_many :team_members, :through => :teams
   has_many :project_members, :through=>:team_members, :source=>:user
   scope :active, -> {where(is_deleted: false)}
@@ -18,6 +18,10 @@ class Project < ActiveRecord::Base
 
   def members
     return project_members.active.uniq
+  end
+
+  def update_user_project_count(pm)
+    pm.update_attributes(:admin_projects_count=>pm.projects.count)
   end
 
   def update_numbers

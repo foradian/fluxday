@@ -7,11 +7,7 @@
   <!--<form class="employee_daily_report_form" data-remote="true">-->
     <%= form_for(:report, :url => {:controller => 'reports', :action => 'employees_daily'},:method=>:get,:remote=>true, :class => 'employee_daily_report_form') do %>
     <div class="report-type">
-      <% if current_user.manager? %>
-          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']], @report_type), :class => 'report_type_select' %>
-      <% else %>
-          <%= select_tag 'report[type]', options_for_select([['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ['Self', 'user']], @report_type), :class => 'report_type_select' %>
-      <% end %>
+          <%= select_tag 'report[type]', options_for_select(@opts, @report_type), :class => 'report_type_select' %>
     </div>
     <div class="report_options">
 
