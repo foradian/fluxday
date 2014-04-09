@@ -24,13 +24,14 @@ $(function(){ $(document).foundation(); });
 
 
 function infiniteScroll() {
-    if ($('#infinite-scrolling').size() > 0) {
-        return $('.scroll2watch').on('scroll', function () {
+    if ($('.scroll-loop').size() > 0) {
+        return $('.scroll2watch').on('scroll', function (e) {
             var load_more_url;
-            load_more_url = $('.pagination a.next_page').attr('href');
+            load_more_url = $(e.target).find('a.next_page').attr('href');
+//            console.log($(e.target).closest('.scroll2watch').scrollTop())
 //                if (more_posts_url && $('.pane2-content').scrollTop() > $(document).height() - $('.pane2-content').height() - 60) {
-            if (load_more_url && $('#paginator').height() - $('.scroll2watch').scrollTop() < $('.scroll2watch').height()) {
-                $('.pagination').html('loading...');
+            if (load_more_url && $(e.target).find('.paginator').height() - $(e.target).closest('.scroll2watch').scrollTop() < $(e.target).closest('.scroll2watch').height()) {
+                $(e.target).find('.pagination').html('loading...');
                 $.getScript(load_more_url);
             }
             return;

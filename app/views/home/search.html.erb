@@ -5,11 +5,11 @@
       </div>
       <div class="pane2-content scroll2watch">
 
-        <div id="paginator">
+        <div id="paginator" class="paginator">
           <%= render 'tasks/task_listings' %>
         </div>
 
-        <div id="infinite-scrolling">
+        <div id="infinite-scrolling" class="scroll-loop">
           <%= will_paginate @tasks %>
         </div>
       </div>

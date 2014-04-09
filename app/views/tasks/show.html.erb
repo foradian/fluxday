@@ -2,6 +2,12 @@
     <%= render :partial => 'tasks/task_list' %>
 <% end %>
 
-<div class="pane2-content-no-offset">
+<div class="pane3-meta">
+  <div class="title">
+    #<%= @task.tracker_id %>
+  </div>
+</div>
+<div class="pane2-content">
+
   <%= render :partial => 'show', :locals => {:task => @task, :project => @project, :team => @team} %>
 </div>

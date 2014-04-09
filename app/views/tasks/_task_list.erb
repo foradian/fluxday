@@ -1,17 +1,44 @@
 <div class="pane2-meta">
   <div class="title">My tasks</div>
+  <dl class="tabs right" data-tab >
+    <dd class="active clear-tab"><a href="#pending">
+      Pending
+    </a></dd>
+    <dd class="clear-tab"><a href="#completed">
+      Completed
+    </a></dd>
+  </dl>
 </div>
-<div class="pane2-content scroll2watch">
-  <div class="task-list" id="my-tasks">
-  <div id="paginator">
-    <%= render :partial=>'tasks/task_page' %>
-  </div>
-    <div id="infinite-scrolling">
-      <%= will_paginate(@tasks, :params => { :controller => "tasks", :action => "index" }) %>
 
+  <div class="data-container">
+    <div class="tabs-content">
+      <div class="content active" id="pending">
+        <div class="task-list" id="my-tasks">
+          <div class="pane2-content scroll2watch">
+          <div id="paginator" class="paginator task-paginator">
+            <%= render :partial => 'tasks/task_page' %>
+          </div>
+          <div id="infinite-scrolling" class="scroll-loop">
+            <%= will_paginate(@tasks, :params => {:controller => "tasks", :action => "index"}) %>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="content" id="completed">
+        <div class="task-list" id="my-tasks">
+          <div class="pane2-content scroll2watch this">
+            <div id="paginator"  class="paginator fin-task-paginator">
+              <%= render :partial => 'tasks/completed_task_page' %>
+            </div>
+            <div id="infinite-scrolling" class="scroll-loop">
+              <%= will_paginate(@fin_tasks, :params => {:controller => "tasks", :action => "completed_index"}) %>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
 <script type="text/javascript">
     infiniteScroll()
 </script>

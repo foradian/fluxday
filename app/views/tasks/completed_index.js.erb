@@ -1,0 +1,7 @@
+$('.fin-task-paginator').append('<%= j render 'tasks/completed_task_page' %>');
+<% if @fin_tasks.next_page %>
+$('#completed .pagination').replaceWith('<%= j will_paginate @fin_tasks %>');
+<% else %>
+$(window).off('scroll');
+$('#completed .pagination').remove();
+<% end %>

@@ -36,6 +36,9 @@ Tracker::Application.routes.draw do
     member do
       post 'completion'
     end
+    collection do
+      get 'completed_index'
+    end
   end
 
   resources :teams do
