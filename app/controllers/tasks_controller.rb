@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     #@tasks = current_user.assignments
-    @tasks = current_user.assigned_and_written_tasks.paginate(page: params[:page], per_page: 10)
+    @tasks = current_user.watching_tasks.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /tasks/1
@@ -38,7 +38,13 @@ class TasksController < ApplicationController
       options
     end
     @team ||= @teams.first
-    @users = @team.members if @team
+    if @team.present?
+    if (current_user.admin_teams.include?(@team) || current_user.project_ids.include?(@team.project_id))
+      @users = @team.members
+    else
+      @users = @team.team_leads
+    end
+    end
     @kr_ids = @task.key_result_ids
     @key_results = @team.key_results.where('key_results.start_date <= ? && key_results.end_date >= ?', @task.end_date, @task.start_date).group_by(&:user_id) if @team
   end
@@ -110,7 +116,7 @@ class TasksController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.friendly.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

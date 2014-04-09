@@ -74,13 +74,16 @@ class OkrsController < ApplicationController
   end
 
   def date_and_user
-    @user = User.find(params[:user_id]) if params[:user_id]
+    @user = User.friendly.find(params[:user_id]) if params[:user_id]
     @user ||= current_user
     @user ||= User.find(params[:okr][:user_id]) if (params[:okr] && params[:okr][:user_id].present?)
     @start_date = params[:start_date] if params[:start_date]
     @start_date ||= Date.today.to_quarters[0]
     @end_date = params[:end_date] if params[:end_date]
     @end_date ||= Date.today.to_quarters[1]
+    unless (@user.id == current_user.id || current_user.user_ids.include?(@user.id) || current_user.manager?)
+      redirect_to root_path, :alert => 'Unauthorized access'
+    end
     @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
   end
 

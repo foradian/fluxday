@@ -1,3 +1,4 @@
+<% if @team.present? %>
 <%= form_for @task, :html => {:class => 'form-horizontal task-form', :multipart => true, :data => {:abide => true}} do |f| %>
     <%= f.hidden_field :task_id, :value => @root_task.id if @root_task.present? %>
     <%= f.hidden_field :team_id, :value => @root_task.team_id if @root_task.present? %>
@@ -11,7 +12,7 @@
             <%= f.label :team_id, 'Team' %>
           </div>
           <div class='small-9 columns'>
-            <%= select_tag "task[team_id]", grouped_options_for_select(@grouped_teams) %>
+            <%= select_tag "task[team_id]", grouped_options_for_select(@grouped_teams,@team.id) %>
             <%#= grouped_collection_select(:task, :team_id, @projects, @teams, :name, :id, :name, {}, {:class => "team-selector"}) %>
           </div>
         </div>
@@ -45,6 +46,11 @@
       </div>
     </div>
 <% end %>
+<% else %>
+    <div class="message">
+      You have no access to a team inorder to assign a task.
+    </div>
+<% end %>
 
 <script type="text/javascript">
     $('select').not('.select_add').select2({'width': '100%'});
@@ -62,6 +68,7 @@
         }
     });
 
+    $('#task_team_id').bind("change", function () {load_assignees()});
     $('#task_start_date').bind("input", function () {load_assignees()});
     $('#task_end_date').bind("input", function () {load_assignees()});
     function load_assignees() {

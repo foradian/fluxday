@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
   scope :active, -> {where(is_deleted: false)}
 
   validates_presence_of :name, :code
+  validates_uniqueness_of :code
 
   #default_scope where(is_deleted: false)
   default_scope{ order("name ASC")}

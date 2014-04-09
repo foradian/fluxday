@@ -1,4 +1,8 @@
 class Task < ActiveRecord::Base
+
+  extend FriendlyId
+  friendly_id :tracker_id
+
   belongs_to :user
   belongs_to :team
   belongs_to :project

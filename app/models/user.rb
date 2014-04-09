@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  extend FriendlyId
+  friendly_id :employee_code
+
   mount_uploader :image, ImageUploader
   has_many :project_managers
   has_many :projects, :through => :project_managers
@@ -48,6 +52,10 @@ class User < ActiveRecord::Base
 
   def assigned_and_written_tasks
     Task.where(id:(task_ids + assignment_ids).uniq)
+  end
+
+  def watching_tasks
+    Task.where("id IN (?) OR team_id IN (?)",(task_ids + assignment_ids).uniq,admin_team_ids)
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

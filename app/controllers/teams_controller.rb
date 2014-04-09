@@ -102,7 +102,11 @@ class TeamsController < ApplicationController
 
   def get_member_list
     team = Team.find(params[:team_id])
-    @users = team.members
+    if (current_user.admin_teams.include?(team) || current_user.project_ids.include?(team.project_id))
+      @users = team.members
+    else
+      @users = team.team_leads
+    end
     start_date = params[:start_date].to_date
     end_date = params[:end_date].to_date
     @kr_ids = Task.find(params[:task_id]).key_result_ids unless params[:task_id].blank?

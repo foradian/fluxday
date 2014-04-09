@@ -1,5 +1,13 @@
 <%= form_for @project, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
     <div class="form-content form-below">
+      <% if @project.errors.any? %>
+          <div id="error_explanation">
+            <% @project.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
       <%= build_validated_field('project', 'name', 'Title', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.name) %>
       <%= build_validated_field('project', 'code', 'Code', 'Cannot be blank', '[a-zA-Z]+', 'text',@project.code) %>
       <%= build_field('project', 'website', 'Url', 'text',@project.website) %>

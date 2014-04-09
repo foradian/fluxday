@@ -3,6 +3,7 @@
         <%= link_to 'New team', new_project_team_path(project), :remote => false, :class => 'dashed_link transition new-team' %>
     <% end %>
 <% end %>
+<% assignables = Team.assignable_by_user(current_user).collect(&:id) %>
 <% teams.each do |team| %>
     <div class="team-list-item">
       <div class="team-name">
@@ -11,7 +12,7 @@
       <div class="team-glymplse">
         <%= team.members_count %><div class="icon icon-members-16"></div>
       </div>
-      <% if can? :edit, team %>
+      <% if assignables.include?(team.id) %>
           <%= link_to 'Add task', new_task_path(:team_id => team.id), :remote => false, :class => 'btn btn-sec right transition' %>
       <% end %>
     </div>
