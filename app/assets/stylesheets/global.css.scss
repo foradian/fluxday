@@ -782,3 +782,12 @@ form.form-horizontal{padding-top: 100px;}
 .small-9.columns textarea{
   margin-bottom: 0px;
 }
+
+#error_explanation{
+  background: #f9ebe9;
+  color: $link-hover;
+  margin: 0 40px;
+  padding: 10px 20px;
+  line-height: 2em;
+  font-size: 0.8em;
+}

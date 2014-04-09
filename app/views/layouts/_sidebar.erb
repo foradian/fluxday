@@ -43,3 +43,12 @@
       </li>
   <% end %>
 </ul>
+
+<script type="text/javascript">
+  <% if flash.now[:alert].present?  %>
+    console.log("<%= flash.now[:alert] %>")
+  <% end %>
+  <% if flash.now[:notice].present?  %>
+    console.log("<%= flash.now[:notice] %>")
+  <% end %>
+</script>
