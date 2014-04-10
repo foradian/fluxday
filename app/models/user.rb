@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2] #, :registerable
   scope :active, -> { where(is_deleted: false) }
+  scope :by_name, -> { order("name ASC") }
 
   validates_presence_of :name, :nickname
   validate :email, :presence=>true,:uniqueness=>true

@@ -28,8 +28,8 @@ class TeamsController < ApplicationController
   def add_members
     @teams = Team.for_user(current_user)
     @team = Team.find(params[:team_id])
-    @users = User.active
-    @members = @team.members
+    @users = User.active.by_name
+    @members = @team.members.by_name
   end
 
   # GET /teams/new
