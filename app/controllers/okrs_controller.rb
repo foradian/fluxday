@@ -48,7 +48,7 @@ class OkrsController < ApplicationController
   def update
     respond_to do |format|
       if @okr.update(okr_params)
-        format.html { redirect_to @okr, notice: 'Okr was successfully updated.' }
+        format.html { redirect_to user_okr_path(@okr.user_id,@okr), notice: 'Okr was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
