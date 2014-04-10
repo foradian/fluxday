@@ -59,7 +59,11 @@ Tracker::Application.routes.draw do
   end
 
   resources :users do
-    resources :okrs
+    resources :okrs do
+      member do
+        post 'approve'
+      end
+    end
   end
 
 
