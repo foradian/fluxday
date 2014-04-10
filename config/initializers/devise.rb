@@ -1,5 +1,12 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+OmniAuth.config.full_host = lambda do |env|
+  scheme         = env['rack.url_scheme']
+  local_host     = env['HTTP_HOST']
+  forwarded_host = env['HTTP_X_FORWARDED_HOST']
+  forwarded_host.blank? ? "#{scheme}://#{local_host}" : "#{scheme}://#{forwarded_host}"
+end
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
