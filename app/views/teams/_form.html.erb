@@ -8,7 +8,7 @@
           <%= build_field('team', 'description', 'Description', 'text_area', @team.description) %>
           <div class='form-row'>
             <div class='small-3 columns'>
-              <%= f.label :project_id %>
+              <%= f.label :project_id, "Department" %>
             </div>
             <div class='small-9 columns'>
               <%= f.select :project_id, @projects.map { |x| [x.name, x.id] } %>

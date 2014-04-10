@@ -11,9 +11,9 @@ class ReportsController < ApplicationController
   def employees_daily
     @opts = []
     if current_user.manager?
-      @opts = [['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+      @opts = [['Department', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
     else
-      @opts << ['Project', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
       @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
       @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
       @opts << ['Self', 'user']
@@ -79,9 +79,9 @@ class ReportsController < ApplicationController
   def employees_time_range
     @opts = []
     if current_user.manager?
-      @opts = [['Project', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+      @opts = [['Department', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
     else
-      @opts << ['Project', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
       @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
       @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
       @opts << ['Self', 'user']
@@ -160,7 +160,7 @@ class ReportsController < ApplicationController
     @date ||= Date.today
     @work_logs = WorkLog.where(date: @date, user_id: @user.id).includes(:task => [:project, :team])
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours", "Status"]
+      @titles = ["Task", "Department", "Team", "Hours", "Status"]
       @fields=[]
       @work_logs.each do |log|
         @fields << ["#{log.task.name}", "#{log.task.project.name}", "#{log.task.team.name}", "#{log.hours}", "#{log.task.status == 'active' ? 'Pending' : log.task.status.capitalize}"]
@@ -204,7 +204,7 @@ class ReportsController < ApplicationController
     @total['teams']=@tasks.collect(&:team_id).uniq.count
     @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
     if ['csv', 'xls'].include?(request.format)
-      @titles = ["Task", "Project", "Team", "Hours", "Status"]
+      @titles = ["Task", "Department", "Team", "Hours", "Status"]
       @fields=[]
       @tasks.each do |t|
         @fields << ["#{t.name}", "#{t.project.name}", "#{t.team.name}", "#{@work_logs[t.id]}", "#{t.status == 'active' ? 'Pending' : t.status.capitalize}"]
@@ -268,7 +268,7 @@ class ReportsController < ApplicationController
         logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
       end
       if ['csv', 'xls'].include?(request.format)
-        @titles = ["Task", "Project", "Team", "Employees", "Hours", "Status"]
+        @titles = ["Task", "Department", "Team", "Employees", "Hours", "Status"]
         @fields=[]
         @tasks.each do |task|
           @fields << ["#{task.name}", "#{task.project.name}", "#{task.team.name}", "#{@assignees[task.id].to_i}", "#{@work_logs[task.id]}", "#{task.status == 'active' ? 'Pending' : task.status.capitalize}"]
