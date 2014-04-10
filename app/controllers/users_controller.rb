@@ -54,6 +54,7 @@ class UsersController < ApplicationController
     @users = User.active
     respond_to do |format|
       if @user.update(user_params)
+        p @user.errors.full_messages
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

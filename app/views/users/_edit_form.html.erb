@@ -1,10 +1,20 @@
 <%= form_for(@user, :url => {:controller => 'users', :action => 'update', :id => @user.id}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
-    <% if current_user.manager? %>
 
+    <% if current_user.manager? %>
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <% @user.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+        <% end %>
         <div class="form-content form-below">
           <%= build_validated_field('user', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.name) %>
-          <%= build_validated_field('user', 'nickname', 'Nickname', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.nickname) %>
-          <%= build_field('user', 'image', 'Profile picture', 'file', @user.image) %>
+          <% if current_user == @user %>
+              <%= build_validated_field('user', 'nickname', 'Nickname', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.nickname) %>
+              <%= build_field('user', 'image', 'Profile picture', 'file', @user.image) %>
+          <% end %>
           <%= build_validated_field('user', 'email', 'Email', '', '', 'text', @user.email) %>
           <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.employee_code) %>
           <%= build_validated_select('user', 'role', 'Role', 'Should select at least one', '', false, @user.role, [['Employee'], ['Manager']]) %>
@@ -21,6 +31,8 @@
         </div>
     <% end %>
     <% if current_user == @user %>
+        <%= build_validated_field('user', 'nickname', 'Nickname', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.nickname) %>
+        <%= build_field('user', 'image', 'Profile picture', 'file', @user.image) %>
         <%= build_validated_field('user', 'password', 'Password', '', '', 'password', @user.password) %>
         <%= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '', 'password', @user.password_confirmation) %>
     <% end %>

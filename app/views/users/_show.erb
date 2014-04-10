@@ -14,9 +14,11 @@
             <li>
               <%= link_to "Edit", edit_user_path(@user) %>
             </li>
-            <li>
-              <%= link_to "Delete", user_path(user), :method => :delete, :confirm => 'Are you sure you want to archive this employee?' %>
-            </li>
+            <% if current_user.manager? %>
+                <li>
+                  <%= link_to "Delete", user_path(user), :method => :delete, :confirm => 'Are you sure you want to archive this employee?' %>
+                </li>
+            <% end %>
           </ul>
       <% end %>
     </div>
