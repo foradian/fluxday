@@ -7,6 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     alias_action :new, :edit, :create, :read, :update, :destroy, :to => :crud
+    alias_action :new, :edit, :create, :read, :update, :to => :cru
 
     if user.admin?
       can :manage, :all
@@ -21,6 +22,9 @@ class Ability
 
       can :read, Project
       can :read, Team
+      can :cru, Okr , :user => { :id => ([user.id] + user.reporting_employee_ids)   }
+      #user.id || user.reporting_employee_ids.include?(okr.user_id)
+
       can :read, Okr do |okr|
         okr.user_id == user.id || user.reporting_employee_ids.include?(okr.user_id)
       end

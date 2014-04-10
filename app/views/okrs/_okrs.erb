@@ -11,7 +11,7 @@
   </div>
 </div>
 <div class="pane2-content">
-  <% if can? :manage, Okr %>
+  <% if can? :cru, Okr, @user %>
       <%= link_to 'New OKR', new_user_okr_path(@user), :class => "dashed_link transition" %>
   <% end %>
   <% @okrs.each do |okr| %>
