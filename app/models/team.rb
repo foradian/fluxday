@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
   end
 
   def self.for_user(user)
-    teams = Team.where(id: (user.team_ids + user.admin_team_ids).uniq)
+    teams = Team.where("project_id IN (?) OR id IN (?)",user.project_ids,(user.admin_team_ids + user.team_ids).uniq)
   end
 
   def self.admind_by_user(user)
