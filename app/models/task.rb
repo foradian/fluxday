@@ -30,7 +30,14 @@ class Task < ActiveRecord::Base
   scope :pending, -> { where(status: 'active') }
   scope :completed, -> { where(status: 'completed') }
   scope :searchable_for_user, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids ,user.project_ids, user.team_ids)}
+  #scope :, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids ,user.project_ids, user.admin_team_ids)}
 
+
+  def updatable_by_user(user)
+    return true if user_ids.include?(user.id)
+    return true if user.admin_team_ids.include?(team_id)
+    return true if user.project_ids.include?(project_id)
+  end
 
   def time_to_end
     if end_date.to_date == Date.today

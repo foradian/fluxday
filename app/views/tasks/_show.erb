@@ -18,9 +18,12 @@
               <div class="icon completed-link"></div>
             </a>
         <% end %>
-        <div id="contentDrop-<%= task.id %>" data-dropdown-content class="f-dropdown content small completion-option completion-area drop-task-<%= task.id %>" style="display: block">
-          <%= render :partial => 'tasks/completion', :locals => {:task => task} %>
-        </div>
+
+        <% if task.updatable_by_user(current_user) %>
+            <div id="contentDrop-<%= task.id %>" data-dropdown-content class="f-dropdown content small completion-option completion-area drop-task-<%= task.id %>" style="display: block">
+              <%= render :partial => 'tasks/completion', :locals => {:task => task} %>
+            </div>
+        <% end %>
         <% if can? :edit, task %>
             <a data-options="align:left" data-dropdown="drop-<%= task.id %>" class="dropdown right">
               <div class="icon settings-link"></div>
