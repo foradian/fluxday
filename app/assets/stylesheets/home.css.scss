@@ -116,6 +116,12 @@ $link-active-bg: #1f2f3e;
 .icon.next{
   background: url('/assets/iconsprite.png') no-repeat -122px -32px;
 }
+.icon.verified{
+  background: url('/assets/iconsprite.png') no-repeat 0px -78px;
+}
+.icon.unverified{
+  background: url('/assets/iconsprite.png') no-repeat 0px -46px;
+}
 .icon.next:hover{
   background: url('/assets/iconsprite.png') no-repeat -122px -48px;
 }

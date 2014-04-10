@@ -1,0 +1,5 @@
+<% if ((can? :destroy, @okr) && !@okr.approved)  %>
+    <%= button_to 'Approve', approve_user_okr_path(@okr.user_id, @okr), :remote => true, :class => 'btn btn-sec' %>
+<% elsif (can? :cru, @okr) %>
+    <%= @okr.approved ? raw("<div class='verified'><div class='icon verified'></div><div class='text'>Verified</div></div>") : raw("<div class='unverified'><div class='icon unverified'></div><div class='text'>Not verified</div></div>") %>
+<% end %>

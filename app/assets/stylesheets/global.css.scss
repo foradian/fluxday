@@ -366,6 +366,7 @@ dl.tabs, dl.accordion{dd a{font-family: 'Source Sans Pro', sans-serif;}}
   border-radius: 3px;
   color: $link;
   font-size: 14px;
+  background: none;
 }
 .okr-field-add a{
   width: 100%;
@@ -814,3 +815,20 @@ form.form-horizontal{padding-top: 100px;}
   color: $link-hover;
 }
 
+
+.okr-approval{
+  font-size: 0.9em;
+//  margin-top: 4px;
+  .btn{margin-top: -3px;font-size: 0.8em;cursor: pointer}
+  .icon{margin-top: 2px}
+  div{float: left}
+  .text{margin-top: 4px}
+  div.verified .text{
+    color: #2ecc71;
+    font-weight: bold;
+  }
+  div.unverified .text{
+    color: #e74c3c;
+    font-weight: bold;
+  }
+}

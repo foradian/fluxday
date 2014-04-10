@@ -1,7 +1,7 @@
 <% unless @okr.nil? %>
 
     <div class="right options">
-      <% if can? :manage, @okr %>
+      <% if can? :cru, @okr %>
           <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
             <div class="icon settings-link"></div>
           </a>
@@ -9,11 +9,20 @@
             <li>
               <%= link_to "Edit", edit_user_okr_path(@user, @okr) %>
             </li>
-            <li>
-              <%= link_to "Delete", okr_path(@okr), :method => :delete, :confirm => 'Are you sure you want to archive this okr?' %>
-            </li>
+            <% if can? :destroy, @okr %>
+                <li>
+                  <%= link_to "Delete", okr_path(@okr), :method => :delete, :confirm => 'Are you sure you want to archive this project?' %>
+                </li>
+            <% end %>
           </ul>
       <% end %>
+      <div class="okr-approval right okr-approval-<%= @okr.id %>">
+        <% if ((can? :destroy, @okr) && !@okr.approved) %>
+            <%= button_to 'Approve', approve_user_okr_path(@okr.user_id, @okr), :remote => true, :class => 'btn btn-sec' %>
+        <% elsif (can? :cru, @okr) %>
+            <%= @okr.approved ? raw("<div class='verified'><div class='icon verified'></div><div class='text'>Verified</div></div>") : raw("<div class='unverified'><div class='icon unverified'></div><div class='text'>Not verified</div></div>") %>
+        <% end %>
+      </div>
     </div>
     <br/>
     <div class="okr-details">

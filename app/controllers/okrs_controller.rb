@@ -1,30 +1,31 @@
 class OkrsController < ApplicationController
   before_action :set_okr, only: [:show, :edit, :update, :destroy]
-  before_action :date_and_user, only: [:new, :edit, :index,:show,:create,:update]
+  before_action :date_and_user, only: [:new, :edit, :index, :show, :create, :update]
 
   # GET /okrs
   # GET /okrs.json
   def index
-    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
+    @okrs = @user.okrs.active.includes([:objectives => [:key_results]])
     @okr = @okrs.first
   end
 
   # GET /okrs/1
   # GET /okrs/1.json
   def show
-    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
+    @user = @okr.user
+    @okrs = @user.okrs.active.includes([:objectives => [:key_results]])
   end
 
   # GET /okrs/new
   def new
-    @okr = Okr.new(:user_id=>@user.id,:start_date=>@start_date,:end_date=>@end_date)
+    @okr = Okr.new(:user_id => @user.id, :start_date => @start_date, :end_date => @end_date)
     @okr.objectives.build
-    2.times{@okr.objectives.first.key_results.build}
+    2.times { @okr.objectives.first.key_results.build }
   end
 
   # GET /okrs/1/edit
   def edit
-    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
+    @okrs = @user.okrs.active.includes([:objectives => [:key_results]])
   end
 
   # POST /okrs
@@ -34,7 +35,7 @@ class OkrsController < ApplicationController
 
     respond_to do |format|
       if @okr.save
-        format.html { redirect_to user_okr_path(@okr.user_id,@okr), notice: 'Okr was successfully created.' }
+        format.html { redirect_to user_okr_path(@okr.user_id, @okr), notice: 'Okr was successfully created.' }
         format.json { render action: 'show', status: :created, location: @okr }
       else
         format.html { render action: 'new' }
@@ -48,7 +49,7 @@ class OkrsController < ApplicationController
   def update
     respond_to do |format|
       if @okr.update(okr_params)
-        format.html { redirect_to user_okr_path(@okr.user_id,@okr), notice: 'Okr was successfully updated.' }
+        format.html { redirect_to user_okr_path(@okr.user_id, @okr), notice: 'Okr was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -64,6 +65,13 @@ class OkrsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to okrs_url }
       format.json { head :no_content }
+    end
+  end
+
+  def approve
+    @okr= Okr.find(params[:id])
+    if (current_user.user_ids.include?(@okr.user_id) || current_user.manager?)
+      @okr.update_attributes(:approved=>true)
     end
   end
 
@@ -84,7 +92,7 @@ class OkrsController < ApplicationController
     unless (@user.id == current_user.id || current_user.user_ids.include?(@user.id) || current_user.manager?)
       redirect_to root_path, :alert => 'Unauthorized access'
     end
-    @okrs = @user.okrs.active.includes([:objectives=>[:key_results]])
+    @okrs = @user.okrs.active.includes([:objectives => [:key_results]])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

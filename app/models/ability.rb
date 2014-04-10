@@ -22,11 +22,16 @@ class Ability
 
       can :read, Project
       can :read, Team
-      can :cru, Okr , :user => { :id => ([user.id] + user.reporting_employee_ids)   }
+
+      can :destroy, Okr do |okr|
+        user.user_ids.include?(okr.user_id)
+      end
+
+      can :cru, Okr , :user => { :id => ([user.id] + user.user_ids)   }
       #user.id || user.reporting_employee_ids.include?(okr.user_id)
 
       can :read, Okr do |okr|
-        okr.user_id == user.id || user.reporting_employee_ids.include?(okr.user_id)
+        okr.user_id == user.id || user.user_ids.include?(okr.user_id)
       end
       can :read, User
       can :manage, Task do |task|
