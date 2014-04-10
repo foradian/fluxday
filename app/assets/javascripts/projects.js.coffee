@@ -6,6 +6,7 @@
 #  alert "page has loaded!"
 
 $(document).on "page:change", ->
+  $(document).foundation();
   $('select').not('.select_add').select2({'width':'100%'});
 #  $('.select_add').multiSelect({});
   $('.time-field').timepicker({ 'step': 15 });
