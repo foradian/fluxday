@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.active
+    @users = User.active.by_name
   end
 
   # GET /users/1
@@ -13,25 +13,25 @@ class UsersController < ApplicationController
   def show
     @teams = @user.teams
     @managers = @user.managers
-    @users = User.active
+    @users = User.active.by_name
   end
 
   # GET /users/new
   def new
     @user = User.new
-    @users = User.active
+    @users = User.active.by_name
   end
 
   # GET /users/1/edit
   def edit
-    @users = User.active
+    @users = User.active.by_name
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-    @users = User.active
+    @users = User.active.by_name
 
     respond_to do |format|
       if @user.save
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @users = User.active
+    @users = User.active.by_name
     respond_to do |format|
       if @user.update(user_params)
         p @user.errors.full_messages
