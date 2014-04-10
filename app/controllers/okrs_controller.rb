@@ -34,7 +34,7 @@ class OkrsController < ApplicationController
 
     respond_to do |format|
       if @okr.save
-        format.html { redirect_to @okr, notice: 'Okr was successfully created.' }
+        format.html { redirect_to user_okr_path(@okr.user_id,@okr), notice: 'Okr was successfully created.' }
         format.json { render action: 'show', status: :created, location: @okr }
       else
         format.html { render action: 'new' }
