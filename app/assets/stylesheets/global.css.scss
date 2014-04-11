@@ -832,3 +832,9 @@ form.form-horizontal{padding-top: 100px;}
     font-weight: bold;
   }
 }
+
+.assignee-row{
+  border-bottom: none;
+  input{clear: left}
+  .input-set{clear: both}
+}
