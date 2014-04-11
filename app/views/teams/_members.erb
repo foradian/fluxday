@@ -14,22 +14,25 @@
                     <% @key_results[u.id].each do |kr| %>
                         <!--<div class="large-12 columns">-->
                         <div class='input-set'>
-                        <%= check_box_tag "task[key_result_ids][]", kr.id, @kr_ids.include?(kr.id), :id => "task_key_result_ids_#{kr.id}" %>
-                        <%= label_tag "task[key_result_ids][#{kr.id}]", kr.name %>
+                          <%= check_box_tag "task[key_result_ids][]", kr.id, @kr_ids.include?(kr.id), :id => "task_key_result_ids_#{kr.id}" %>
+                          <%= label_tag "task[key_result_ids][#{kr.id}]", kr.name %>
                         </div>
-                          <!--</div>-->
+                        <!--</div>-->
                     <% end %>
                   </div>
               <% end %>
           <% end %>
-      <% else %>
-          <label>No employees in this team</label>
+      <% end %>
+      <% if @key_results.empty? %>
+          <script type="text/javascript">
+              $('.alert-area').notify({message: { text: "Selected team and time range does not contain any assignable key results" }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+          </script>
       <% end %>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-    $('.user-krs input[type=checkbox]').click(function (e){
-        $(e.currentTarget).siblings('input:checkbox').attr('checked',false)
+    $('.user-krs input[type=checkbox]').click(function (e) {
+        $(e.currentTarget).siblings('input:checkbox').attr('checked', false)
     });
 </script>
