@@ -54,7 +54,6 @@ class UsersController < ApplicationController
     @users = User.active.by_name
     respond_to do |format|
       if @user.update(user_params)
-        p @user.errors.full_messages
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -67,11 +66,11 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if @user.update_attribute(:is_deleted,true)
-      @user.project_managers.update_all(:status=>'archived')
-      @user.team_members.update_all(:status=>'archived')
-      @user.reporting_managers.update_all(:status=>'archived')
-      @user.reporting_employees.update_all(:status=>'archived')
+    if @user.update_attribute(:is_deleted, true)
+      @user.project_managers.update_all(:status => 'archived')
+      @user.team_members.update_all(:status => 'archived')
+      @user.reporting_managers.update_all(:status => 'archived')
+      @user.reporting_employees.update_all(:status => 'archived')
     end
     respond_to do |format|
       format.html { redirect_to users_url }
@@ -79,14 +78,32 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.friendly.find(params[:id])
+  def change_password
+    @user = current_user
+    @users = User.active.by_name
+    if request.post?
+      if @user.update(user_params)
+        respond_to do |format|
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { render 'change_password'}
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation,:name,:role,:nickname,:employee_code,:image,:manager_ids => [])
-    end
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.friendly.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :role, :nickname, :employee_code, :image, :manager_ids => [])
+  end
 end

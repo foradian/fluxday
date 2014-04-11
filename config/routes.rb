@@ -64,6 +64,10 @@ Tracker::Application.routes.draw do
         post 'approve'
       end
     end
+    collection do
+      get 'change_password'
+      post 'change_password'
+    end
   end
 
 

@@ -30,6 +30,7 @@ class Ability
       can :cru, Okr , :user => { :id => ([user.id] + user.user_ids)   }, :approved=>false
       #user.id || user.reporting_employee_ids.include?(okr.user_id)
 
+      can :change_password, User
       can :read, Okr do |okr|
         okr.user_id == user.id || user.user_ids.include?(okr.user_id)
       end

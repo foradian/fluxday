@@ -9,6 +9,7 @@ class Okr < ActiveRecord::Base
   validates_presence_of :name, :user_id, :start_date, :end_date
 
   scope :active, -> { where(is_deleted: false) }
+  scope :approved, -> { where(approved: true) }
 
   def update_children
     objectives.update_all(:user_id=>user_id,:start_date=>start_date,:end_date=>end_date)
