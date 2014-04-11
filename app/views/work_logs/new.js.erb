@@ -1,4 +1,8 @@
+<% unless @entries.empty? %>
 $('.pane3').html("<%= escape_javascript(render :partial => 'work_logs/form') %>")
+<% else %>
+$('.alert-area').notify({message: { text: '<%= "You have no task assigned for #{@date.strftime('%d %B %Y')}" %>' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+<% end %>
 $(document).foundation({
     tab: {
         callback: function (tab) {

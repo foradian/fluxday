@@ -27,7 +27,7 @@ class Ability
         user.user_ids.include?(okr.user_id)
       end
 
-      can :cru, Okr , :user => { :id => ([user.id] + user.user_ids)   }
+      can :cru, Okr , :user => { :id => ([user.id] + user.user_ids)   }, :approved=>false
       #user.id || user.reporting_employee_ids.include?(okr.user_id)
 
       can :read, Okr do |okr|

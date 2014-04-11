@@ -1,53 +1,59 @@
-<%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
+<% unless @entries.empty? %>
+    <%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}} do |f| %>
 
-    <div class="form-content form-below">
-      <% if @work_log.errors.any? %>
-          <div id="error_explanation">
-            <% @work_log.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-            </ul>
+        <div class="form-content form-below">
+          <% if @work_log.errors.any? %>
+              <div id="error_explanation">
+                <% @work_log.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+                </ul>
+              </div>
+          <% end %>
+          <%= f.hidden_field :date, :value => @date %>
+          <%#= build_validated_field('work_log', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@work_log.name) %>
+          <%= build_validated_select('work_log', 'task_id', 'Task', 'Should select at least one', '', false, @work_log.task_id, @entries.map { |x| [x.name, x.id] }) %>
+          <div class='form-row time-taken'>
+            <div class='small-3 columns'>
+              <%= f.label :minutes, 'Time taken' %>
+            </div>
+            <div class="small-9 columns">
+              <%= label_tag('work_log[hours]', 'Hours :', :class => 'left') %>
+              <div class='small-2 columns left'>
+                <%= select_tag 'work_log[hours]', options_for_select((0..23).to_a, @hours) %>
+              </div>
+              <%= label_tag('work_log[mins]', 'Minutes :', :class => 'left') %>
+              <div class='small-2 columns left'>
+                <%= select_tag 'work_log[mins]', options_for_select((0..59).to_a, @mins) %>
+              </div>
+            </div>
           </div>
-      <% end %>
-      <%= f.hidden_field :date, :value => @date %>
-      <%#= build_validated_field('work_log', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text',@work_log.name) %>
-      <%= build_validated_select('work_log', 'task_id', 'Task', 'Should select at least one', '', false, @work_log.task_id, @entries.map { |x| [x.name, x.id] }) %>
-      <div class='form-row time-taken'>
-        <div class='small-3 columns'>
-          <%= f.label :minutes, 'Time taken' %>
+          <%= build_field('work_log', 'description', 'Description', 'text_area', @work_log.description) %>
+          <%#= build_validated_field('work_log', 'start_time', 'Start Time', 'Cannot be blank', '', 'date_field',@work_log.start_time) %>
+          <%#= build_validated_field('work_log', 'end_time', 'End Time', 'Cannot be blank', '', 'date_field',@work_log.end_time) %>
+          <%#= build_validated_field('work_log', 'is_deleted', 'Deleted', 'Cannot be blank', '', 'checkbox',@work_log.is_deleted) %>
         </div>
-        <div class="small-9 columns">
-          <%= label_tag('work_log[hours]', 'Hours :', :class => 'left') %>
-          <div class='small-2 columns left'>
-            <%= select_tag 'work_log[hours]', options_for_select((0..23).to_a, @hours) %>
-          </div>
-          <%= label_tag('work_log[mins]', 'Minutes :', :class => 'left') %>
-          <div class='small-2 columns left'>
-            <%= select_tag 'work_log[mins]', options_for_select((0..59).to_a, @mins) %>
+
+
+        <div class="small-12 columns form-action-up">
+          <div class="title">log for <%= @work_log.date.strftime('%d %B %Y') %></div>
+          <div class="right">
+            <%= f.submit nil, :class => 'button alert right' %>
+            <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                        root_path, :class => 'btn cancel-btn' %>
           </div>
         </div>
-      </div>
-      <%= build_field('work_log', 'description', 'Description', 'text_area', @work_log.description) %>
-      <%#= build_validated_field('work_log', 'start_time', 'Start Time', 'Cannot be blank', '', 'date_field',@work_log.start_time) %>
-      <%#= build_validated_field('work_log', 'end_time', 'End Time', 'Cannot be blank', '', 'date_field',@work_log.end_time) %>
-      <%#= build_validated_field('work_log', 'is_deleted', 'Deleted', 'Cannot be blank', '', 'checkbox',@work_log.is_deleted) %>
-    </div>
-
-
-    <div class="small-12 columns form-action-up">
-      <div class="title">log for <%= @work_log.date.strftime('%d %B %Y') %></div>
-      <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                    root_path, :class => 'btn cancel-btn' %>
-      </div>
-    </div>
+    <% end %>
+<% else %>
+    <script type="text/javascript">
+        $('.alert-area').notify({message: { text: '<%= "You have no task assigned for #{@date.strftime('%d %B %Y')}" %>' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+    </script>
 <% end %>
 
 <script type="text/javascript">
     window.location = '#pane3'
-    $('select').select2({'width':'100%'});
+    $('select').select2({'width': '100%'});
     $('.date-input').datetimepicker();
-    $('.time-field').timepicker({ 'step':15 });
+    $('.time-field').timepicker({ 'step': 15 });
     $('textarea').autosize();
 </script>
