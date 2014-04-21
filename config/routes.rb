@@ -1,5 +1,6 @@
 Tracker::Application.routes.draw do
 
+  use_doorkeeper
   resources :okrs
 
   #resources :objectives do
@@ -67,6 +68,17 @@ Tracker::Application.routes.draw do
     collection do
       get 'change_password'
       post 'change_password'
+    end
+  end
+
+  #namespace :api do
+  #  namespace :v1 do
+  #    get '/me' => "credentials#me"
+  #  end
+  #end
+  namespace :api do
+    namespace :v1 do
+      get '/me' => "credentials#me"
     end
   end
 

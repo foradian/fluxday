@@ -17,7 +17,7 @@ Doorkeeper.configure do
   #   # Put your admin authentication logic here.
   #   # Example implementation:
     user = current_user || warden.authenticate!(:scope => :user)
-    user.role.downcase == "manager"
+    #user.role.downcase == "manager"
     user.role.downcase == "manager" ? true : redirect_to(root_url,:notice=>'Access denied')
   #   Admin.find_by_id(session[:admin_id]) || redirect_to(new_admin_session_url)
   end
