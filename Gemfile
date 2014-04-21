@@ -65,3 +65,7 @@ gem "cocoon"
 gem 'wicked_pdf'
 gem 'friendly_id', '~> 5.0.0'
 gem 'doorkeeper'
+
+gem "omniauth-oauth2"#, '1.0.2'
+#gem 'omniauth-fluxapp' , :path => '/home/tp/Desktop/flux'
+gem 'omniauth-fluxapp' , :git  => 'https://github.com/stpnlr/omniauth-fluxapp.git'
