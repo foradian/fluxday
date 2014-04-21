@@ -15,6 +15,9 @@
       <li><%= link_to 'OKR', reports_okrs_path %></li>
     </ul>
   </li>
+  <% if current_user.manager? %>
+      <li><%= link_to raw('<span class="icon icon-oauth-16"></span>OAuth applications'), new_oauth_application_path %></li>
+  <% end %>
   <% if user_signed_in? %>
       <li>
         <%= link_to(raw("<span class='icon icon-profile-16'></span>#{current_user.name}"), user_path(current_user)) %>

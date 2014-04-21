@@ -1,5 +1,6 @@
 class OauthApplicationsController < ApplicationController
   before_action :set_oauth_application, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :oauth_application
 
   # GET /oauth_applications
   # GET /oauth_applications.json

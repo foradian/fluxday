@@ -13,6 +13,7 @@ class Ability
       can :manage, :all
     elsif user.manager?
       can :manage, :all
+      can :manage, :oauth_applications
     elsif user.employee?
       can [:edit,:update], Project, :id => user.project_ids
       can [:edit,:update], Team, :id => user.project_ids

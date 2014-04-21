@@ -3,6 +3,7 @@
 </div>
 <% assignables = Team.assignable_by_user(current_user).collect(&:id) %>
 <div class="pane2-content">
+  <%= link_to 'Add an application', new_oauth_application_path, :remote => false, :class => 'dashed_link transition' %>
   <% @oauth_applications.each do |app| %>
       <div class="card-transparent transition team-card team-<%= app.id %>">
         <div class="team-name">
