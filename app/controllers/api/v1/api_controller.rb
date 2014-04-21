@@ -11,8 +11,7 @@ module Api::V1
     #
     #private
     def current_resource_owner
-      p doorkeeper_token.application if doorkeeper_token
-      User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+      user = OauthApplication.find(doorkeeper_token.try(&:application_id)).users.find(doorkeeper_token.try(&:resource_owner_id))
     end
 
   end
