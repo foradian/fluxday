@@ -28,6 +28,10 @@ Devise.setup do |config|
   # available as additional gems.
   require 'devise/orm/active_record'
 
+  require "omniauth-fluxapp"
+  #require File.expand_path('lib/omniauth/strategies/fluxapp.rb',Rails.root)
+  config.omniauth :fluxapp, 'e4e68356c7fd3ece23ac24584705534037682362a8d0b138a6c8f9e58fff3c39', '194900c71a743625e7b6427719c62edd5e1764a6f9409e0321fefb253b47462f',{:provider_ignores_state => true}#,callback_url: "http://0.0.0.0:3001/users/auth/fluxapp/callback"}
+
   require "omniauth-google-oauth2"
   config.omniauth :google_oauth2, AppConfig['google']['key'], AppConfig['google']['secret'],{
       :redirect_uri => AppConfig['google']['callback_url'],

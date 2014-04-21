@@ -12,5 +12,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-
+  def fluxapp
+    @user = User.find_by_email(request.env["omniauth.auth"].info.email)
+    if @user.present? && @user.persisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Flux"
+      sign_in_and_redirect @user, :event => :authentication
+    else
+      #session["devise.google_data"] = request.env["omniauth.auth"]
+      redirect_to new_user_session_path, :alert=> 'No user account is associated with this email'
+    end
+  end
 end

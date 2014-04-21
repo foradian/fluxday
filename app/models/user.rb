@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
   has_many :users, :through => :reporting_employees, :class_name => 'User', :foreign_key => "user_id"
   devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2] #, :registerable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2,:fluxapp] #, :registerable
   scope :active, -> { where(is_deleted: false) }
   scope :by_name, -> { order("name ASC") }
 
