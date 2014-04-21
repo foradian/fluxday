@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   has_many :reporting_managers
   has_many :work_logs
   has_many :okrs
+  has_many :user_oauth_applications
+  has_many :oauth_applications, :through => :user_oauth_applications
   has_many :tasks #authored ones
   has_many :objectives, :through => :okrs
   has_many :key_results, :through => :objectives

@@ -1,0 +1,69 @@
+<%= form_for(@oauth_application,:url => {:controller => 'oauth_applications',:action=>'create'}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+    <div class="form-content form-below">
+      <% if @oauth_application.errors.any? %>
+          <div id="error_explanation">
+            <% @oauth_application.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <%= build_validated_field('oauth_applications', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @oauth_application.name) %>
+      <%= build_validated_field('oauth_applications', 'redirect_uri', 'Redirect Url', 'Cannot be blank', '', 'text', @oauth_application.redirect_uri) %>
+
+      <div class="team-member-add">
+        <%= select_tag 'oauth_applications[user_ids]', options_for_select(User.active.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @user_ids), {:multiple => true,:class => 'select_add'} %>
+      </div>
+
+
+
+    </div>
+
+    <div class="small-12 columns form-action-up">
+      <div class="right">
+        <%= f.submit nil, :class => 'button alert right' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    oauth_applications_path, :class => 'btn cancel-btn' %>
+      </div>
+    </div>
+<% end %>
+
+
+<script type="text/javascript">
+
+    $('.select_add').multiSelect({
+        selectableHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search all users'>",
+        selectionHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search permitted users'>",
+        afterInit:function (ms) {
+            var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function (e) {
+                        if (e.which === 40) {
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function (e) {
+                        if (e.which == 40) {
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+        },
+        afterSelect:function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect:function () {
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });
+</script>

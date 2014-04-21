@@ -1,0 +1,7 @@
+$('.pane3').html("<%= escape_javascript(render :partial => 'oauth_applications/show') %>")
+$(document).foundation({
+    tab: {
+        callback: function (tab) {
+        }
+    }
+});

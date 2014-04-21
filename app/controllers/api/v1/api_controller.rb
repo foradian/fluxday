@@ -11,6 +11,7 @@ module Api::V1
     #
     #private
     def current_resource_owner
+      p doorkeeper_token.application if doorkeeper_token
       User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
     end
 

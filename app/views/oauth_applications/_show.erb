@@ -1,0 +1,51 @@
+<div class="pane3-padding team-show">
+  <div class="head-row team">
+    <div class="right options">
+      <% if can? :edit, @oauth_application %>
+          <a href="#" data-options="align:left" data-dropdown="drop1" class="dropdown right">
+            <div class="icon settings-link"></div>
+          </a>
+          <ul id="drop1" data-dropdown-content class="f-dropdown">
+            <li>
+              <%= link_to "Edit", edit_oauth_application_path(@oauth_application) %>
+            </li>
+            <li>
+              <%= link_to "Delete", oauth_application_path(@oauth_application), :method => :delete, :confirm => 'Are you sure you want to delete this team?' %>
+            </li>
+          </ul>
+      <% end %>
+    </div>
+    <div class="title">
+      <div class="main-title"><%= @oauth_application.name %></div>
+    </div>
+
+  </div>
+
+  <div class="content" id="team-leads">
+    <table class="api-table">
+      <tr>
+        <td>Redirect URL:</td>
+        <td><%= @oauth_application.redirect_uri %></td>
+      </tr>
+      <tr>
+        <td>App ID:</td>
+        <td><%= @oauth_application.uid %></td>
+      </tr>
+      <tr>
+        <td>App secret:</td>
+        <td><%= @oauth_application.secret %></td>
+      </tr>
+    </table>
+    <div class='row'>
+      <div class='small-3 columns set-users'>
+        Authorized users
+      </div>
+    </div>
+    <%= render :partial => 'users/user_list', :locals => {:users => @users} %>
+  </div>
+
+</div>
+<script type="text/javascript">
+    $('.team-card').removeClass('active')
+    $('.team-<%= @oauth_application.id %>').addClass('active')
+</script>

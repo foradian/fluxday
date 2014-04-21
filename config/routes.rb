@@ -1,5 +1,7 @@
 Tracker::Application.routes.draw do
 
+  resources :oauth_applications
+
   use_doorkeeper
   resources :okrs
 

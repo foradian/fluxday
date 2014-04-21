@@ -1,0 +1,16 @@
+<div class="pane2-meta">
+  <div class="title">Oauth Applications</div>
+</div>
+<% assignables = Team.assignable_by_user(current_user).collect(&:id) %>
+<div class="pane2-content">
+  <% @oauth_applications.each do |app| %>
+      <div class="card-transparent transition team-card team-<%= app.id %>">
+        <div class="team-name">
+          <%= link_to app.name, oauth_application_path(app), :class => 'grey-link' %>
+        </div>
+        <div class="team-glymplse">
+          <%= link_to app.redirect_uri, oauth_application_path(app), :class => 'team-project' %>
+        </div>
+      </div>
+  <% end %>
+</div>
