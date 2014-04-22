@@ -7,7 +7,12 @@ module Api::V1
     #respond_to :json
 
     def me
-      respond_with current_resource_owner #current_user
+      if current_resource_owner
+        respond_with current_resource_owner
+      else
+        error = { :error => "Invalid grant." }
+        respond_with error
+      end
     end
 
 

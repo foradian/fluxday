@@ -11,7 +11,7 @@ module Api::V1
     #
     #private
     def current_resource_owner
-      user = OauthApplication.find(doorkeeper_token.try(&:application_id)).users.find(doorkeeper_token.try(&:resource_owner_id))
+      user = OauthApplication.find(doorkeeper_token.try(&:application_id)).users.where(id:doorkeeper_token.try(&:resource_owner_id)).first
     end
 
   end
