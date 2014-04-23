@@ -10,14 +10,16 @@
 
     </div>
     <div class="small-12 columns form-action-up">
+      <div class="title">Manage members</div>
       <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
+        <%= f.submit 'Save', :class => 'button alert right' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     projects_path, :class => 'btn cancel-btn' %>
       </div>
     </div>
 <% end %>
 <script type="text/javascript">
+    window.location = '#pane3'
     $('.team-card').removeClass('active')
     $('.team-<%= @team.id %>').addClass('active')
 

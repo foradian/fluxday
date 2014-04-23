@@ -1,4 +1,4 @@
-<%= form_for(@oauth_application, :url => {:controller => 'oauth_applications',:action=>'update',:id=>@oauth_application.id}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
+<%= form_for(@oauth_application, :url => {:controller => 'oauth_applications', :action => 'update', :id => @oauth_application.id}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
     <div class="form-content form-below">
       <% if @oauth_application.errors.any? %>
           <div id="error_explanation">
@@ -11,12 +11,13 @@
       <%= build_validated_field('oauth_applications', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @oauth_application.name) %>
       <%= build_validated_field('oauth_applications', 'redirect_uri', 'Redirect Url', 'Cannot be blank', '', 'text', @oauth_application.redirect_uri) %>
       <div class="team-member-add">
-        <%= select_tag 'oauth_applications[user_ids]', options_for_select(User.active.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @user_ids), {:multiple => true,:class => 'select_add'} %>
+        <%= select_tag 'oauth_applications[user_ids]', options_for_select(User.active.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @user_ids), {:multiple => true, :class => 'select_add'} %>
       </div>
     </div>
     <div class="small-12 columns form-action-up">
+      <div class="title">Oauth applications</div>
       <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
+        <%= f.submit 'Save', :class => 'button alert right' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     oauth_applications_path, :class => 'btn cancel-btn' %>
       </div>
@@ -24,11 +25,12 @@
 <% end %>
 
 <script type="text/javascript">
+    window.location = '#pane3'
 
     $('.select_add').multiSelect({
-        selectableHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search users'>",
-        selectionHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search members'>",
-        afterInit:function (ms) {
+        selectableHeader: "<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search users'>",
+        selectionHeader: "<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search members'>",
+        afterInit: function (ms) {
             var that = this,
                     $selectableSearch = that.$selectableUl.prev(),
                     $selectionSearch = that.$selectionUl.prev(),
@@ -51,11 +53,11 @@
                         }
                     });
         },
-        afterSelect:function () {
+        afterSelect: function () {
             this.qs1.cache();
             this.qs2.cache();
         },
-        afterDeselect:function () {
+        afterDeselect: function () {
             this.qs1.cache();
             this.qs2.cache();
         }

@@ -20,8 +20,9 @@
     </div>
 
     <div class="small-12 columns form-action-up">
+      <div class="title">OAuth applications</div>
       <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
+        <%= f.submit 'Save', :class => 'button alert right' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     oauth_applications_path, :class => 'btn cancel-btn' %>
       </div>
@@ -30,6 +31,7 @@
 
 
 <script type="text/javascript">
+    window.location = '#pane3'
 
     $('.select_add').multiSelect({
         selectableHeader:"<input type='text' class='search-input text_field' autocomplete='off' placeholder='Search all users'>",

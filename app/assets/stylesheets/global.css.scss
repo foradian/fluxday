@@ -848,3 +848,20 @@ form.form-horizontal{padding-top: 100px;}
   input{clear: left}
   .input-set{clear: both}
 }
+
+.small-12.columns.form-action-up{
+  position: absolute;
+//  position: fixed;
+//  top: 45px;
+//  background: #FFFFFF;
+//  left: 50%;
+//  right: 0;
+//  width: auto;
+}
+.form-below{
+  position: absolute;
+  width: 100%;
+  top: 80px;
+  bottom: 0;
+  overflow-y: auto;
+}

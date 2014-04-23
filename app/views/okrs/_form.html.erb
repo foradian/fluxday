@@ -44,7 +44,7 @@
     <div class="small-12 columns form-action-up">
       <div class="title">Set OKR for <%= @user.name %></div>
       <div class="right">
-        <%= f.submit nil, :class => 'button alert right' %>
+        <%= f.submit "Save", :class => 'button alert right' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     okrs_path, :class => 'btn cancel-btn' %>
       </div>
@@ -55,6 +55,7 @@
 
 
 <script type="text/javascript">
+    window.location = '#pane3'
     $('#okr_name').focus()
     $('select').not('.select_add').select2({'width': '100%'});
     $('.date-input').datetimepicker({timepicker:false,format:'Y-m-d'});

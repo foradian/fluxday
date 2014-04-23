@@ -30,13 +30,17 @@
           <%#= build_field('team', 'managers_count', 'Members count', 'text', @team.managers_count) %>
         </div>
         <div class="small-12 columns form-action-up">
+          <div class="title">Team</div>
           <div class="right">
-            <%= f.submit nil, :class => 'button alert right' %>
+            <%= f.submit 'Save', :class => 'button alert right' %>
             <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                         teams_path, :class => 'btn cancel-btn' %>
           </div>
         </div>
     <% end %>
 <% end %>
+<script type="text/javascript">
+    window.location = '#pane3'
+</script>
 
 
