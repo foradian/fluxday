@@ -29,7 +29,7 @@
     <!--</dd>-->
   <!--</dl>-->
   <% if current_user.manager? %>
-      <li><%= link_to raw('<span class="icon icon-oauth-16"></span>OAuth applications'), new_oauth_application_path %></li>
+      <li><%= link_to raw('<span class="icon icon-oauth-16"></span>OAuth applications'), oauth_applications_path %></li>
   <% end %>
 </ul>
 

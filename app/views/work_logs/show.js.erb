@@ -1,1 +1,2 @@
 $('.pane3').html("<%= escape_javascript(render :partial => 'work_logs/show',:locals => {:task => @task, :project => @project, :team => @team}) %>")
+window.location = '#pane3'
