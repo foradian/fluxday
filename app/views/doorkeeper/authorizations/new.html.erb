@@ -1,0 +1,33 @@
+<div class="centered-contents">
+  <h2 class="login-title">
+    <div class="app-logo-login"></div>
+  </h2>
+
+  <main role="main">
+    <div class="left">
+      <strong>Authorization required</strong>
+      <br/>
+      <br/>
+      Allow <span class="text-info"><%= @pre_auth.client.name %></span> to use your account?
+    </div>
+    <div class="actions right">
+      <br/>
+      <%= form_tag oauth_authorization_path, :method => :post do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+          <%= hidden_field_tag :state, @pre_auth.state %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+          <%= hidden_field_tag :scope, @pre_auth.scope %>
+          <%= submit_tag "Allow", :class => "button alert left" %>
+      <% end %>
+      <%= form_tag oauth_authorization_path, :method => :delete do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+          <%= hidden_field_tag :state, @pre_auth.state %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+          <%= hidden_field_tag :scope, @pre_auth.scope %>
+          <%= submit_tag "Deny", :class => "button white left" %>
+      <% end %>
+    </div>
+  </main>
+</div>

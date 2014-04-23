@@ -611,8 +611,11 @@ form.form-horizontal{padding-top: 100px;}
 
 .task-add-link a:hover{background: #9a2e22 !important;}
 .task-add-link a{
-  font-size: 1em !important;
+  font-family: 'Source Sans Pro', sans-serif !important;
+  font-size: 1.2em !important;
   font-weight: bold !important;
+//  font-size: 1em !important;
+//  font-weight: bold !important;
 }
 .assignees-select label{padding-top: 0px;}
 
@@ -722,6 +725,13 @@ form.form-horizontal{padding-top: 100px;}
     color: $error-text;
   }
 }
+.button.alert{
+  background: $link !important;
+}
+.button.alert:hover{
+  background: $link-hover !important;
+}
+
 .task-completion{
    padding-left: 0px;
   padding-right: 25px;
