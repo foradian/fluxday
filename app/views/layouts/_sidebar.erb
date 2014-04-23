@@ -12,21 +12,22 @@
   <!--<li><%#= link_to raw('<span class="icon icon-calendar-16"></span>Calendar'),calendar_index_path %></li>-->
   <!--<li><%#= link_to raw('<span class="icon icon-reports-16"></span>Reports'), reports_index_path %></li>-->
   <li><%= link_to raw('<span class="icon icon-okr-16"></span>OKR'), okrs_path %></li>
+  <li><%= link_to raw('<span class="icon icon-reports-16"></span>Reports'), reports_employees_daily_path %></li>
 
-  <dl class="accordion report-list" data-accordion>
-    <dd>
-      <a href="#report_list" class="reports-link"><span class="icon icon-reports-16"></span>Reports</a>
+  <!--<dl class="accordion report-list" data-accordion>-->
+    <!--<dd>-->
+      <!--<a href="#report_list" class="reports-link"><span class="icon icon-reports-16"></span>Reports</a>-->
 
-      <div id="report_list" class="content report-options">
-        <li><%= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>
-        <li><%= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>
-        <li><%= link_to 'Employee report for a day', reports_employee_day_path %></li>
-        <li><%= link_to 'Employee report for a time range', reports_employee_range_path %></li>
-        <li><%= link_to 'Task reports', reports_tasks_path %></li>
-        <li><%= link_to 'OKR', reports_okrs_path %></li>
-      </div>
-    </dd>
-  </dl>
+      <!--<div id="report_list" class="content report-options">-->
+        <!--<li><%#= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>-->
+        <!--<li><%#= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>-->
+        <!--<li><%#= link_to 'Employee report for a day', reports_employee_day_path %></li>-->
+        <!--<li><%#= link_to 'Employee report for a time range', reports_employee_range_path %></li>-->
+        <!--<li><%#= link_to 'Task reports', reports_tasks_path %></li>-->
+        <!--<li><%#= link_to 'OKR', reports_okrs_path %></li>-->
+      <!--</div>-->
+    <!--</dd>-->
+  <!--</dl>-->
   <% if current_user.manager? %>
       <li><%= link_to raw('<span class="icon icon-oauth-16"></span>OAuth applications'), new_oauth_application_path %></li>
   <% end %>
@@ -51,9 +52,9 @@
 
 <script type="text/javascript">
     <% if flash.now[:alert].present?  %>
-        $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 15000 }}).show();
+        $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 10000 }}).show();
     <% end %>
     <% if flash.now[:notice].present?  %>
-        $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 15000 }}).show();
+        $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 10000 }}).show();
     <% end %>
 </script>

@@ -82,7 +82,7 @@
 
 .full-pane{
   padding-top: 110px;
-  h5{color: #666666;font-size: 14px;font-weight: bold;}
+  h5{color: #333333;font-size: 14px;font-weight: bold;}
   .main-title{
     border-bottom: solid 1px #666666;
     position: absolute;
@@ -99,4 +99,10 @@
   text-align: right;
   clear: both;
   margin-bottom: 20px;
+}
+.report-select{
+  font-weight: normal;
+}
+a.report-select{
+  margin-left: 20px;
 }

@@ -3,18 +3,20 @@
   <li><%= link_to raw('<span class="icon icon-projects-16"></span>Departments'), projects_path %></li>
   <li><%= link_to raw('<span class="icon icon-teams-16"></span>Team'), teams_path %></li>
   <li><%= link_to raw('<span class="icon icon-user-16"></span>Users'), users_path %></li>
+  <li><%= link_to raw('<span class="icon icon-okr-16"></span>OKR'), okrs_path %></li>
+  <li><%= link_to raw('<span class="icon icon-reports-16"></span>Reports'), reports_employees_daily_path %></li>
 
-  <li class="has-dropdown">
-    <a href="#"><span class="icon icon-reports-16"></span>Reports</a>
-    <ul class="dropdown">
-      <li><%= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>
-      <li><%= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>
-      <li><%= link_to 'Employee report for a day', reports_employee_day_path %></li>
-      <li><%= link_to 'Employee report for a time range', reports_employee_range_path %></li>
-      <li><%= link_to 'Task reports', reports_tasks_path %></li>
-      <li><%= link_to 'OKR', reports_okrs_path %></li>
-    </ul>
-  </li>
+  <!--<li class="has-dropdown">-->
+    <!--<a href="#"><span class="icon icon-reports-16"></span>Reports</a>-->
+    <!--<ul class="dropdown">-->
+      <!--<li><%#= link_to 'Combined Employee daily report', reports_employees_daily_path %></li>-->
+      <!--<li><%#= link_to 'Combined Employee report for a time range', reports_employees_time_range_path %></li>-->
+      <!--<li><%#= link_to 'Employee report for a day', reports_employee_day_path %></li>-->
+      <!--<li><%#= link_to 'Employee report for a time range', reports_employee_range_path %></li>-->
+      <!--<li><%#= link_to 'Task reports', reports_tasks_path %></li>-->
+      <!--<li><%#= link_to 'OKR', reports_okrs_path %></li>-->
+    <!--</ul>-->
+  <!--</li>-->
   <% if current_user.manager? %>
       <li><%= link_to raw('<span class="icon icon-oauth-16"></span>OAuth applications'), new_oauth_application_path %></li>
   <% end %>

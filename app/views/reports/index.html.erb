@@ -1,10 +1,15 @@
 <div class="main-title">
   <div class="element">
-    <h5>Reports</h5>
+    <h5>Reports
+      <a href="#" data-dropdown="drop1" class="report-select">Select report</a>
+      <ul id="drop1" class="f-dropdown report-select" data-dropdown-content>
+        <li><%= link_to 'Grouped Employee daily report', reports_employees_daily_path %></li>
+        <li><%= link_to 'Grouped Employee report for a time range', reports_employees_time_range_path %></li>
+        <li><%= link_to 'Employee report for a day', reports_employee_day_path %></li>
+        <li><%= link_to 'Employee report for a time range', reports_employee_range_path %></li>
+        <li><%= link_to 'Task reports', reports_tasks_path %></li>
+        <li><%= link_to 'OKR', reports_okrs_path %></li>
+      </ul>
+    </h5>
   </div>
 </div>
-<%= link_to 'Combined Employee daily report',reports_employees_daily_path %><br/>
-<%= link_to 'Combined Employee report for a time range',reports_employees_time_range_path %><br/>
-<%= link_to 'Employee report for a day',reports_employee_day_path %><br/>
-<%= link_to 'Employee report for a time range',reports_employee_range_path %><br/>
-<%= link_to 'Task reports',reports_tasks_path %><br/>
