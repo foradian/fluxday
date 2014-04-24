@@ -31,6 +31,7 @@ class TasksController < ApplicationController
 # GET /tasks/new
   def new
     @root_task = Task.find(params[:task_id]) if params[:task_id].present?
+    @team = @root_task.team if params[:task_id].present?
     @task = @root_task.present? ? @root_task.sub_tasks.new : Task.new
     @task.start_date = Time.now
     @task.end_date = Time.now
