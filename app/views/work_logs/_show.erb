@@ -16,7 +16,7 @@
     </div>
     <div class="one-row">
       <div class="small-3 columns">User</div>
-      <div class="small-9 columns"><%= link_to @work_log.user.name, user_path() %></div>
+      <div class="small-9 columns"><%= link_to @work_log.user.name, user_path(@work_log.user_id) %></div>
     </div>
     <div class="one-row">
       <div class="small-3 columns">Time taken</div>
