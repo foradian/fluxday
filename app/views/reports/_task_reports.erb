@@ -12,8 +12,9 @@
     <th data-graph-skip="1" width="300">Department</th>
     <th data-graph-skip="1" width="300">Team</th>
     <th width="200">Employees</th>
-    <th width="100">Hours</th>
-    <th width="100">Status</th>
+    <th data-graph-skip="1" width="100">Hours</th>
+    <th class="hidden_class" width="100">Hours</th>
+    <th data-graph-skip="1" width="100">Status</th>
   </tr>
   </thead>
   <% @tasks.each do |task| %>
@@ -23,6 +24,7 @@
         <td><%= task.team.name %></td>
         <td><%= @assignees[task.id].to_i %></td>
         <td><%= @work_logs[task.id] %></td>
+        <td class="hidden_class"><%= @work_logs[task.id].gsub(':',',') %></td>
         <td><%= task.status == 'active' ? 'Pending' : task.status.capitalize  %></td>
       </tr>
   <% end %>

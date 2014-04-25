@@ -11,8 +11,9 @@
         <th width="400">Task</th>
         <th data-graph-skip="1" width="300">Department</th>
         <th data-graph-skip="1" width="300">Team</th>
-        <th width="100">Hours</th>
-        <th width="100">Status</th>
+        <th data-graph-skip="1" width="100">Hours</th>
+        <th class="hidden_class" width="100">Hours</th>
+        <th data-graph-skip="1" width="100">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -22,6 +23,7 @@
             <td><%= t.project.name %></td>
             <td><%= t.team.name %></td>
             <td><%= @work_logs[t.id] %></td>
+            <td class="hidden_class"><%= @work_logs[t.id].gsub(':',",") %></td>
             <td><%= t.status == 'active' ? 'Pending' : t.status.capitalize  %></td>
           </tr>
       <% end %>

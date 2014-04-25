@@ -52,13 +52,13 @@ class ReportsController < ApplicationController
     grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]=grouped_tasks[x] } }
     @work_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     work_logs = WorkLog.where(date: @date, user_id: @users.collect(&:id), task_id: tasks.collect(&:id)).select('id', 'user_id', 'minutes').group_by(&:user_id)
-    work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{v.sum(&:minutes).to_i%60}" }
+    work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_duration}" }
     #work_logs.keys.each{|x| @work_logs[x]="#{work_logs[x].sum(&:minutes).to_i/60}:#{work_logs[x].sum(&:minutes).to_i%60}"}
     if ['csv', 'xls'].include?(request.format)
       @titles = ["Name", "Task", "Total hours"]
       @fields=[]
       @users.each do |user|
-        @fields << ["#{user.name}", "#{@tasks[user.id].length}", "#{@work_logs[user.id] == {} ? "00:00" : @work_logs[user.id]}"]
+        @fields << ["#{user.name}", "#{@tasks[user.id].length}", "#{@work_logs[user.id] == {} ? "0:00" : @work_logs[user.id].to_i.to_duration}"]
       end
     end
     respond_to do |format|
@@ -123,13 +123,13 @@ class ReportsController < ApplicationController
     grouped_tasks.keys.each { |x| x.each { |y| @tasks[y]= @tasks[y].to_i + grouped_tasks[x].length } }
     @work_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id), task_id: tasks.collect(&:id)).select('id', 'user_id', 'minutes').group_by(&:user_id)
-    work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{v.sum(&:minutes).to_i%60}" }
+    work_logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i.to_duration}" }
     #work_logs.keys.each{|x| @work_logs[x]="#{work_logs[x].sum(&:minutes).to_i/60}:#{work_logs[x].sum(&:minutes).to_i%60}"}
     if ['csv', 'xls'].include?(request.format)
       @titles = ["Name", "Task", "Total hours"]
       @fields=[]
       @users.each do |user|
-        @fields << ["#{user.name}", "#{@tasks[user.id].to_i}", "#{@work_logs[user.id] == {} ? "00:00" : @work_logs[user.id]}"]
+        @fields << ["#{user.name}", "#{@tasks[user.id].to_i}", "#{@work_logs[user.id] == {} ? "0:00" : @work_logs[user.id].to_i.to_duration}"]
       end
     end
     respond_to do |format|
@@ -197,12 +197,12 @@ class ReportsController < ApplicationController
     work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @user.id)
     logs = work_logs.group_by(&:task_id)
     @tasks = Task.where(id: logs.keys).includes([:project, :team])
-    logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
+    logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_ito_duration}" }
     @total={}
     @total['tasks']=@tasks.count
     @total['projects']=@tasks.collect(&:project_id).uniq.count
     @total['teams']=@tasks.collect(&:team_id).uniq.count
-    @total['hours']="#{work_logs.sum('minutes')/60}:#{work_logs.sum('minutes')%60}"
+    @total['hours']="#{work_logs.sum('minutes').to_duration}"
     if ['csv', 'xls'].include?(request.format)
       @titles = ["Task", "Department", "Team", "Hours", "Status"]
       @fields=[]
@@ -244,8 +244,8 @@ class ReportsController < ApplicationController
     else
       @report_type = params[:report][:type] if params[:report].present?
       @report_type ||= 'project'
-      @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
-      @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
+      @start_date = params[:start_date].to_date if  (params[:report].present? && params[:start_date].present?)
+      @end_date = params[:end_date].to_date if  (params[:report].present? && params[:end_date].present?)
       @start_date ||= Date.today.beginning_of_month
       @end_date ||= Date.today.end_of_month
       if @report_type == 'project'
@@ -265,7 +265,7 @@ class ReportsController < ApplicationController
         @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
         work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @tasks.collect(&:id))
         logs = work_logs.group_by(&:task_id)
-        logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i/60}:#{ '%02d' % (v.sum(&:minutes).to_i%60)}" }
+        logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i.to_duration}" }
       end
       if ['csv', 'xls'].include?(request.format)
         @titles = ["Task", "Department", "Team", "Employees", "Hours", "Status"]
