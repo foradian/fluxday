@@ -197,7 +197,7 @@ class ReportsController < ApplicationController
     work_logs = WorkLog.where(date: @start_date..@end_date, user_id: @user.id)
     logs = work_logs.group_by(&:task_id)
     @tasks = Task.where(id: logs.keys).includes([:project, :team])
-    logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_ito_duration}" }
+    logs.each { |x, v| @work_logs[x]="#{v.sum(&:minutes).to_i.to_duration}" }
     @total={}
     @total['tasks']=@tasks.count
     @total['projects']=@tasks.collect(&:project_id).uniq.count
