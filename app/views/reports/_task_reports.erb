@@ -23,8 +23,8 @@
         <td><%= task.project.name %></td>
         <td><%= task.team.name %></td>
         <td><%= @assignees[task.id].to_i %></td>
-        <td><%= @work_logs[task.id] %></td>
-        <td class="hidden_class"><%= @work_logs[task.id].nil? ? 0 : @work_logs[task.id].gsub(':',',')  %></td>
+        <td><%= @work_logs[task.id].nil? ? '0:00' : @work_logs[task.id] %></td>
+        <td class="hidden_class"><%= @work_logs[task.id].nil? ? '0,00' : @work_logs[task.id].gsub(':',',')  %></td>
         <td><%= task.status == 'active' ? 'Pending' : task.status.capitalize  %></td>
       </tr>
   <% end %>
