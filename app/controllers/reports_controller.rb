@@ -233,6 +233,8 @@ class ReportsController < ApplicationController
       @teams = Team.for_user(current_user)
     elsif params['type'] == 'managing_user'
       @users = current_user.users
+    elsif params['type'] == 'users'
+      @users = (current_user.users + current_user.admin_teams.collect(&:users).flatten.uniq + current_user.projects.collect(&:users).flatten.uniq).uniq
     elsif params['type'] == 'user'
 
     end
@@ -242,6 +244,15 @@ class ReportsController < ApplicationController
     unless (current_user.admin_teams_count.to_i + current_user.admin_projects_count.to_i) > 0
       redirect_to root_path, :alert => 'Nothing to show'
     else
+      if current_user.manager?
+        @opts = [['Department', 'project'], ['Team', 'team'], ['Users', 'users']]
+      else
+        @opts = []
+        @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
+        @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
+        @opts << ['Users', 'users'] if (current_user.user_ids.length > 0 || current_user.admin_teams_count.to_i > 0)
+      end
+
       @report_type = params[:report][:type] if params[:report].present?
       @report_type ||= 'project'
       @start_date = params[:start_date].to_date if  (params[:report].present? && params[:start_date].present?)
@@ -257,9 +268,13 @@ class ReportsController < ApplicationController
         @teams = Team.for_user(current_user)
         @team=Team.find(params[:report][:team_id]) if (params[:report] && params[:report][:team_id])
         @tasks = Task.where('start_date <= ? && end_date >= ? && team_id = ?', @end_date.end_of_day, @start_date.beginning_of_day, @team.id).includes([:users, :project, :team]) if @team
+      elsif @report_type == 'users'
+        @user=User.find(params[:report][:user_id]) if (params[:report] && params[:report][:user_id])
+        @tasks = @user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ? ', @end_date.end_of_day, @start_date.beginning_of_day).includes([:users, :project, :team])
       end
       @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
       @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+      p @tasks.inspect
       #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
       if @tasks.present?
         @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
