@@ -248,7 +248,7 @@ class ReportsController < ApplicationController
         @opts = [['Department', 'project'], ['Team', 'team'], ['Users', 'users']]
       else
         @opts = []
-        @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
+        @opts << ['Department', 'project']# if current_user.admin_projects_count.to_i > 0
         @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
         @opts << ['Users', 'users'] if (current_user.user_ids.length > 0 || current_user.admin_teams_count.to_i > 0)
       end
@@ -274,7 +274,6 @@ class ReportsController < ApplicationController
       end
       @work_logs = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
       @assignees = {} #Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
-      p @tasks.inspect
       #TaskAssignee.where(task_id: @tasks.collect(&:id)).group_by(&:task_id).map { |k, v| @assignees[k] = v.count }
       if @tasks.present?
         @tasks.each { |x| @assignees[x.id] = x.user_ids.length }
