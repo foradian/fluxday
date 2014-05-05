@@ -94,6 +94,13 @@ $link-active-bg: #1f2f3e;
 .settings-link:hover{
   background: url('/assets/iconsprite.png') no-repeat -127px -80px;
 }
+.remove-link{
+  background: url('/assets/iconsprite.png') no-repeat -32px -30px;
+  margin: 3px;
+}
+.remove-link:hover{
+  background: url('/assets/iconsprite.png') no-repeat -32px -46px;
+}
 .icon-members-16{
   margin: 0px 10px -2px 5px;
   background: url('/assets/iconsprite.png') no-repeat -33px -80px;

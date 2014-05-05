@@ -21,9 +21,9 @@ class WorkLogsController < ApplicationController
     else
       @date = params[:date].to_date
     end
-    @entries = current_user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@date.end_of_day,@date.beginning_of_day)
+    @entries = current_user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?', @date.end_of_day, @date.beginning_of_day)
     @date = params[:date].present? ? params[:date].to_date : Date.today
-    @work_log = WorkLog.new(:date=>@date)
+    @work_log = WorkLog.new(:date => @date)
     @hours = @work_log.minutes.to_i/60
     @mins = @work_log.minutes.to_i%60
   end
@@ -80,9 +80,15 @@ class WorkLogsController < ApplicationController
   # DELETE /work_logs/1
   # DELETE /work_logs/1.json
   def destroy
-    @work_log.destroy
+    if @work_log.user == current_user && @work_log.date >= 4.days.ago
+      @work_log.destroy
+    elsif @work_log.user == current_user
+      flash[:notice] = "Log is older than 5 days"
+    else
+      flash[:notice] = "Permission denied"
+    end
     respond_to do |format|
-      format.html { redirect_to work_logs_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

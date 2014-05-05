@@ -3,8 +3,10 @@
     Log
   </div>
 
-  <div class="right">
-    <%= link_to raw('<div class="edit_link"></div>'), edit_work_log_path(@work_log) %>
+  <div class="right options">
+    <% if @work_log.user == current_user %>
+        <%= link_to raw("<div class='icon remove-link'></div>"), work_log_path(@work_log), :method => :delete, :confirm => 'Are you sure you want to remove this log?' %>
+    <% end %>
   </div>
 </div>
 
