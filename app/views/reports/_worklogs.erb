@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <% (@start_date..@end_date).each do |dt| %>
+        <th>
+          <%= dt.day %>
+        </th>
+    <% end %>
+    <th>Average</th>
+    <th>Total</th>
+  </tr>
+  </thead>
+  <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= user.name %>
+        </td>
+        <% (@start_date..@end_date).each do |dt| %>
+            <td>
+              <% unless @hours[user.id][dt.day].blank? %>
+                  <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user),:remote=>true %>
+              <% else %>
+                    -
+              <% end %>
+            </td>
+        <% end %>
+        <td><%= @average[user.id] %></td>
+        <td><%= @total[user.id].to_duration %></td>
+      </tr>
+  <% end %>
+</table>

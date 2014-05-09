@@ -1,0 +1,19 @@
+<div class="big-text">
+  <%= "Worklogs of #{@user.name} for #{@date.strftime("%d %B %Y")}" %>
+</div>
+<table class="table">
+  <thead>
+  <tr>
+    <th width="500">Task</th>
+    <th width="200">Duration</th>
+    <th width="500">Description</th>
+  </tr>
+  </thead>
+  <% @work_logs.each do |log| %>
+      <tr>
+        <td><%= log.task.name %></td>
+        <td><%= log.minutes.to_duration %></td>
+        <td><%= log.description %></td>
+      </tr>
+  <% end %>
+</table>

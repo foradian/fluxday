@@ -20,6 +20,8 @@ Tracker::Application.routes.draw do
   get "reports/okrs"
   get "reports/get_selection_list"
   get "reports/employee_tasks"
+  get "reports/worklogs"
+  get "reports/day_log"
 
   resources :work_logs
 

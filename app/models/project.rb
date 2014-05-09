@@ -12,7 +12,7 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :code
 
   #default_scope where(is_deleted: false)
-  default_scope{ order("name ASC")}
+  default_scope{ order("projects.name ASC")}
 
   #after_save  :update_numbers
 

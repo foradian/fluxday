@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
 
   validates_presence_of :name, :code, :project_id
 
-  default_scope { where.not(is_deleted: true).order("name ASC") }
+  default_scope { where.not(is_deleted: true).order("teams.name ASC") }
 
   scope :active, -> { where(status: 'active') }
 

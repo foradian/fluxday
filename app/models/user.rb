@@ -25,18 +25,18 @@ class User < ActiveRecord::Base
   has_many :tasks #authored ones
   has_many :objectives, :through => :okrs
   has_many :key_results, :through => :objectives
-  has_many :assignments,->{uniq}, :through => :key_results, :source => :tasks
+  has_many :assignments, -> { uniq }, :through => :key_results, :source => :tasks
   has_many :managers, :through => :reporting_managers, :class_name => 'User'
   has_many :reporting_employees, :class_name => "ReportingManager", :foreign_key => "manager_id"
   has_many :users, :through => :reporting_employees, :class_name => 'User', :foreign_key => "user_id"
   devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2,:fluxapp] #, :registerable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2, :fluxapp] #, :registerable
   scope :active, -> { where(is_deleted: false) }
-  scope :by_name, -> { order("name ASC") }
+  scope :by_name, -> { order("users.name ASC") }
 
   validates_presence_of :name, :nickname
-  validate :email, :presence=>true,:uniqueness=>true
-  validate :employee_code, :presence=>true,:uniqueness=>true
+  validate :email, :presence => true, :uniqueness => true
+  validate :employee_code, :presence => true, :uniqueness => true
 
   #default_scope {where.not(is_deleted:true).order("name ASC")}
   #default_scope {order("name ASC")}
@@ -53,12 +53,26 @@ class User < ActiveRecord::Base
     role.downcase == 'employee'
   end
 
+  def accessible_users
+    unless manager?
+      project_user_ids = projects.collect(&:project_member_ids).flatten
+      team_member_ids = admin_teams.collect(&:user_ids).flatten
+      managing_users = user_ids
+      user_ids = [id]
+      user_ids = user_ids + project_user_ids + team_member_ids +user_ids
+      user_ids = user_ids.uniq
+      users = User.where(id: user_ids).by_name
+    else
+      users= User.by_name
+    end
+  end
+
   def assigned_and_written_tasks
-    Task.where(id:(task_ids + assignment_ids).uniq)
+    Task.where(id: (task_ids + assignment_ids).uniq)
   end
 
   def watching_tasks
-    Task.where("id IN (?) OR team_id IN (?)",(task_ids + assignment_ids).uniq,admin_team_ids)
+    Task.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

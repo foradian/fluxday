@@ -22,6 +22,12 @@
   .select2-choice{height: 30px;}
 }
 }
+
+.worklog-report{
+  overflow: auto;
+  max-height: 90%;
+
+}
 .report-options{
   .report-type,.report_options{float: left;}
   .report-date,.submit_button{float: right;}
@@ -29,6 +35,7 @@
   .report-type{width: 20%;}
   .report_options{width: 40%;margin-left: 3%;}
   .report-date{
+    .year, .month{width: 48% !important;margin-left: 1%;}
     width: 25%;
     input{
 //      float: right;
@@ -106,4 +113,12 @@
 a.report-select{
   margin-left: 20px;
   color: #333333;
+}
+
+.reveal-modal-bg{
+  z-index: 90;
+}
+.big-text{
+  font-size: 1.4em;
+  line-height: 2em;
 }

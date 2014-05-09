@@ -49,11 +49,16 @@
     <%= yield :sidebar %>
   </div>
   <div class="large-10 columns pane2 full-pane">
-    <%= yield :pane2%>
+    <%= yield :pane2 %>
     <%= yield :pane3 %>
     <%= yield %>
   </div>
 </div>
 
+
+<div id="myModal" class="reveal-modal" data-reveal>
+  <div class="modal-content"></div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
 </body>
 </html>

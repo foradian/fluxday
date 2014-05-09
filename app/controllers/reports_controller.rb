@@ -248,7 +248,7 @@ class ReportsController < ApplicationController
         @opts = [['Department', 'project'], ['Team', 'team'], ['Users', 'users']]
       else
         @opts = []
-        @opts << ['Department', 'project']# if current_user.admin_projects_count.to_i > 0
+        @opts << ['Department', 'project'] # if current_user.admin_projects_count.to_i > 0
         @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
         @opts << ['Users', 'users'] if (current_user.user_ids.length > 0 || current_user.admin_teams_count.to_i > 0)
       end
@@ -415,6 +415,41 @@ class ReportsController < ApplicationController
           render "reports/excel_report.xls.erb"
         end
         format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      end
+    end
+  end
+
+
+  def worklogs
+    if params[:month].present? && params[:month].present?
+      date = "01 #{params[:month]} #{params[:month]}".to_date
+    else
+      date = Date.today
+    end
+    @start_date = date.beginning_of_month
+    @end_date = date.end_of_month
+    @users = current_user.accessible_users
+    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date') #.group_by(&:user_id)
+    @hours = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    worklogs.map { |x| @hours[x.user_id][x.date.day] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes }
+    @total = {}
+    @average = {}
+    @users.map { |u| @total[u.id] = @hours[u.id].values.sum }
+    @users.map { |u| @average[u.id] = (@total[u.id].to_s.to_f/(@end_date-@start_date)).to_i.to_duration }
+  end
+
+
+  def day_log
+    @date = params[:date].to_date if params[:date]
+    @date ||= Date.today
+    @user = current_user.accessible_users.friendly.where(employee_code:params[:user_id]) if params[:user_id]
+    @user = @user.first if @user.present?
+    @work_logs = @user.work_logs.where(date: @date).includes(:task) if @user.present?
+    unless @user.present?
+      respond_to do |format|
+        format.js { render :layout => false }
+        flash[:notice] = "Permission denied"
+        format.html{ redirect_to root_path}
       end
     end
   end
