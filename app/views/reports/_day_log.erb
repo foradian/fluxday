@@ -1,7 +1,7 @@
 <div class="big-text">
   <%= "Worklogs of #{@user.name} for #{@date.strftime("%d %B %Y")}" %>
 </div>
-<table class="table">
+<table class="table sortable-table">
   <thead>
   <tr>
     <th width="500">Task</th>
@@ -17,3 +17,6 @@
       </tr>
   <% end %>
 </table>
+<script type="text/javascript">
+    $(".sortable-table").tablesorter();
+</script>
