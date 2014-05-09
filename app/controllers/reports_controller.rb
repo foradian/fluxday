@@ -426,9 +426,42 @@ class ReportsController < ApplicationController
     else
       date = Date.today
     end
+    @opts = []
+    if current_user.manager?
+      @opts = [['Department', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+    else
+      @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
+      @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
+      @opts << ['All accesible users', 'accessible']
+      @opts << ['Self', 'user']
+    end
+
+    @report_type = params[:report][:type] if params[:report].present?
+    @report_type ||= current_user.manager? ? 'all_users' : 'accessible'
+    if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
+      @projects = current_user.projects
+      @projects = Project.active if current_user.manager?
+      @project = @projects.find(params[:report][:project_id])
+      @users = @project.members if @project.present?
+    elsif @report_type == 'team' && params[:report].present? && params[:report][:team_id].present?
+      @team = Team.find(params[:report][:team_id])
+      @users = @team.members
+    elsif @report_type == 'managing_users'
+      @users = current_user.users
+    elsif @report_type == 'all_users'
+      @users = User.active
+    elsif @report_type == 'accessible'
+      @users = current_user.accessible_users
+    elsif @report_type == 'employees' && params[:report].present? && params[:report][:user_id].present?
+      @users = User.where(id: params[:report][:user_id])
+    else
+      @users = User.where(id: current_user.id)
+    end
+
     @start_date = date.beginning_of_month
     @end_date = date.end_of_month
-    @users = current_user.accessible_users
+    #@users = current_user.accessible_users
     worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date') #.group_by(&:user_id)
     @hours = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     worklogs.map { |x| @hours[x.user_id][x.date.day] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes }

@@ -26,6 +26,7 @@
 .worklog-report{
   overflow: auto;
   max-height: 90%;
+  td,th{min-width: 50px}
 
 }
 .report-options{

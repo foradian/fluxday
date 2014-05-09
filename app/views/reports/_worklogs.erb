@@ -1,35 +1,44 @@
-<table class="table sortable-table">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <% (@start_date..@end_date).each do |dt| %>
-        <th>
-          <%= dt.day %>
-        </th>
-    <% end %>
-    <th>Average</th>
-    <th>Total</th>
-  </tr>
-  </thead>
-  <% @users.each do |user| %>
+<% unless @users.empty? %>
+    <table class="table sortable-table">
+      <thead>
       <tr>
-        <td>
-          <%= user.name %>
-        </td>
+        <th>Name</th>
         <% (@start_date..@end_date).each do |dt| %>
-            <td>
-              <% unless @hours[user.id][dt.day].blank? %>
-                  <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user),:remote=>true %>
-              <% else %>
-                    -
-              <% end %>
-            </td>
+            <th width="50">
+              <%= dt.day %>
+            </th>
         <% end %>
-        <td><%= @average[user.id] %></td>
-        <td><%= @total[user.id].to_duration %></td>
+        <th>Average</th>
+        <th>Total</th>
       </tr>
-  <% end %>
-</table>
+      </thead>
+      
+      <tbody>
+      <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.name %>
+            </td>
+            <% (@start_date..@end_date).each do |dt| %>
+                <td>
+                  <% unless @hours[user.id][dt.day].blank? %>
+                      <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
+                  <% else %>
+                      -
+                  <% end %>
+                </td>
+            <% end %>
+            <td><%= @average[user.id] %></td>
+            <td><%= @total[user.id].to_duration %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <div class="alert-box secondary">
+      No users to show.
+    </div>
+<% end %>
 <script type="text/javascript">
     $(".sortable-table").tablesorter();
 </script>
