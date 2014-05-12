@@ -5,28 +5,29 @@
       <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
     </div>
     <div class="report">
+
       <table class="table sortable-table">
         <thead>
         <tr>
-          <th>Name</th>
+          <th width="3000" class="name">Name</th>
           <% (@start_date..@end_date).each do |dt| %>
-              <th width="50">
+              <th width="50" class="log">
                 <%= dt.day %>
               </th>
           <% end %>
-          <th>Average</th>
-          <th>Total</th>
+          <th class="calcd">Average</th>
+          <th class="calcd">Total</th>
         </tr>
         </thead>
 
         <tbody>
         <% @users.each do |user| %>
             <tr>
-              <td>
+              <td class="name">
                 <%= user.name %>
               </td>
               <% (@start_date..@end_date).each do |dt| %>
-                  <td>
+                  <td class="log" title='<%= "#{user.name},#{dt.strftime('%d/%m/%y')}" %>'>
                     <% unless @hours[user.id][dt.day].blank? %>
                         <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
                     <% else %>
@@ -34,8 +35,8 @@
                     <% end %>
                   </td>
               <% end %>
-              <td><%= @average[user.id] %></td>
-              <td><%= @total[user.id].to_duration %></td>
+              <td class="calcd"><%= @average[user.id] %></td>
+              <td class="calcd"><%= @total[user.id].to_duration %></td>
             </tr>
         <% end %>
         </tbody>

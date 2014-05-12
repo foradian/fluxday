@@ -26,8 +26,17 @@
 .worklog-report .report{
   overflow: auto;
   max-height: 85%;
-  td,th{min-width: 50px}
+  table{
+    td.log,th.log{min-width: 50px}
+    td.name,th.name{min-width: 200px;}
+    td.calcd,th.calcd{min-width: 100px;}
+  }
 
+}
+.hovered{
+  height:10px;
+  width: 20px;
+  background: gray;
 }
 .report-options{
   .report-type,.report_options{float: left;}
