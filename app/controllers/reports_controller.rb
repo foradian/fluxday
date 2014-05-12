@@ -469,20 +469,69 @@ class ReportsController < ApplicationController
     @average = {}
     @users.map { |u| @total[u.id] = @hours[u.id].values.sum }
     @users.map { |u| @average[u.id] = (@total[u.id].to_s.to_f/(@end_date-@start_date)).to_i.to_duration }
+    if ['csv', 'xls'].include?(request.format)
+      @titles = ["Name"]
+      @titles += (@start_date..@end_date).map { |x| x.day }.sort
+      @titles << "Average"
+      @titles << "Total"
+      @fields=[]
+      @users.each do |user|
+        row = []
+        row << user.name
+        row += (@start_date..@end_date).map { |dt| @hours[user.id][dt.day].blank? ? "-" : @hours[user.id][dt.day].to_duration }
+        row << @average[user.id]
+        row << @total[user.id].to_duration
+        @fields << row
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="worklog.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        response.headers['Content-Disposition'] = 'attachment; filename="worklog.xls"'
+        render "reports/excel_report.xls.erb"
+      end
+      format.pdf { render :pdf => "Tracker worklog report", :page_size => 'A4', :orientation => 'landscape', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
   end
 
 
   def day_log
     @date = params[:date].to_date if params[:date]
     @date ||= Date.today
-    @user = current_user.accessible_users.friendly.where(employee_code:params[:user_id]) if params[:user_id]
+    @user = current_user.accessible_users.friendly.where(employee_code: params[:user_id]) if params[:user_id]
     @user = @user.first if @user.present?
     @work_logs = @user.work_logs.where(date: @date).includes(:task) if @user.present?
     unless @user.present?
       respond_to do |format|
         format.js { render :layout => false }
         flash[:notice] = "Permission denied"
-        format.html{ redirect_to root_path}
+        format.html { redirect_to root_path }
+      end
+    else
+      if ['csv', 'xls'].include?(request.format)
+        @titles = ["Task","Duration","Description"]
+        @fields=[]
+        @work_logs.each do |log|
+          @fields << ["#{log.task.name}","#{log.minutes.to_duration}","#{log.description}"]
+        end
+      end
+      respond_to do |format|
+        format.js { render :layout => false }
+        format.html
+        format.csv do
+          response.headers['Content-Disposition'] = 'attachment; filename="worklog.csv"'
+          render "reports/csv_report.csv.erb"
+        end
+        format.xls do
+          response.headers['Content-Disposition'] = 'attachment; filename="worklog.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+        format.pdf { render :pdf => "Tracker Daily report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     end
   end

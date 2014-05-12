@@ -1,39 +1,46 @@
 <% unless @users.empty? %>
-    <table class="table sortable-table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <% (@start_date..@end_date).each do |dt| %>
-            <th width="50">
-              <%= dt.day %>
-            </th>
+    <div class="export-options">
+      <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
+      <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
+      <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
+    </div>
+    <div class="report">
+      <table class="table sortable-table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <% (@start_date..@end_date).each do |dt| %>
+              <th width="50">
+                <%= dt.day %>
+              </th>
+          <% end %>
+          <th>Average</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= user.name %>
+              </td>
+              <% (@start_date..@end_date).each do |dt| %>
+                  <td>
+                    <% unless @hours[user.id][dt.day].blank? %>
+                        <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
+                    <% else %>
+                        -
+                    <% end %>
+                  </td>
+              <% end %>
+              <td><%= @average[user.id] %></td>
+              <td><%= @total[user.id].to_duration %></td>
+            </tr>
         <% end %>
-        <th>Average</th>
-        <th>Total</th>
-      </tr>
-      </thead>
-      
-      <tbody>
-      <% @users.each do |user| %>
-          <tr>
-            <td>
-              <%= user.name %>
-            </td>
-            <% (@start_date..@end_date).each do |dt| %>
-                <td>
-                  <% unless @hours[user.id][dt.day].blank? %>
-                      <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
-                  <% else %>
-                      -
-                  <% end %>
-                </td>
-            <% end %>
-            <td><%= @average[user.id] %></td>
-            <td><%= @total[user.id].to_duration %></td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 <% else %>
     <div class="alert-box secondary">
       No users to show.
