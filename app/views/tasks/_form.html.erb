@@ -6,7 +6,8 @@
           <%= f.hidden_field :project_id, :value => @root_task.project_id if @root_task.present? %>
           <%= f.hidden_field :user_id, :value => current_user.id %>
           <%= build_validated_field('task', 'name', 'Title', 'Cannot be blank', '', 'text', @task.name) %>
-          <%= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '', 'text_area', @task.description) %>
+          <%= build_field('task', 'description', 'Description', 'text_area', @task.description) %>
+          <%#= build_validated_field('task', 'description', 'Description', 'Cannot be blank', '', 'text_area', @task.description) %>
           <% unless @root_task.present? %>
               <div class='form-row'>
                 <div class='small-3 columns'>
