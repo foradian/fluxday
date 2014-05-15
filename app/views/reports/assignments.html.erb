@@ -1,0 +1,39 @@
+<div class="main-title">
+  <div class="element">
+    <h5>Reports
+      <a href="#" data-dropdown="drop1" class="report-select">Assignments  ▾</a>
+      <ul id="drop1" class="f-dropdown report-select" data-dropdown-content>
+        <%= render 'reports/report_types' %>
+      </ul>
+    </h5>
+  </div>
+</div>
+<div class="report-options">
+  <!--<form class="employee_daily_report_form" data-remote="false">-->
+  <%= form_for(:report, :url => {:controller => 'reports', :action => 'assignments'}, :method => :get, :remote => true, :class => 'employee_daily_report_form') do %>
+       <div class="report-type">
+         <%= select_tag('user_id', options_for_select(@users.map { |x| [x.name, x.id] }, @user.id)) %>
+       </div>
+       <div class="submit_button  show-for-medium-up">
+         <button>Go</button>
+       </div>
+       <div class="report-date">
+         <%= select_tag 'quarter', options_for_select([['Q1','q2'],['Q2','q3'],['Q3','q4'],['Q4','q1']]), :class => 'date-only-input',:class=>'month' %>
+         <%= select_tag 'fin_year', options_for_select((2014..2020).map{|x| ["#{x} - #{x+1}",x]}), :class => 'year' %>
+       </div>
+       <div class="submit_button show-for-small-only">
+         <button>Go</button>
+       </div>
+
+  <% end %>
+  <!--</form>-->
+</div>
+
+<div class="report-renderer worklog-report">
+  <%= render :partial => 'reports/assignments' %>
+</div>
+<script type="text/javascript">
+    $('.report_type_select').on("change", function () {
+        $.get('/reports/get_selection_list?type=' + $(this).val())
+    });
+</script>

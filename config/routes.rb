@@ -22,6 +22,7 @@ Tracker::Application.routes.draw do
   get "reports/employee_tasks"
   get "reports/worklogs"
   get "reports/day_log"
+  get "reports/assignments"
 
   resources :work_logs
 

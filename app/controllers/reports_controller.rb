@@ -308,8 +308,8 @@ class ReportsController < ApplicationController
     @task = Task.find(params[:task_id])
     @users = @task.users
     @user = User.find(params[:user_id])
-    @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
-    @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
+    @start_date = params[:start_date].to_date if params[:start_date].present?
+    @end_date = params[:end_date].to_date if params[:end_date].present?
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
     @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id: @user.id)
@@ -535,6 +535,72 @@ class ReportsController < ApplicationController
       end
     end
   end
+
+  def assignments
+    @users = current_user.accessible_users
+    if params[:user_id]
+      @user = @users.where(id: params[:user_id])
+      @user = @user.first if @user
+    else
+      @user = current_user
+    end
+    @titles = ["Task","Description","Start date","End date","Status","Time spent"]
+    @fields=[]
+    if @user.present?
+      quarter = params[:quarter] if params[:quarter]
+      year = params[:fin_year] if params[:fin_year]
+      if quarter && year
+        year = year.to_i+1 if quarter == 'q1'
+        case quarter 
+        when 'q1'
+          month = 'Jan'
+        when 'q2'
+          month = 'Apr'
+        when 'q3'
+          month = 'Jul'
+        when 'q4'
+          month = 'Oct'
+        end        
+        date = "01 #{month} #{year}".to_date
+      else
+        date = Date.today
+      end
+      @range = date.to_quarters
+      tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@range[1],@range[0])
+      logs = @user.work_logs.where(task_id:tasks).group_by(&:task_id)
+      tasks.each do |t|
+        @fields << [
+          "#{t.name}",
+          "#{t.description}",
+          "#{t.start_date.strftime('%d/%m/%y - %H:%M')}",
+          "#{t.end_date.strftime('%d/%m/%y - %H:%M')}",
+          "#{t.status == 'active' ? 'Pending' : t.status.capitalize}",
+          "#{logs[t.id].nil? ? '0:00' : logs[t.id].sum(&:minutes).to_duration }"
+        ]
+      end
+      respond_to do |format|
+        format.js { render :layout => false }
+        format.html
+        format.csv do
+          response.headers['Content-Disposition'] = 'attachment; filename="assignments.csv"'
+          render "reports/csv_report.csv.erb"
+        end
+        format.xls do
+          response.headers['Content-Disposition'] = 'attachment; filename="assignments.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+        format.pdf { render :pdf => "Tracker Assignments", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      end      
+    else
+      respond_to do |format|
+        format.js { render :layout => false }
+        flash[:notice] = "Permission denied"
+        format.html { redirect_to root_path }
+      end
+    end
+
+  end
+
 
   protected
 

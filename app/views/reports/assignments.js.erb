@@ -1,0 +1,5 @@
+<% if @user.present? %>
+$('.report-renderer').html("<%= escape_javascript(render :partial => 'reports/assignments') %>")
+<% else %>
+$('.alert-area').notify({message: { text: 'Access denied' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+<% end %>

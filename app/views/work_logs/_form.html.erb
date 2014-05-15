@@ -1,5 +1,5 @@
 <% unless @entries.empty? %>
-    <%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true},:remote=>true} do |f| %>
+    <%= form_for @work_log, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}, :remote => true} do |f| %>
 
         <div class="form-content form-below">
           <% if @work_log.errors.any? %>
@@ -7,7 +7,7 @@
                 <% @work_log.errors.full_messages.each do |msg| %>
                     <li><%= msg %></li>
                 <% end %>
-                </ul>
+                <!--</ul>-->
               </div>
           <% end %>
           <%= f.hidden_field :date, :value => @date %>

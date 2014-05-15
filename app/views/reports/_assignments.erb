@@ -1,0 +1,39 @@
+<% unless @users.empty? %>
+    <div class="export-options">
+      <%= link_to "PDF", current_url(:format => :pdf), :target => "_blank" %>
+      <%= link_to "CSV", current_url(:format => :csv), :target => "_blank" %>
+      <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
+    </div>
+    <div class="report">
+
+      <table class="table sortable-table">
+        <thead>
+        <tr>
+          <th width="300">Name</th>
+          <th width="350">Description</th>
+          <th width="150">Start date</th>
+          <th width="150">End date</th>
+          <th width="150">Status</th>
+          <th width="100">Time spent</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @fields.each do |f| %>
+            <tr>
+              <% f.to_a.each do |x| %>
+                <td><%= x %></td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% else %>
+    <div class="alert-box secondary">
+      No users to show.
+    </div>
+<% end %>
+<script type="text/javascript">
+    $(".sortable-table").tablesorter();
+</script>
