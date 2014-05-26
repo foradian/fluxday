@@ -19,9 +19,16 @@
                 </div>
               </div>
           <% end %>
-
           <%= build_validated_field('task', 'start_date', 'Start Date', 'Cannot be blank', '', 'date_field', @task.start_date) %>
           <%= build_validated_field('task', 'end_date', 'End Date', 'Cannot be blank', '', 'date_field', @task.end_date) %>
+          <div class='form-row'>
+            <div class='small-3 columns'>
+              <%= f.label :status, 'Status' %>
+            </div>
+            <div class='small-9 columns'>
+              <%= select_tag('task[status]', options_for_select([['Pending','active'],['Completed','completed']], @task.status)) %>
+            </div>
+          </div>
           <%#= build_validated_select('task', 'project_id', 'Project','Should select at least one','',false,@task.project_id,Project.active.map{|x| [x.name,x.id]}) %>
           <%#= build_validated_select('task', 'team_id', 'Team','Should select at least one','',false,@task.team_id,Team.active.map{|x| [x.name,x.id]}) %>
           <div class="priority-selector">

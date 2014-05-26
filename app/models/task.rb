@@ -11,15 +11,16 @@ class Task < ActiveRecord::Base
   has_many :comments, :as => :source
   has_many :work_logs
   has_many :task_key_results
-  has_many :key_results,:through=>:task_key_results
-  has_many :users, -> {uniq},:through=>:key_results
+  has_many :key_results, :through => :task_key_results
+  has_many :users, -> { uniq }, :through => :key_results
 
 
-  default_scope {where.not(is_deleted:true)}
+  default_scope { where.not(is_deleted: true) }
 
   before_create :add_tracker_id
 
   after_save :update_team_task_count
+  before_save :update_completion
 
   belongs_to :root_task, :class_name => "Task", :foreign_key => "task_id"
   has_many :sub_tasks, :class_name => "Task", :foreign_key => "task_id"
@@ -29,7 +30,7 @@ class Task < ActiveRecord::Base
   scope :sub, -> { where("task_id IS NOT NULL") }
   scope :pending, -> { where(status: 'active') }
   scope :completed, -> { where(status: 'completed') }
-  scope :searchable_for_user, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids ,user.project_ids, user.team_ids)}
+  scope :searchable_for_user, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids, user.project_ids, user.team_ids) }
   #scope :, lambda { |user| where("id in (?) OR id in (?) OR project_id in (?)  OR team_id in (?)", user.task_ids, user.assignment_ids ,user.project_ids, user.admin_team_ids)}
 
 
@@ -54,7 +55,7 @@ class Task < ActiveRecord::Base
 
 
   def update_team_task_count
-    team.update_attributes(:pending_tasks=>team.tasks.active.pending.count)
+    team.update_attributes(:pending_tasks => team.tasks.active.pending.count)
   end
 
   def add_tracker_id
@@ -63,6 +64,22 @@ class Task < ActiveRecord::Base
 
   def timestamp
     created_at.strftime('%d %B %Y %H:%M:%S')
+  end
+
+  def completed_on
+    if status == 'completed'
+      super
+    else
+      ''
+    end
+  end
+
+  def update_completion
+    if self.status? && self.status_change[1] == 'completed' and self.status_change[0] == 'active'
+      self.completed_on = Time.now
+    elsif self.status? && self.status_change[1] == 'active' and self.status_change[0] == 'completed'
+      self.completed_on = nil
+    end
   end
 
 end
