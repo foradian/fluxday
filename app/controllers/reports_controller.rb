@@ -339,7 +339,11 @@ class ReportsController < ApplicationController
     unless (current_user.admin_teams_count.to_i + current_user.admin_projects_count.to_i) > 0
       redirect_to root_path, :alert => 'Nothing to show'
     else
-      @task = Task.find(params[:id])
+      if params[:id].present?
+        @task = Task.find(params[:id])
+      elsif  params[:tracker_id].present?
+        @task = Task.find_by_tracker_id(params[:tracker_id])
+      end
       @logs = @task.work_logs.includes(:user).order('date asc')
       @stats={}
       @stats['users'] = @logs.collect(&:user_id).uniq.count
@@ -575,6 +579,7 @@ class ReportsController < ApplicationController
       logs = @user.work_logs.where(task_id:tasks).group_by(&:task_id)
       tasks.each do |t|
         @fields << [
+          "#{t.tracker_id}",
           "#{t.name}",
           #"#{t.description}",
           "#{t.start_date.strftime('%b %d, %Y %H:%M')}",
@@ -596,7 +601,7 @@ class ReportsController < ApplicationController
           render "reports/excel_report.xls.erb"
         end
         format.pdf { render :pdf => "Tracker Assignments", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
-      end      
+      end
     else
       respond_to do |format|
         format.js { render :layout => false }

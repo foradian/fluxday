@@ -9,7 +9,8 @@
       <table class="table sortable-table">
         <thead>
         <tr>
-          <th width="450">Name</th>
+          <th width="150">Tracker id</th>
+          <th width="300">Name</th>
           <th width="150">Start date</th>
           <th width="150">End date</th>
           <th width="150">Status</th>
@@ -22,7 +23,7 @@
         <% @fields.each do |f| %>
             <tr>
               <% f.to_a.each do |x| %>
-                <td><%= x %></td>
+                <td><%= link_to x, reports_task_path(:tracker_id=>f[0]),:remote=>true %></td>
               <% end %>
             </tr>
         <% end %>

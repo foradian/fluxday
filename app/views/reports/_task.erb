@@ -1,0 +1,9 @@
+<div class="big-text">
+  <%= @task.name %><em><small> (<%= @task.status %>)</small></em>
+    <br/>
+  <small>
+    <%= @task.description %>
+  </small>
+</div>
+
+<%= render 'reports/task_report' %>
