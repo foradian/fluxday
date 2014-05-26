@@ -340,9 +340,9 @@ class ReportsController < ApplicationController
       redirect_to root_path, :alert => 'Nothing to show'
     else
       if params[:id].present?
-        @task = current_user.watching_tasks.find(params[:id])
+        @task = current_user.log_viewable_tasks.find(params[:id])
       elsif  params[:tracker_id].present?
-        @task = current_user.watching_tasks.find_by_tracker_id(params[:tracker_id])
+        @task = current_user.log_viewable_tasks.find_by_tracker_id(params[:tracker_id])
       end
       if @task.present?
         @logs = @task.work_logs.includes(:user).order('date asc')

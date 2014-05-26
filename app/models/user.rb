@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
   end
 
   def watching_tasks
+    Task.active.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
+  end
+
+  def log_viewable_tasks
     if manager?
       Task.active
     else
