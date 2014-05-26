@@ -30,7 +30,7 @@ function infiniteScroll() {
             load_more_url = $(e.target).find('a.next_page').attr('href');
 //            console.log($(e.target).closest('.scroll2watch').scrollTop())
 //                if (more_posts_url && $('.pane2-content').scrollTop() > $(document).height() - $('.pane2-content').height() - 60) {
-            if (load_more_url && $(e.target).find('.paginator').height() - $(e.target).closest('.scroll2watch').scrollTop() < $(e.target).closest('.scroll2watch').height()) {
+            if (load_more_url && $(e.target).find('.paginator').height() - $(e.target).closest('.scroll2watch').scrollTop() - 60 < $(e.target).closest('.scroll2watch').height()) {
                 $(e.target).find('.pagination').html('loading...');
                 $.getScript(load_more_url);
             }
