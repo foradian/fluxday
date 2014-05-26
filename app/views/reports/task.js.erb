@@ -1,5 +1,6 @@
+<% if @task.present? %>
 $('.modal-content').html("<%= escape_javascript(render :partial => 'reports/task') %>")
 $('#myModal').foundation('reveal', 'open');
-<%# else %>
-//$('.alert-area').notify({message: { text: 'Access denied' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
-<%# end %>
+<% else %>
+$('.alert-area').notify({message: { text: 'Access denied' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+<% end %>

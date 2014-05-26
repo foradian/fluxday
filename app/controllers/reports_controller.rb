@@ -340,34 +340,41 @@ class ReportsController < ApplicationController
       redirect_to root_path, :alert => 'Nothing to show'
     else
       if params[:id].present?
-        @task = Task.find(params[:id])
+        @task = current_user.watching_tasks.find(params[:id])
       elsif  params[:tracker_id].present?
-        @task = Task.find_by_tracker_id(params[:tracker_id])
+        @task = current_user.watching_tasks.find_by_tracker_id(params[:tracker_id])
       end
-      @logs = @task.work_logs.includes(:user).order('date asc')
-      @stats={}
-      @stats['users'] = @logs.collect(&:user_id).uniq.count
-      @stats['days'] = @logs.collect(&:date).uniq.count
-      @stats['time'] = @logs.sum('minutes').to_duration
-      if ['csv', 'xls'].include?(request.format)
-        @titles = ["Date", "Employee", "Hours", "Description"]
-        @fields=[]
-        @logs.each do |log|
-          @fields << ["#{log.date}", "#{log.user.name}", "#{log.hours}", "#{log.description}"]
+      if @task.present?
+        @logs = @task.work_logs.includes(:user).order('date asc')
+        @stats={}
+        @stats['users'] = @logs.collect(&:user_id).uniq.count
+        @stats['days'] = @logs.collect(&:date).uniq.count
+        @stats['time'] = @logs.sum('minutes').to_duration
+        if ['csv', 'xls'].include?(request.format)
+          @titles = ["Date", "Employee", "Hours", "Description"]
+          @fields=[]
+          @logs.each do |log|
+            @fields << ["#{log.date}", "#{log.user.name}", "#{log.hours}", "#{log.description}"]
+          end
         end
-      end
-      respond_to do |format|
-        format.js { render :layout => false }
-        format.html
-        format.csv do
-          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
-          render "reports/csv_report.csv.erb"
+        respond_to do |format|
+          format.js { render :layout => false }
+          format.html
+          format.csv do
+            response.headers['Content-Disposition'] = 'attachment; filename="okr_report.csv"'
+            render "reports/csv_report.csv.erb"
+          end
+          format.xls do
+            response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
+            render "reports/excel_report.xls.erb"
+          end
+          format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
         end
-        format.xls do
-          response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
-          render "reports/excel_report.xls.erb"
+      else
+        respond_to do |format|
+          format.js { render :layout => false }
+          format.html {redirect_to root_path, :alert => 'Unauthorized access'}
         end
-        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     end
   end
@@ -518,10 +525,10 @@ class ReportsController < ApplicationController
       end
     else
       if ['csv', 'xls'].include?(request.format)
-        @titles = ["Task","Duration","Description"]
+        @titles = ["Task", "Duration", "Description"]
         @fields=[]
         @work_logs.each do |log|
-          @fields << ["#{log.task.name}","#{log.minutes.to_duration}","#{log.description}"]
+          @fields << ["#{log.task.name}", "#{log.minutes.to_duration}", "#{log.description}"]
         end
       end
       respond_to do |format|
@@ -548,7 +555,7 @@ class ReportsController < ApplicationController
     else
       @user = current_user
     end
-    @titles = ["Task","Description","Start date","End date","Status","Time spent"]
+    @titles = ["Task", "Description", "Start date", "End date", "Status", "Time spent"]
     @fields=[]
     if @user.present?
       #quarter = params[:quarter] if params[:quarter]
@@ -567,7 +574,7 @@ class ReportsController < ApplicationController
       #  end
       #  date = "01 #{month} #{year}".to_date
       #else
-        #date = Date.today
+      #date = Date.today
       #end
       @start_date = params[:start_date] if params[:start_date]
       @start_date ||= Date.today.to_quarters[0]
@@ -575,18 +582,18 @@ class ReportsController < ApplicationController
       @end_date ||= Date.today.to_quarters[1]
       #@range = date.to_quarters
       #tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@range[1],@range[0])
-      tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@end_date,@start_date)
-      logs = @user.work_logs.where(task_id:tasks).group_by(&:task_id)
+      tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?', @end_date, @start_date)
+      logs = @user.work_logs.where(task_id: tasks).group_by(&:task_id)
       tasks.each do |t|
         @fields << [
-          "#{t.tracker_id}",
-          "#{t.name}",
-          #"#{t.description}",
-          "#{t.start_date.strftime('%b %d, %Y %H:%M')}",
-          "#{t.end_date.strftime('%b %d, %Y %H:%M')}",
-          "#{t.status == 'active' ? 'Pending' : t.status.capitalize}",
-          "#{t.completed_on.nil? ? '' : t.completed_on.strftime('%b %d, %Y %H:%M')}",
-          "#{logs[t.id].nil? ? '0:00' : logs[t.id].sum(&:minutes).to_duration }"
+            "#{t.tracker_id}",
+            "#{t.name}",
+            #"#{t.description}",
+            "#{t.start_date.strftime('%b %d, %Y %H:%M')}",
+            "#{t.end_date.strftime('%b %d, %Y %H:%M')}",
+            "#{t.status == 'active' ? 'Pending' : t.status.capitalize}",
+            "#{t.completed_on.nil? ? '' : t.completed_on.strftime('%b %d, %Y %H:%M')}",
+            "#{logs[t.id].nil? ? '0:00' : logs[t.id].sum(&:minutes).to_duration }"
         ]
       end
       respond_to do |format|
