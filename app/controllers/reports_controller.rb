@@ -308,8 +308,8 @@ class ReportsController < ApplicationController
     @task = Task.find(params[:task_id])
     @users = @task.users
     @user = User.find(params[:user_id])
-    @start_date = params[:start_date].to_date if params[:start_date].present?
-    @end_date = params[:end_date].to_date if params[:end_date].present?
+    @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
+    @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
     @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id: @user.id)
@@ -317,7 +317,7 @@ class ReportsController < ApplicationController
       @titles = ["Date", "Total Hours", "Description"]
       @fields=[]
       @work_logs.each do |log|
-        @fields << ["#{log.date.strftime('%d %B %Y')}", "#{log.hours}", "#{log.description}"]
+        @fields << ["#{log.date.strftime('%b %d, %Y %H:%M')}", "#{log.hours}", "#{log.description}"]
       end
     end
     respond_to do |format|
@@ -547,34 +547,40 @@ class ReportsController < ApplicationController
     @titles = ["Task","Description","Start date","End date","Status","Time spent"]
     @fields=[]
     if @user.present?
-      quarter = params[:quarter] if params[:quarter]
-      year = params[:fin_year] if params[:fin_year]
-      if quarter && year
-        year = year.to_i+1 if quarter == 'q1'
-        case quarter 
-        when 'q1'
-          month = 'Jan'
-        when 'q2'
-          month = 'Apr'
-        when 'q3'
-          month = 'Jul'
-        when 'q4'
-          month = 'Oct'
-        end        
-        date = "01 #{month} #{year}".to_date
-      else
-        date = Date.today
-      end
-      @range = date.to_quarters
-      tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@range[1],@range[0])
+      #quarter = params[:quarter] if params[:quarter]
+      #year = params[:fin_year] if params[:fin_year]
+      #if quarter && year
+      #  year = year.to_i+1 if quarter == 'q1'
+      #  case quarter
+      #  when 'q1'
+      #    month = 'Jan'
+      #  when 'q2'
+      #    month = 'Apr'
+      #  when 'q3'
+      #    month = 'Jul'
+      #  when 'q4'
+      #    month = 'Oct'
+      #  end
+      #  date = "01 #{month} #{year}".to_date
+      #else
+        #date = Date.today
+      #end
+      @start_date = params[:start_date] if params[:start_date]
+      @start_date ||= Date.today.to_quarters[0]
+      @end_date = params[:end_date] if params[:end_date]
+      @end_date ||= Date.today.to_quarters[1]
+      #@range = date.to_quarters
+      #tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@range[1],@range[0])
+      tasks=@user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?',@end_date,@start_date)
       logs = @user.work_logs.where(task_id:tasks).group_by(&:task_id)
       tasks.each do |t|
         @fields << [
           "#{t.name}",
-          "#{t.description}",
-          "#{t.start_date.strftime('%d/%m/%y - %H:%M')}",
-          "#{t.end_date.strftime('%d/%m/%y - %H:%M')}",
+          #"#{t.description}",
+          "#{t.start_date.strftime('%b %d, %Y %H:%M')}",
+          "#{t.end_date.strftime('%b %d, %Y %H:%M')}",
           "#{t.status == 'active' ? 'Pending' : t.status.capitalize}",
+          "#{t.completed_on.nil? ? '' : t.completed_on.strftime('%b %d, %Y %H:%M')}",
           "#{logs[t.id].nil? ? '0:00' : logs[t.id].sum(&:minutes).to_duration }"
         ]
       end

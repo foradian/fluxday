@@ -1,5 +1,5 @@
 <div class="title">
-  Tasks assigned to <%= @user.name %> from <%= @range[0].strftime('%d %B %y') %> to <%= @range[1].strftime('%d %B %y') %>
+  Tasks assigned to <%= @user.name %> from <%= @start_date.strftime('%d %B %y') %> to <%= @end_date.strftime('%d %B %y') %>
 </div>
 <div class="page-break">
   <%= render :partial => 'reports/assignments' %>

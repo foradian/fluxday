@@ -1,4 +1,5 @@
 <%= @titles.join(",") %>
 <% @fields.each do |f| %>
-<%= f.join(',') %>
+<%#= f.join(',') %>
+<%= f.map(&:inspect).join(', ').html_safe %>
 <% end %>
