@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
   before_create :add_tracker_id
 
   after_save :update_team_task_count
-  before_save :update_completion
+  before_update :update_completion
 
   belongs_to :root_task, :class_name => "Task", :foreign_key => "task_id"
   has_many :sub_tasks, :class_name => "Task", :foreign_key => "task_id"
