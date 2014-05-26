@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
     if manager?
       Task.active
     else
-      Task.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
+      Task.active.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
     end
   end
 
