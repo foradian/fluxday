@@ -66,13 +66,6 @@ class Task < ActiveRecord::Base
     created_at.strftime('%d %B %Y %H:%M:%S')
   end
 
-  def completed_on
-    if status == 'completed'
-      super
-    else
-      ''
-    end
-  end
 
   def update_completion
     if self.status? && self.status_change[1] == 'completed' and self.status_change[0] == 'active'
