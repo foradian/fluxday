@@ -72,7 +72,11 @@ class User < ActiveRecord::Base
   end
 
   def watching_tasks
-    Task.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
+    if admin?
+      Task.where('*')
+    else
+      Task.where("id IN (?) OR team_id IN (?)", (task_ids + assignment_ids).uniq, admin_team_ids)
+    end
   end
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
