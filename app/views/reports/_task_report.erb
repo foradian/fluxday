@@ -5,7 +5,7 @@
       <%= link_to "Excel", current_url(:format => :xls), :target => "_blank" %>
     </div>
     <% if @logs.present? %>
-        <table class="table sortable-table highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
+        <table class="table sortable-tables highchart" data-graph-container-before="1" data-graph-type="line" data-graph-xaxis-rotation="-45">
           <thead>
           <tr>
             <th width="200">Date</th>
@@ -37,7 +37,7 @@
         </div>
     <% end %>
     <script type="text/javascript">
-        $(".sortable-table").tablesorter();
+        $(".sortable-tables").tablesorter();
         //    if ($('.table tbody tr').length > 1){$('table.highchart').highchartTable();}
     </script>
 <% else %>
