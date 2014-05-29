@@ -68,9 +68,9 @@ class Task < ActiveRecord::Base
 
 
   def update_completion
-    if self.status? && self.status_change[1] == 'completed' and self.status_change[0] == 'active'
+    if self.status? && self.status_changed? && self.status_change[1] == 'completed' and self.status_change[0] == 'active'
       self.completed_on = Time.now
-    elsif self.status? && self.status_change[1] == 'active' and self.status_change[0] == 'completed'
+    elsif self.status? && self.status_changed? && self.status_change[1] == 'active' and self.status_change[0] == 'completed'
       self.completed_on = nil
     end
   end
