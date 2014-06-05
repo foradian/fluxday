@@ -23,7 +23,7 @@
         <% @fields.each do |f| %>
             <tr>
               <% f.to_a.each do |x| %>
-                <td><%= link_to x, reports_task_path(:tracker_id=>f[0]),:remote=>true %></td>
+                <td><%= link_to x, reports_task_path(:tracker_id=>f[0],:user_id=>@user.id),:remote=>true %></td>
               <% end %>
             </tr>
         <% end %>

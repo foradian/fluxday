@@ -345,7 +345,11 @@ class ReportsController < ApplicationController
         @task = current_user.log_viewable_tasks.find_by_tracker_id(params[:tracker_id])
       end
       if @task.present?
-        @logs = @task.work_logs.includes(:user).order('date asc')
+        if params[:user_id].present?
+          @logs = @task.work_logs.where(:user_id=>params[:user_id]).includes(:user).order('date asc')
+        else
+          @logs = @task.work_logs.includes(:user).order('date asc')
+        end
         @stats={}
         @stats['users'] = @logs.collect(&:user_id).uniq.count
         @stats['days'] = @logs.collect(&:date).uniq.count
