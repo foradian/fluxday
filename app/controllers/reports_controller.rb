@@ -308,8 +308,8 @@ class ReportsController < ApplicationController
     @task = Task.find(params[:task_id])
     @users = @task.users
     @user = User.find(params[:user_id])
-    @start_date = params[:report][:start_date].to_date if  (params[:report].present? && params[:report][:start_date].present?)
-    @end_date = params[:report][:end_date].to_date if  (params[:report].present? && params[:report][:end_date].present?)
+    @start_date = params[:start_date].to_date if params[:start_date].present?
+    @end_date = params[:end_date].to_date if  params[:end_date].present?
     @start_date ||= Date.today.beginning_of_month
     @end_date ||= Date.today.end_of_month
     @work_logs = WorkLog.where(date: @start_date..@end_date, task_id: @task.id, user_id: @user.id)
