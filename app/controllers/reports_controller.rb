@@ -346,7 +346,7 @@ class ReportsController < ApplicationController
       end
       if @task.present?
         if params[:user_id].present?
-          @logs = @task.work_logs.where(:user_id=>params[:user_id]).includes(:user).order('date asc')
+          @logs = @task.work_logs.where(:user_id => params[:user_id]).includes(:user).order('date asc')
         else
           @logs = @task.work_logs.includes(:user).order('date asc')
         end
@@ -377,7 +377,7 @@ class ReportsController < ApplicationController
       else
         respond_to do |format|
           format.js { render :layout => false }
-          format.html {redirect_to root_path, :alert => 'Unauthorized access'}
+          format.html { redirect_to root_path, :alert => 'Unauthorized access' }
         end
       end
     end
@@ -436,8 +436,8 @@ class ReportsController < ApplicationController
 
 
   def worklogs
-    if params[:month].present? && params[:month].present?
-      date = "01 #{params[:month]} #{params[:month]}".to_date
+    if params[:month].present? && params[:year].present?
+      date = "01 #{params[:month]} #{params[:year]}".to_date
     else
       date = Date.today
     end
@@ -477,9 +477,106 @@ class ReportsController < ApplicationController
     @start_date = date.beginning_of_month
     @end_date = date.end_of_month
     #@users = current_user.accessible_users
-    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date') #.group_by(&:user_id)
+    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date', 'task_id', 'description').includes(:task) #.group_by(&:user_id)
     @hours = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    if params[:detailed].present?
+      @user_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+      @user_rows = {}
+      worklogs.map { |x| (@user_logs[x.user_id][x.date.day].is_a?(Hash) ? @user_logs[x.user_id][x.date.day]=[] : @user_logs[x.user_id][x.date.day]) << [x.minutes.to_duration, "#{x.task.name} - #{x.description}" ] }
+      @user_logs.each { |k, v| @user_rows[k]=v.values.map { |x| x.length }.max }
+    end
     worklogs.map { |x| @hours[x.user_id][x.date.day] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes }
+    @total = {}
+    @average = {}
+    @users.map { |u| @total[u.id] = @hours[u.id].values.sum }
+    @users.map { |u| @average[u.id] = (@total[u.id].to_s.to_f/(@end_date-@start_date)).to_i.to_duration }
+    if ['csv', 'xls'].include?(request.format)
+      @titles = ["Name"]
+      @titles += (@start_date..@end_date).map { |x| x.day }.sort
+      @titles << "Average"
+      @titles << "Total"
+      @fields=[]
+      @users.each do |user|
+        row = []
+        row << user.name
+        row += (@start_date..@end_date).map { |dt| @hours[user.id][dt.day].blank? ? "-" : @hours[user.id][dt.day].to_duration }
+        row << @average[user.id]
+        row << @total[user.id].to_duration
+        @fields << row
+      end
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html
+      format.csv do
+        response.headers['Content-Disposition'] = 'attachment; filename="worklog.csv"'
+        render "reports/csv_report.csv.erb"
+      end
+      format.xls do
+        if params[:detailed].present? && params[:detailed]
+          response.headers['Content-Disposition'] = 'attachment; filename="worklog_detailed.xls"'
+          render "reports/worklog_detailed.xls.erb"
+        else
+          response.headers['Content-Disposition'] = 'attachment; filename="worklog.xls"'
+          render "reports/excel_report.xls.erb"
+        end
+      end
+      format.pdf { render :pdf => "Tracker worklog report", :page_size => 'A4', :orientation => 'landscape', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+    end
+  end
+
+
+  def worklog_detailed
+    if params[:month].present? && params[:year].present?
+      date = "01 #{params[:month]} #{params[:year]}".to_date
+    else
+      date = Date.today
+    end
+    @opts = []
+    if current_user.manager?
+      @opts = [['Department', 'project'], ['Team', 'team'], ['Managing users', 'managing_users'], ["All employees", 'all_users'], ['Self', 'user']]
+    else
+      @opts << ['Department', 'project'] if current_user.admin_projects_count.to_i > 0
+      @opts << ['Team', 'team'] if current_user.admin_teams_count.to_i > 0
+      @opts << ['Managing users', 'managing_users'] if current_user.user_ids.length > 0
+      @opts << ['All accesible users', 'accessible']
+      @opts << ['Self', 'user']
+    end
+
+    @report_type = params[:report][:type] if params[:report].present?
+    @report_type ||= current_user.manager? ? 'all_users' : 'accessible'
+    if @report_type == 'project' && params[:report].present? && params[:report][:project_id].present?
+      @projects = current_user.projects
+      @projects = Project.active if current_user.manager?
+      @project = @projects.find(params[:report][:project_id])
+      @users = @project.members if @project.present?
+    elsif @report_type == 'team' && params[:report].present? && params[:report][:team_id].present?
+      @team = Team.find(params[:report][:team_id])
+      @users = @team.members
+    elsif @report_type == 'managing_users'
+      @users = current_user.users
+    elsif @report_type == 'all_users'
+      @users = User.active
+    elsif @report_type == 'accessible'
+      @users = current_user.accessible_users
+    elsif @report_type == 'employees' && params[:report].present? && params[:report][:user_id].present?
+      @users = User.where(id: params[:report][:user_id])
+    else
+      @users = User.where(id: current_user.id)
+    end
+
+    @start_date = date.beginning_of_month
+    @end_date = date.end_of_month
+    #@users = current_user.accessible_users
+    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date', 'description', 'task_id').includes(:task) #.group_by(&:user_id)
+    @hours = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    @user_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
+    @user_rows = {}
+    worklogs.map { |x| @hours[x.user_id][x.date.day] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes }
+    worklogs.map { |x| (@user_logs[x.user_id][x.date.day].is_a?(Hash) ? @user_logs[x.user_id][x.date.day]=[] : @user_logs[x.user_id][x.date.day]) << [x.minutes, x.description, x.task.name] }
+    @user_logs.each { |k, v| @user_rows[k]=v.values.map { |x| x.length }.max }
+
+    #(@user_logs[x.user_id][x.date.day].is_a?(Hash) ? @user_logs[x.user_id][x.date.day]=[] : @user_logs[x.user_id][x.date.day]) <<
     @total = {}
     @average = {}
     @users.map { |u| @total[u.id] = @hours[u.id].values.sum }
