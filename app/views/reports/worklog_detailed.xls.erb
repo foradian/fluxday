@@ -14,7 +14,7 @@
         <% end %>
       </Row>
       <% @users.each do |user| %>
-          <% (0..@user_rows[user.id]).each do |i| %>
+          <% (0..(@user_rows[user.id]-1)).each do |i| %>
               <Row>
                 <Cell>
                   <Data ss:Type="Text"><%= user.name %></Data>
@@ -27,17 +27,29 @@
                           <% end %>
                         </Cell>
                     <% else %>
-                    <Cell></Cell>
+                        <Cell></Cell>
                     <% end %>
                 <% end %>
-                <Cell>
-                  <Data ss:Type="Text"><%= @average[user.id] %></Data>
-                </Cell>
-                <Cell>
-                  <Data ss:Type="Text"><%= @total[user.id].to_duration %></Data>
-                </Cell>
               </Row>
           <% end %>
+          <Row>
+            <Cell>
+              <Data ss:Type="Text" ss:Bold="1"><%= "#{user.name} - Total" %></Data>
+            </Cell>
+            <% (@start_date..@end_date).each do |dt| %>
+                <Cell>
+                  <% unless @hours[user.id][dt.day].blank? %>
+                      <Data ss:Type="Text"><%= @hours[user.id][dt.day].to_i.to_duration %></Data>
+                  <% end %>
+                </Cell>
+            <% end %>
+            <Cell>
+              <Data ss:Type="Text"><%= @average[user.id] %></Data>
+            </Cell>
+            <Cell>
+              <Data ss:Type="Text"><%= @total[user.id].to_duration %></Data>
+            </Cell>
+          </Row>
       <% end %>
     </Table>
   </Worksheet>

@@ -1,0 +1,18 @@
+<% if @work_log.present? && @work_log.id.present? %>
+$('.pane3').html("<%= escape_javascript(render :partial => 'work_logs/show') %>")
+$('.date-card.date-<%= @work_log.date.to_s %> .entries ul').append('<li><%= link_to "#{@work_log.task.try(&:name)}(#{@work_log.hours})", work_log_path(@work_log), :remote => true %></li>')
+$('.alert-area').notify({message: { text: "Log added successfully" }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+<% else %>
+<% unless @entries.empty? %>
+$('.pane3').html("<%= escape_javascript(render :partial => 'work_logs/form') %>")
+<% else %>
+$('.alert-area').notify({message: { text: '<%= "You have no task assigned for #{@date.strftime('%d %B %Y')}" %>' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+<% end %>
+<% end %>
+$(document).foundation({
+    tab: {
+        callback: function (tab) {
+        }
+    }
+});
+window.location = '#pane3'
