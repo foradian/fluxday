@@ -8,9 +8,9 @@
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600' rel='stylesheet' type='text/css'>
 
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= javascript_include_tag "vendor/modernizr",:async=>true  %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true,:async=>true  %>
 </head>
 
 <body>
