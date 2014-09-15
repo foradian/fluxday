@@ -46,7 +46,7 @@
     <% end %>
 <% else %>
     <script type="text/javascript">
-        $('.alert-area').notify({message: { text: '<%= "You have no task assigned for #{@date.strftime('%d %B %Y')}" %>' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 30000 }}).show();
+        $('.alert-area').notify({message: { text: '<%= "You have no task assigned for #{@date.strftime('%d %B %Y')}" %>' }, type: 'tracker-alert', fadeOut: { enabled: true, delay: 10000 }}).show();
     </script>
 <% end %>
 

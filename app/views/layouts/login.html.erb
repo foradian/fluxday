@@ -24,10 +24,10 @@
 
 <script type="text/javascript">
     <% if flash.now[:alert].present?  %>
-    $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 30000 }}).show();
+    $('.alert-area').notify({message: { text: "<%= flash.now[:alert] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 10000 }}).show();
     <% end %>
     <% if flash.now[:notice].present?  %>
-    $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 30000 }}).show();
+    $('.alert-area').notify({message: { text: "<%= flash.now[:notice] %>" }, type: 'tracker-alert',fadeOut: { enabled: true, delay: 10000 }}).show();
     <% end %>
 </script>
 
