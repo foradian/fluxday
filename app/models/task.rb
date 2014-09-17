@@ -15,7 +15,7 @@ class Task < ActiveRecord::Base
   has_many :users, -> { uniq }, :through => :key_results
 
 
-  default_scope { where.not(is_deleted: true) }
+  default_scope { where.not(is_deleted: true).order('id desc') }
 
   before_create :add_tracker_id
 
