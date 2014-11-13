@@ -16,13 +16,17 @@
           <th width="150">Status</th>
           <th width="150">Completed on</th>
           <th width="100">Time spent</th>
+          <th width="100" class="hidden_class">Time spent</th>
         </tr>
         </thead>
 
         <tbody>
         <% @fields.each do |f| %>
             <tr>
-              <% f.to_a.each do |x| %>
+              <% f.to_a.each_with_index do |x,i| %>
+                  <% if i == 6 %>
+                    <td class="hidden_class"><%= x.nil? ? "0" : x.gsub(":","") %></td>
+                  <% end %>
                 <td><%= link_to x, reports_task_path(:tracker_id=>f[0],:user_id=>@user.id),:remote=>true %></td>
               <% end %>
             </tr>

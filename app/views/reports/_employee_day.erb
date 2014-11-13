@@ -13,6 +13,7 @@
         <th data-graph-skip="1" width="300">Team</th>
         <th data-graph-skip="1" width="200">Hours</th>
         <th class="hidden_class" width="200">Hours</th>
+        <th class="hidden_class" width="200">Hours</th>
         <th data-graph-skip="1" width="200">Status</th>
       </tr>
       </thead>
@@ -21,6 +22,7 @@
             <td><%= link_to log.task.name,reports_employee_tasks_path(:user_id=>@user.id,:task_id=>log.task_id,:start_date=>@date,:end_date=>@date) %></td>
             <td><%= log.task.project.name %></td>
             <td><%= log.task.team.name %></td>
+            <td class="hidden_class"><%= log.hours.gsub(":","") %></td>
             <td><%= log.hours %></td>
             <td class="hidden_class"><%= log.hours.gsub(":",",") %></td>
             <td><%= log.task.status == 'active' ? 'Pending' : log.task.status.capitalize  %></td>
