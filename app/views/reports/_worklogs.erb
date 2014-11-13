@@ -15,9 +15,12 @@
               <th width="50" class="log">
                 <%= dt.day %>
               </th>
+              <th class="hidden_class"><%= dt.day %></th>
           <% end %>
           <th class="calcd">Average</th>
+          <th class="hidden_class">Average</th>
           <th class="calcd">Total</th>
+          <th class="hidden_class">Total</th>
         </tr>
         </thead>
 
@@ -28,15 +31,22 @@
                 <%= user.name %>
               </td>
               <% (@start_date..@end_date).each do |dt| %>
-                  <td class="log" title='<%= "#{user.name},#{dt.strftime('%d/%m/%y')}" %>'>
+
                     <% unless @hours[user.id][dt.day].blank? %>
+                      <td class="hidden_class"><%= @hours[user.id][dt.day].to_duration.to_s.gsub(":","") %></td>
+                      <td class="log" title='<%= "#{user.name},#{dt.strftime('%d/%m/%y')}" %>'>
                         <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
+                      </td>
                     <% else %>
+                      <td class="hidden_class">0 </td>
+                      <td class="log" title='<%= "#{user.name},#{dt.strftime('%d/%m/%y')}" %>'>
                         -
+                      </td>
                     <% end %>
-                  </td>
               <% end %>
+              <td class="hidden_class"><%= @average[user.id].to_s.gsub(":","") %></td>
               <td class="calcd"><%= @average[user.id] %></td>
+              <td class="hidden_class"><%= @total[user.id].to_duration.to_s.gsub(":","") %></td>
               <td class="calcd"><%= @total[user.id].to_duration %></td>
             </tr>
         <% end %>

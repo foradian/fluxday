@@ -11,6 +11,7 @@
             <th width="200">Date</th>
             <th width="300">Employee</th>
             <th width="200">Hours</th>
+            <th width="200" class="hidden_class">Hours</th>
             <th width="400">Description</th>
           </tr>
           </thead>
@@ -18,6 +19,7 @@
               <tr>
                 <td><%= log.date %></td>
                 <td><%= log.user.name %></td>
+                <td class="hidden_class"><%= log.hours.to_s.gsub(":","") %></td>
                 <td><%= log.hours %></td>
                 <td><%= log.description %></td>
               </tr>
