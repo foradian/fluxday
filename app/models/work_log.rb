@@ -3,8 +3,8 @@ class WorkLog < ActiveRecord::Base
   belongs_to :task
 
   validates_presence_of :task_id
-  validates_inclusion_of :date, :in => 6.day.ago..Date.today,:message=>'Date should be older than 5 days'
-
+  # validates_inclusion_of :date, :in => 6.day.ago..Date.today,:message=>'Date should be older than 5 days'
+  validates_inclusion_of :date, :in => Proc.new{ 6.day.ago..Date.today },:message=>'Date should be older than 5 days'
   #default_scope{ where.not(is_deleted: true) }
 
   scope :active, -> { where(is_deleted: false) }
