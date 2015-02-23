@@ -5,9 +5,9 @@ class OauthApplicationsController < ApplicationController
   # GET /oauth_applications
   # GET /oauth_applications.json
   def index
-    @oauth_applications = OauthApplication.all
+    @oauth_applications = OauthApplication.by_name.all
     @oauth_application = @oauth_applications.first
-    @users = @oauth_application.users
+    @users = @oauth_application.users if @oauth_applications
   end
 
   # GET /oauth_applications/1
@@ -20,13 +20,13 @@ class OauthApplicationsController < ApplicationController
   # GET /oauth_applications/new
   def new
     @oauth_application = OauthApplication.new
-    @oauth_applications = OauthApplication.all
+    @oauth_applications = OauthApplication.all.by_name
   end
 
   # GET /oauth_applications/1/edit
   def edit
     @oauth_application = OauthApplication.find(params[:id])
-    @oauth_applications = OauthApplication.all
+    @oauth_applications = OauthApplication.all.by_name
     @user_ids = @oauth_application.user_ids
   end
 
@@ -34,6 +34,7 @@ class OauthApplicationsController < ApplicationController
   # POST /oauth_applications.json
   def create
     @oauth_application = Doorkeeper::Application.new(oauth_application_params.except('user_ids'))
+    @oauth_applications = OauthApplication.all.by_name
     @user_ids =  oauth_application_params[:user_ids]
     respond_to do |format|
       if @oauth_application.save
@@ -76,7 +77,7 @@ class OauthApplicationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_oauth_application
       @oauth_application = OauthApplication.find(params[:id])
-      @oauth_applications = OauthApplication.all
+      @oauth_applications = OauthApplication.all.by_name
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

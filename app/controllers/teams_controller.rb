@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
     #@projects = Project.active
     @teams = Team.for_user(current_user)
     @team_leads = @team.team_leads
-    @members = @team.members
+    @members = @team.members.by_name
   end
 
   def add_members
@@ -103,9 +103,9 @@ class TeamsController < ApplicationController
   def get_member_list
     team = Team.find(params[:team_id])
     if (current_user.admin_teams.include?(team) || current_user.project_ids.include?(team.project_id))
-      @users = team.members
+      @users = team.members.by_name
     else
-      @users = team.team_leads
+      @users = team.team_leads.by_name
     end
     start_date = params[:start_date].to_date
     end_date = params[:end_date].to_date
