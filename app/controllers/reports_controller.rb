@@ -401,7 +401,7 @@ class ReportsController < ApplicationController
       @key_results = KeyResult.where(user_id: @user.id).active.includes(:task_key_results => [:task], :objective => :okr)
       #@tasks = Task.where(id:@key_results.collect(&:task_ids).flatten.uniq).includes(:)
       task_ids = @key_results.collect(&:task_ids).flatten
-      tasks = Task.where(id: task_ids)
+      tasks = Task.where("id IN (?) AND end_date >= ? and start_date <= ? ", task_ids,@start_date.to_date.beginning_of_day, @end_date.to_date.end_of_day)
       @tasks = {}
       @key_results.each { |k| @tasks[k.id] = tasks.where(id: k.task_ids) }
       work_logs = @user.work_logs.where(task_id: tasks.collect(&:id)).group_by(&:task_id)
