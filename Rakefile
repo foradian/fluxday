@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tracker::Application.load_tasks
+Fluxday::Application.load_tasks

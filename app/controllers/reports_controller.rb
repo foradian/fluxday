@@ -72,7 +72,7 @@ class ReportsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
         render "reports/excel_report.xls.erb"
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -143,7 +143,7 @@ class ReportsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
         render "reports/excel_report.xls.erb"
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -177,7 +177,7 @@ class ReportsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
         render "reports/excel_report.xls.erb"
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -221,7 +221,7 @@ class ReportsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
         render "reports/excel_report.xls.erb"
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -299,7 +299,7 @@ class ReportsController < ApplicationController
           response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
           render "reports/excel_report.xls.erb"
         end
-        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+        format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     end
   end
@@ -331,7 +331,7 @@ class ReportsController < ApplicationController
         response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
         render "reports/excel_report.xls.erb"
       end
-      format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -372,7 +372,7 @@ class ReportsController < ApplicationController
             response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
             render "reports/excel_report.xls.erb"
           end
-          format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+          format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
         end
       else
         respond_to do |format|
@@ -429,7 +429,7 @@ class ReportsController < ApplicationController
           response.headers['Content-Disposition'] = 'attachment; filename="okr_report.xls"'
           render "reports/excel_report.xls.erb"
         end
-        format.pdf { render :pdf => "Tracker report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+        format.pdf { render :pdf => "Fluxday report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     end
   end
@@ -522,7 +522,7 @@ class ReportsController < ApplicationController
           render "reports/excel_report.xls.erb"
         end
       end
-      format.pdf { render :pdf => "Tracker worklog report", :page_size => 'A4', :orientation => 'landscape', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+      format.pdf { render :pdf => "Fluxday worklog report", :page_size => 'A4', :orientation => 'landscape', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
     end
   end
 
@@ -559,7 +559,7 @@ class ReportsController < ApplicationController
           response.headers['Content-Disposition'] = 'attachment; filename="worklog.xls"'
           render "reports/excel_report.xls.erb"
         end
-        format.pdf { render :pdf => "Tracker Daily report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+        format.pdf { render :pdf => "Fluxday Daily report", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     end
   end
@@ -624,7 +624,7 @@ class ReportsController < ApplicationController
           response.headers['Content-Disposition'] = 'attachment; filename="assignments.xls"'
           render "reports/excel_report.xls.erb"
         end
-        format.pdf { render :pdf => "Tracker Assignments", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
+        format.pdf { render :pdf => "Fluxday Assignments", :page_size => 'A4', :show_as_html => params[:debug].present?, :disable_javascript => false, :layout => 'pdf.html', :footer => {:center => '[page] of [topage]'} }
       end
     else
       respond_to do |format|

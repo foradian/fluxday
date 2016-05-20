@@ -1,4 +1,4 @@
-Tracker::Application.routes.draw do
+Fluxday::Application.routes.draw do
 
   resources :oauth_applications
 

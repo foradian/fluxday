@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Tracker::Application.config.secret_key_base = 'a1878bcc8a37aa076581e9ef1204c7cecdb572c3492bc36e1ab63bea12c28c8d088505dd3de0296bc6830d20b4cf39b19bf478160c9384534ad9569d0a529203'
+Fluxday::Application.config.secret_key_base = 'a1878bcc8a37aa076581e9ef1204c7cecdb572c3492bc36e1ab63bea12c28c8d088505dd3de0296bc6830d20b4cf39b19bf478160c9384534ad9569d0a529203'

@@ -1,5 +1,5 @@
 AppConfig = YAML.load_file("#{::Rails.root}/config/app_config.yml")[::Rails.env]
-Tracker::Application.configure do
+Fluxday::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
