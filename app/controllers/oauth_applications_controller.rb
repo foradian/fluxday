@@ -7,7 +7,7 @@ class OauthApplicationsController < ApplicationController
   def index
     @oauth_applications = OauthApplication.by_name.all
     @oauth_application = @oauth_applications.first
-    @users = @oauth_application.users if @oauth_applications
+    @users = @oauth_application.users if @oauth_applications.present?
   end
 
   # GET /oauth_applications/1
