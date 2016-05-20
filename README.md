@@ -17,7 +17,7 @@ Visit the [official website](http://fluxday.io) for more info
 “through discipline comes freedom” - aristotle
 
 ## License
-Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/LICENSE) 
+Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/blob/master/LICENSE) 
 
 ## Installation
 ### Dependencies
@@ -38,7 +38,7 @@ bundle install
 ### Configure application
 	
 For google authentication, you need to set up the corresponding key, secret, callback url etc. The application loads these informations from the file config/app_config.yml
-The sample configuration is available at [config/app_config.yml.example](https://github.com/foradian/fluxday/config/app_config.yml.example) (You can simply copy this file to app_config.yml to run Fluxday without google authentication).
+The sample configuration is available at [config/app_config.yml.example](https://github.com/foradian/fluxday/blob/master/config/app_config.yml.example) (You can simply copy this file to app_config.yml to run Fluxday without google authentication).
 ```sh
 cp config/app_config.yml.example config/app_config.yml
 ```
