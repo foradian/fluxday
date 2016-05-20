@@ -5,4 +5,4 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create(:email=>'admin@fluxday.com',:name=>'admin',:nickname=>'admin',:password=>'password',:password_confirmation=>'password',:employee_code=>'FT00',:role=>'admin')
+User.create(:email=>'admin@fluxday.io',:name=>'admin',:nickname=>'admin',:password=>'password',:password_confirmation=>'password',:employee_code=>'FT00',:role=>'admin')
