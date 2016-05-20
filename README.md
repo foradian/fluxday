@@ -1,8 +1,8 @@
 # fluxday
 
-fluxday is a task & productivity management application ideal for fast growing startups and small companies. fluxday was developed by Foradian starting in 2014 and was a critical part of the company’s hyper [growth and success](http://www.fedena.com/history). fluxday was opensourced by [Foradian](http://foradian.com) in May 2016 to help more startups use the power of a no-nonsense productivity tracking tool.
+fluxday is a task & productivity management application ideal for fast growing startups and small companies. fluxday was developed by Foradian starting in 2014 and was a critical part of the company’s [hyper growth and success](http://www.fedena.com/history). fluxday was opensourced by [Foradian](http://foradian.com) in May 2016 to help more startups use the power of a no-nonsense productivity tracking tool.
 
-fluxday is engineered on the concepts of [OKR](https://en.wikipedia.org/wiki/OKR) - Objectives and Key Results, invented and made popular by  John Doerr. OKRs and OKR tools are used today by many companies, including Google, LinkedIn and Twitter
+fluxday is engineered based on the concepts of [OKR](https://en.wikipedia.org/wiki/OKR) - Objectives and Key Results, invented and made popular by  John Doerr. OKRs and OKR tools are used today by many companies, including Google, LinkedIn and Twitter
 
 ## You can use fluxday for
 - Managing and Tracking OKRs 
@@ -14,7 +14,7 @@ fluxday is engineered on the concepts of [OKR](https://en.wikipedia.org/wiki/OKR
 
 Visit the [official website](http://fluxday.io) for more info
 
-“through discipline comes freedom” - aristotle
+> “through discipline comes freedom” - aristotle
 
 ## License
 Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/blob/master/LICENSE) 
@@ -24,6 +24,7 @@ Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxd
 - Ruby 2.1.0
 - MySQL or MariaDB server
 - Imagemagick
+- wkhtmltopdf (To be downloaded from [this website](http://wkhtmltopdf.org/) and placed in lib folder)
 
 ### Clone Fluxday 
 ```sh
@@ -43,7 +44,7 @@ The sample configuration is available at [config/app_config.yml.example](https:/
 cp config/app_config.yml.example config/app_config.yml
 ```
 ### Create and configure database
-Modify the database credentials in config/database.yml . Now you can create the database and perform migrations
+Modify the database credentials in [config/database.yml](https://github.com/foradian/fluxday/blob/master/config/database.yml) . Now you can create the database and perform migrations
 ```sh
 rake db:create
 rake db:migrate
