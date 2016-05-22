@@ -5,8 +5,7 @@
   "logo": "https://node-js-sample.herokuapp.com/node.png",
   "keywords": ["ruby", "rails", "productivity"],
   "scripts" : {
-    "postdeploy": "cp config/app_config.yml.example config/app_config.yml
-; bundle exec rake db:migrate;bundle exec rake db:seed "
+    "postdeploy": "cp config/app_config.yml.example config/app_config.yml; bundle exec rake db:migrate;bundle exec rake db:seed "
   },
   "addons": ["heroku-postgresql"]
 }
