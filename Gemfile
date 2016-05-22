@@ -69,3 +69,8 @@ gem 'doorkeeper', '1.1.0'
 gem "omniauth-oauth2"#, '1.0.2'
 #gem 'omniauth-fluxapp' , :path => '/home/tp/Desktop/flux'
 gem 'omniauth-fluxapp' , :git  => 'https://github.com/stpnlr/omniauth-fluxapp.git'
+group :production do
+  gem 'puma'
+  gem 'pg'
+  gem 'rails_12factor'
+end
