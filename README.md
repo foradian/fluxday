@@ -12,6 +12,8 @@ fluxday is engineered based on the concepts of [OKR](https://en.wikipedia.org/wi
 - Analyzing progress and productivity of your company, its departments, teams and employees
 - OAuth server with filtered access to users
 
+Visit the [official website](http://fluxday.io) for more info		
+
 > “through discipline comes freedom” - aristotle
 
 ## License
