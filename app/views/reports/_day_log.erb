@@ -13,6 +13,7 @@
     <th width="500">Task</th>
     <th width="200">Duration</th>
     <th width="500">Description</th>
+    <th width="200">Actions</th>
   </tr>
   </thead>
   <% @work_logs.each do |log| %>
@@ -20,6 +21,13 @@
         <td><%= log.task.name %></td>
         <td><%= log.minutes.to_duration %></td>
         <td><%= log.description %></td>
+        <% if @current_user.id == @user.id and log.delete_request == false and log.date < 4.days.ago%>
+          <td><%= link_to 'Reqest Removal', delete_request_work_log_path(log), :method => :post, :confirm => 'Are you sure you want to request for removal of this log?' %></td>
+        <%elsif @current_user.manager? and log.delete_request == true%>
+          <td><%= link_to 'Delete', work_log_path(log), :method => :delete, :confirm => 'Are you sure you want to remove this log?' %> | <%= link_to 'Ignore', ignore_request_work_log_path(log), :method => :post, :confirm => 'Are you sure you want to ignore this request?' %></td>
+        <%else%>
+          <td>-</td>
+        <%end%>
       </tr>
   <% end %>
 </table>

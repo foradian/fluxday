@@ -24,7 +24,12 @@ Fluxday::Application.routes.draw do
   get "reports/day_log"
   get "reports/assignments"
 
-  resources :work_logs
+  resources :work_logs do
+    member do
+      post 'delete_request'
+      post 'ignore_request'
+    end
+  end
 
   get "calendar/index"
   get "calendar/monthly"

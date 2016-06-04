@@ -33,9 +33,9 @@
               <% (@start_date..@end_date).each do |dt| %>
 
                     <% unless @hours[user.id][dt.day].blank? %>
-                      <td class="hidden_class"><%= @hours[user.id][dt.day].to_duration.to_s.gsub(":","") %></td>
+                      <td class="hidden_class"><%= @hours[user.id][dt.day]['hours'].to_duration.to_s.gsub(":","") %></td>
                       <td class="log" title='<%= "#{user.name},#{dt.strftime('%d/%m/%y')}" %>'>
-                        <%= link_to @hours[user.id][dt.day].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true %>
+                        <%= link_to @hours[user.id][dt.day]['hours'].to_duration, reports_day_log_path(:date => dt, :user_id => user), :remote => true, :class=>@hours[user.id][dt.day]['delete_request']==true ? 'delete_requested' : '' %>
                       </td>
                     <% else %>
                       <td class="hidden_class">0 </td>
