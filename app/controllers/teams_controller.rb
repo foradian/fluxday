@@ -90,7 +90,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    if @team..update_attribute(:is_deleted, true)
+    if @team.update_attribute(:is_deleted, true)
       @team.tasks.update_all(:is_deleted => true)
       @team.team_members.update_all(:status => 'archived')
     end
