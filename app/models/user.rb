@@ -33,10 +33,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2, :fluxapp] #, :registerable
   scope :active, -> { where(is_deleted: false) }
   scope :by_name, -> { order("users.name ASC") }
+  scope :manager_user, -> {where("role in (?)",["admin","Manager"])}
 
   validates_presence_of :name, :nickname
   validate :email, :presence => true, :uniqueness => true
   validate :employee_code, :presence => true, :uniqueness => true
+  before_update :ensure_manager_exists
 
   #default_scope {where.not(is_deleted:true).order("name ASC")}
   #default_scope {order("name ASC")}
@@ -93,6 +95,20 @@ class User < ActiveRecord::Base
     #  )
     #end
     user
+  end
+
+  def ensure_manager_exists
+      if User.manager_user.count == 1 and self.changes.present? and self.changes[:role].present?
+          if self.changes[:role][0] == "admin" and self.changes[:role][1] == "Manager"
+            self.role = "admin"
+            return true
+          elsif (self.changes[:role][0] == "admin" and self.changes[:role][1] == "Employee" ) or (self.changes[:role][0] == "Manager" and self.changes[:role][1] == "Employee")
+            errors[:base] << "Atleast one manager required"
+            return false
+          else
+            return true
+          end
+      end
   end
 
 end
