@@ -1,13 +1,13 @@
 <%= form_for(@user, :url => {:controller => 'users', :action => 'update', :id => @user.id}, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
-    <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-    <% end %>
     <div class="form-content form-below">
+      <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
 
       <% if current_user.manager? %>
           <%= build_validated_field('user', 'name', 'Name', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.name) %>
@@ -17,7 +17,7 @@
           <% end %>
           <%= build_validated_field('user', 'email', 'Email', '', '', 'text', @user.email) %>
           <%= build_validated_field('user', 'employee_code', 'Employee code', 'Cannot be blank', '[a-zA-Z]+', 'text', @user.employee_code) %>
-          <%= build_validated_select('user', 'role', 'Role', 'Should select at least one', '', false, @user.role, [['Employee'], ['Manager']]) %>
+          <%= build_validated_select('user', 'role', 'Role', 'Should select at least one', '', false, @user_role, [['Employee'], ['Manager']]) %>
           <%#= build_validated_field('user', 'password', 'Password', '', '','password',@user.password) %>
           <%#= build_validated_field('user', 'password_confirmation', 'Confirm password', '', '','password',@user.password_confirmation) %>
           <div class='form-row'>
