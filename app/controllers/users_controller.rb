@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @users = User.active.by_name
+    @user_role = @user.role  == "admin" ? "Manager" : @user.role
   end
 
   # POST /users

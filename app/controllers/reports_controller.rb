@@ -477,7 +477,7 @@ class ReportsController < ApplicationController
     @start_date = date.beginning_of_month
     @end_date = date.end_of_month
     #@users = current_user.accessible_users
-    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date', 'task_id', 'description').includes(:task) #.group_by(&:user_id)
+    worklogs = WorkLog.where(date: @start_date..@end_date, user_id: @users.collect(&:id)).select('id', 'user_id', 'minutes', 'date', 'task_id', 'description','delete_request').includes(:task) #.group_by(&:user_id)
     @hours = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
     if params[:detailed].present? && params[:detailed]
       @user_logs = Hash.new { |h, k| h[k] = Hash.new(&h.default_proc) }
@@ -485,10 +485,10 @@ class ReportsController < ApplicationController
       worklogs.map { |x| (@user_logs[x.user_id][x.date.day].is_a?(Hash) ? @user_logs[x.user_id][x.date.day]=[] : @user_logs[x.user_id][x.date.day]) << [x.minutes.to_duration, "#{x.task.name} - #{x.description}" ] }
       @user_logs.each { |k, v| @user_rows[k]=v.values.map { |x| x.length }.max }
     end
-    worklogs.map { |x| @hours[x.user_id][x.date.day] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes }
+    worklogs.map { |x| @hours[x.user_id][x.date.day]['hours'] = @hours[x.user_id][x.date.day].to_s.to_i + x.minutes;(x.delete_request == true ? @hours[x.user_id][x.date.day]['delete_request'] = true : (x.delete_request == false and @hours[x.user_id][x.date.day]['delete_request'] != true) ? @hours[x.user_id][x.date.day]['delete_request'] = false : @hours[x.user_id][x.date.day]['delete_request'] = true)}
     @total = {}
     @average = {}
-    @users.map { |u| @total[u.id] = @hours[u.id].values.sum }
+    @users.map { |u| @total[u.id] = @hours[u.id]['hours'].values.sum }
     @users.map { |u| @average[u.id] = (@total[u.id].to_s.to_f/(@end_date-@start_date)).to_i.to_duration }
     if ['csv', 'xls'].include?(request.format)
       @titles = ["Name"]
