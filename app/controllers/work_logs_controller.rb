@@ -103,7 +103,7 @@ class WorkLogsController < ApplicationController
   end
 
   def delete_request
-    if @work_log.user_id == current_user.id and @work_log.update_attributes(:delete_request => true)
+    if @work_log.user_id == current_user.id and @work_log.update_attribute(:delete_request,true)
       flash[:notice] = "Delete Request has been made."
     else
       flash[:notice] = "Delete Request could not be made."
@@ -115,7 +115,7 @@ class WorkLogsController < ApplicationController
   end
 
   def ignore_request
-    if current_user.manager? and @work_log.update_attributes(:delete_request => false)
+    if current_user.manager? and @work_log.update_attribute(:delete_request,false)
       flash[:notice] = "Delete Request has been ignored."
     else
       flash[:notice] = "Delete Request could not be ignored."
