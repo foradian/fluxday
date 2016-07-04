@@ -1,5 +1,5 @@
 class WorkLogsController < ApplicationController
-  before_action :set_work_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_work_log, only: [:show, :edit, :update, :destroy, :delete_request, :ignore_request]
 
   # GET /work_logs
   # GET /work_logs.json
@@ -86,11 +86,42 @@ class WorkLogsController < ApplicationController
       @work_log.destroy
     elsif @work_log.user == current_user
       flash[:notice] = "Log is older than 5 days"
+    elsif current_user.manager?
+      flash[:notice] = "Worklog deleted"
+      @work_log.destroy
     else
       flash[:notice] = "Permission denied"
     end
     respond_to do |format|
-      format.html { redirect_to root_url }
+      unless current_user.manager?
+        format.html { redirect_to root_url }
+      else
+        format.html { redirect_to reports_worklogs_path }
+      end
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_request
+    if @work_log.user_id == current_user.id and @work_log.update_attribute(:delete_request,true)
+      flash[:notice] = "Delete Request has been made."
+    else
+      flash[:notice] = "Delete Request could not be made."
+    end
+    respond_to do |format|
+      format.html { redirect_to reports_worklogs_path }
+      format.json { head :no_content }
+    end
+  end
+
+  def ignore_request
+    if current_user.manager? and @work_log.update_attribute(:delete_request,false)
+      flash[:notice] = "Delete Request has been ignored."
+    else
+      flash[:notice] = "Delete Request could not be ignored."
+    end
+    respond_to do |format|
+      format.html { redirect_to reports_worklogs_path }
       format.json { head :no_content }
     end
   end
@@ -103,6 +134,6 @@ class WorkLogsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def work_log_params
-    params.require(:work_log).permit(:user_id, :name, :description, :start_time, :date, :end_time, :is_deleted, :task_id)
+    params.require(:work_log).permit(:user_id, :name, :description, :start_time, :date, :end_time, :is_deleted, :task_id, :delete_request)
   end
 end
