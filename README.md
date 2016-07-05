@@ -19,6 +19,20 @@ Visit the [official website](http://fluxday.io) for more info
 ## License
 Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/blob/master/LICENSE) 
 
+## Live demo
+Try Fluxday before downloading. Use the email-id and password given below to login as different types of users like Administrator, Team Lead and Employee.
+
+Please note that the demo will automatically reset every 2 hours.
+
+| User role  | Email | Password |
+| ------------- | ------------- |------------- |
+| Admin user  | admin@fluxday.io  | password |
+| Team lead  | lead@fluxday.io  | password |
+| Employee 1  | emp1@fluxday.io  | password |
+| Employee 2  | emp2@fluxday.io  | password |
+
+###[Live demo](http://demo.fluxday.io)
+
 ## Installation
 ### Dependencies
 - Ruby 2.1.0
@@ -63,3 +77,33 @@ Fluxday can be accessed from the browser by navigating to [http://localhost:3000
 Email: admin@fluxday.io
 
 Password: password
+
+## Screenshots
+###### Dashboard - View tasks and work logs for a selected day. You can switch between month and week views.
+
+![Dashboard](http://fluxday.io/img/screenshots/dashboard_day.jpg "Dashboard")
+
+
+###### Departments and Teams - Create and manage departments. Create teams within departments and add members and leads to the teams.
+
+![Departments and Teams](http://fluxday.io/img/screenshots/department.jpg "Departments and Teams")
+
+
+###### OKR - Create and manage OKRs for a user. Set custom duration for each OKR that align to your team requirements.
+
+![OKR](http://fluxday.io/img/screenshots/okr_view.jpg "OKR")
+
+
+###### Add tasks - Create tasks for users. Enter duration, map to key result and set priority for the task.
+
+![Add tasks](http://fluxday.io/img/screenshots/add_task.jpg "Add tasks")
+
+
+###### Task view - View details of tasks like assigned users, duration and priority. You can also add subtasks from here.
+
+![Task view](http://fluxday.io/img/screenshots/task_view.jpg "Task view")
+
+
+###### Reports - Generate visual and textual reports to view performance of users. Chose between OKR, Worklogs, Tasks and Assignment based reports for an employee or employee groups.
+
+![Reports](http://fluxday.io/img/screenshots/okr_report_hi_res.jpg "Reports")
