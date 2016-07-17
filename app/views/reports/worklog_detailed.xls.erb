@@ -40,7 +40,7 @@
                 <% (@start_date..@end_date).each do |dt| %>
                     <Cell>
                       <% unless @hours[user.id][dt.day].blank? %>
-                          <Data ss:Type="Text"><%= @hours[user.id][dt.day].to_i.to_duration %></Data>
+                          <Data ss:Type="Text"><%= @hours[user.id][dt.day]["hours"].to_i.to_duration %></Data>
                       <% end %>
                     </Cell>
                 <% end %>
