@@ -499,7 +499,7 @@ class ReportsController < ApplicationController
       @users.each do |user|
         row = []
         row << user.name
-        row += (@start_date..@end_date).map { |dt| @hours[user.id][dt.day].blank? ? "-" : @hours[user.id][dt.day].to_duration }
+        row += (@start_date..@end_date).map { |dt| @hours[user.id][dt.day].blank? ? "-" : @hours[user.id][dt.day]["hours"].to_duration }
         row << @average[user.id]
         row << @total[user.id].to_duration
         @fields << row
