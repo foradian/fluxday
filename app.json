@@ -1,0 +1,11 @@
+{
+  "name": "Fluxapp",
+  "description": "fluxday is a task & productivity management application ideal for fast growing startups and small companies",
+  "repository": "https://github.com/tachyons/fluxday",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["ruby", "rails", "productivity"],
+  "scripts" : {
+    "postdeploy": "cp config/app_config.yml.example config/app_config.yml; bundle exec rake db:migrate;bundle exec rake db:seed "
+  },
+  "addons": ["heroku-postgresql"]
+}
