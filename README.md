@@ -58,6 +58,7 @@ The sample configuration is available at [config/app_config.yml.example](https:/
 cp config/app_config.yml.example config/app_config.yml
 ```
 ### Create and configure database
+Create the database configuration file in [config](https://github.com/foradian/fluxday/blob/master/config/). There is an example file inside the config folder that can be used to configure your own. It relies on environment variables to configure the database, so you also need to define DB_HOST, DB_USER and DB_PASS environment variables.
 Modify the database credentials in [config/database.yml](https://github.com/foradian/fluxday/blob/master/config/database.yml) . Now you can create the database and perform migrations
 ```sh
 rake db:create
@@ -107,3 +108,5 @@ Password: password
 ###### Reports - Generate visual and textual reports to view performance of users. Chose between OKR, Worklogs, Tasks and Assignment based reports for an employee or employee groups.
 
 ![Reports](http://fluxday.io/img/screenshots/okr_report_hi_res.jpg "Reports")
+
+
