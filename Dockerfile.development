@@ -23,7 +23,12 @@ RUN apt-get install -y nodejs \
     libxslt-dev \
     libpq-dev \
     git python-virtualenv \
-    libmysqlclient-dev
+    libmysqlclient-dev \
+    libmagickwand-dev \
+    gnuplot \
+    imagemagick-doc \
+    imagemagick \
+    wkhtmltopdf
 
 RUN gem install bundler
 
