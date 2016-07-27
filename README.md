@@ -40,6 +40,22 @@ Please note that the demo will automatically reset every 2 hours.
 - Imagemagick
 - wkhtmltopdf (To be downloaded from [this website](http://wkhtmltopdf.org/) and placed in lib folder)
 
+#### Using docker
+There is a [docker-compose](https://docs.docker.com/compose/) file and a Dockerfile.development file to use within docker.
+To use with docker-compose, it is necessary to build the image, and start the containers:
+
+```sh
+docker-compose up -d --build --remove-orphans
+```
+
+And to access the container:
+
+```sh
+docker exec -it fluxday /bin/bash
+```
+
+After running these commands, it will be possible to run the app within docker and it will be accessible via port 3000
+
 ### Clone Fluxday 
 ```sh
 git clone https://github.com/foradian/fluxday.git  
@@ -69,6 +85,7 @@ Fluxday will populate the database with an admin user entry when we run the seed
 rake db:seed
 ```
 ### Start the application
+
 You can start the Rails server using
 ```sh
 rails server
