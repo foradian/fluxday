@@ -18,8 +18,8 @@ services:
     env_file:
       - app.env
     depends_on:
-      - db
+      - fluxday-db
     links:
-      - db
+      - fluxday-db
     ports:
       - 3000:3000
