@@ -6,6 +6,8 @@
 
 # Ignore files with sensitive info
 /config/database.yml
+/app.env
+/db.env
 
 # Ignore bundler config.
 /.bundle
