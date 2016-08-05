@@ -21,7 +21,7 @@ class WorkLogsController < ApplicationController
     else
       @date = params[:date].to_date
     end
-    @entries = current_user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?', @date.end_of_day, @date.beginning_of_day)
+    @entries = current_user.assignments.where('tasks.start_date <= ? AND tasks.end_date >= ?', @date.end_of_day, @date.beginning_of_day)
     @date = params[:date].present? ? params[:date].to_date : Date.today
     @work_log = WorkLog.new(:date => @date)
     @hours = @work_log.minutes.to_i/60
@@ -31,7 +31,7 @@ class WorkLogsController < ApplicationController
   # GET /work_logs/1/edit
   def edit
     @date = @work_log.date
-    @entries = Task.where('start_date <= ? && end_date >= ?', @work_log.date.end_of_day, @work_log.date.beginning_of_day)
+    @entries = Task.where('start_date <= ? AND end_date >= ?', @work_log.date.end_of_day, @work_log.date.beginning_of_day)
     @hours = @work_log.minutes.to_i/60
     @mins = @work_log.minutes.to_i%60
   end
@@ -47,7 +47,7 @@ class WorkLogsController < ApplicationController
     else
       @date = params[:date].to_date
     end
-    @entries = current_user.assignments.where('tasks.start_date <= ? && tasks.end_date >= ?', @date.end_of_day, @date.beginning_of_day)
+    @entries = current_user.assignments.where('tasks.start_date <= ? AND tasks.end_date >= ?', @date.end_of_day, @date.beginning_of_day)
     @date = params[:date].present? ? params[:date].to_date : Date.today
     @hours = @work_log.minutes.to_i/60
     @mins = @work_log.minutes.to_i%60
