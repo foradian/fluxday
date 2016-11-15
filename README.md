@@ -46,27 +46,8 @@ Please note that the demo will automatically reset every 2 hours.
 git clone https://github.com/foradian/fluxday.git  
 ```
 
-### Using docker
-Fluxday can be installed using docker or in normal way. If you are not using docker, skip this section.
-
-There is a [docker-compose](https://docs.docker.com/compose/) file and a Dockerfile.development file to use within docker.
-To use with docker-compose, it is necessary to build the image, and start the containers:
-
-```sh
-docker-compose up -d --build --remove-orphans
-```
-
-And to access the container:
-
-```sh
-docker exec -it fluxday /bin/bash
-```
-
-After running these commands, it will be possible to run the app within docker and it will be accessible via port 3000
-
-
 ### Install bundler and required gems
-Once the specified version of Ruby is installed with all its dependencies satisfied, run the following command from the root directory of the application.
+Once the specified version of Ruby is installed with all its dependencies satisfied, run the following command from the root directory of the application. (You can skip this section if you are using docker)
 ```sh
 gem install bundler
 bundle install
@@ -94,7 +75,7 @@ cp config/database.yml.example config/database.yml
 Update the credentials in database.yml with actual values.
 
 Now you can create the database and perform migrations
-```sh
+	```sh
 rake db:create
 rake db:migrate
 ```
