@@ -5,8 +5,8 @@ fluxday is a task & productivity management application ideal for fast growing s
 fluxday is engineered based on the concepts of [OKR](https://en.wikipedia.org/wiki/OKR) - Objectives and Key Results, invented and made popular by  John Doerr. OKRs and OKR tools are used today by many companies, including Google, LinkedIn and Twitter
 
 ## You can use fluxday for
-- Managing and Tracking OKRs 
-- Creating, assigning and tracking tasks 
+- Managing and Tracking OKRs
+- Creating, assigning and tracking tasks
 - Maintaining log of time spent by employees
 - Generating different types of reports, and in different formats
 - Analyzing progress and productivity of your company, its departments, teams and employees
@@ -17,7 +17,7 @@ Visit the [official website](http://fluxday.io) for more info
 > “through discipline comes freedom” - aristotle
 
 ## License
-Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/blob/master/LICENSE) 
+Fluxday is released under [Apache License 2.0](https://github.com/foradian/fluxday/blob/master/LICENSE)
 
 ## Live demo
 Try Fluxday before downloading. Use the email-id and password given below to login as different types of users like Administrator, Team Lead and Employee.
@@ -31,16 +31,24 @@ Please note that the demo will automatically reset every 2 hours.
 | Employee 1  | emp1@fluxday.io  | password |
 | Employee 2  | emp2@fluxday.io  | password |
 
-###[Live demo](http://demo.fluxday.io)
+### [Live demo](http://demo.fluxday.io)
 
 ## Installation
+
 ### Dependencies
 - Ruby 2.1.0
 - MySQL or MariaDB server
 - Imagemagick
 - wkhtmltopdf (To be downloaded from [this website](http://wkhtmltopdf.org/) and placed in lib folder)
 
-#### Using docker
+### Clone Fluxday
+```sh
+git clone https://github.com/foradian/fluxday.git  
+```
+
+### Using docker
+Fluxday can be installed using docker or in normal way. If you are not using docker, skip this section.
+
 There is a [docker-compose](https://docs.docker.com/compose/) file and a Dockerfile.development file to use within docker.
 To use with docker-compose, it is necessary to build the image, and start the containers:
 
@@ -56,26 +64,36 @@ docker exec -it fluxday /bin/bash
 
 After running these commands, it will be possible to run the app within docker and it will be accessible via port 3000
 
-### Clone Fluxday 
-```sh
-git clone https://github.com/foradian/fluxday.git  
-```
+
 ### Install bundler and required gems
-Once the specified version of Ruby is installed with all its dependencies satisfied, run the following command from the root directory of the application.	
+Once the specified version of Ruby is installed with all its dependencies satisfied, run the following command from the root directory of the application.
 ```sh
 gem install bundler
 bundle install
 ```
 ### Configure application
-	
+
 For google authentication, you need to set up the corresponding key, secret, callback url etc. The application loads these informations from the file config/app_config.yml
 The sample configuration is available at [config/app_config.yml.example](https://github.com/foradian/fluxday/blob/master/config/app_config.yml.example) (You can simply copy this file to app_config.yml to run Fluxday without google authentication).
 ```sh
 cp config/app_config.yml.example config/app_config.yml
 ```
 ### Create and configure database
-Create the database configuration file in [config](https://github.com/foradian/fluxday/blob/master/config/). There is an example file inside the config folder that can be used to configure your own. It relies on environment variables to configure the database, so you also need to define DB_HOST, DB_USER and DB_PASS environment variables.
-Modify the database credentials in [config/database.yml](https://github.com/foradian/fluxday/blob/master/config/database.yml) . Now you can create the database and perform migrations
+
+#### 1. With docker
+```sh
+cp config/database.yml.example config/database.yml
+cp app.env.example app.env
+```
+Database configurations relies on the file app.env . After above steps update this file with actual credentials.
+
+#### 2. Without docker
+```sh
+cp config/database.yml.example config/database.yml
+```
+Update the credentials in database.yml with actual values.
+
+Now you can create the database and perform migrations
 ```sh
 rake db:create
 rake db:migrate
@@ -86,11 +104,26 @@ rake db:seed
 ```
 ### Start the application
 
+#### 1. With docker
+Start container with:
+```sh
+docker-compose up -d --build --remove-orphans
+```
+
+And to access the container:
+
+```sh
+docker exec -it fluxday /bin/bash
+```
+
+#### 2. Without docker
 You can start the Rails server using
 ```sh
 rails server
 ```
-Fluxday can be accessed from the browser by navigating to [http://localhost:3000](). 
+
+
+Fluxday can be accessed from the browser by navigating to [http://localhost:3000]().
 #### Initial login credentials:
 Email: admin@fluxday.io
 
@@ -125,5 +158,3 @@ Password: password
 ###### Reports - Generate visual and textual reports to view performance of users. Chose between OKR, Worklogs, Tasks and Assignment based reports for an employee or employee groups.
 
 ![Reports](http://fluxday.io/img/screenshots/okr_report_hi_res.jpg "Reports")
-
-
