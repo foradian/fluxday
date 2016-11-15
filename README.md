@@ -40,6 +40,22 @@ Please note that the demo will automatically reset every 2 hours.
 - Imagemagick
 - wkhtmltopdf (To be downloaded from [this website](http://wkhtmltopdf.org/) and placed in lib folder)
 
+#### Using docker
+There is a [docker-compose](https://docs.docker.com/compose/) file and a Dockerfile.development file to use within docker.
+To use with docker-compose, it is necessary to build the image, and start the containers:
+
+```sh
+docker-compose up -d --build --remove-orphans
+```
+
+And to access the container:
+
+```sh
+docker exec -it fluxday /bin/bash
+```
+
+After running these commands, it will be possible to run the app within docker and it will be accessible via port 3000
+
 ### Clone Fluxday 
 ```sh
 git clone https://github.com/foradian/fluxday.git  
@@ -58,6 +74,7 @@ The sample configuration is available at [config/app_config.yml.example](https:/
 cp config/app_config.yml.example config/app_config.yml
 ```
 ### Create and configure database
+Create the database configuration file in [config](https://github.com/foradian/fluxday/blob/master/config/). There is an example file inside the config folder that can be used to configure your own. It relies on environment variables to configure the database, so you also need to define DB_HOST, DB_USER and DB_PASS environment variables.
 Modify the database credentials in [config/database.yml](https://github.com/foradian/fluxday/blob/master/config/database.yml) . Now you can create the database and perform migrations
 ```sh
 rake db:create
@@ -68,6 +85,7 @@ Fluxday will populate the database with an admin user entry when we run the seed
 rake db:seed
 ```
 ### Start the application
+
 You can start the Rails server using
 ```sh
 rails server
@@ -107,3 +125,5 @@ Password: password
 ###### Reports - Generate visual and textual reports to view performance of users. Chose between OKR, Worklogs, Tasks and Assignment based reports for an employee or employee groups.
 
 ![Reports](http://fluxday.io/img/screenshots/okr_report_hi_res.jpg "Reports")
+
+
