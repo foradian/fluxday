@@ -75,7 +75,7 @@ cp config/database.yml.example config/database.yml
 Update the credentials in database.yml with actual values.
 
 Now you can create the database and perform migrations
-	```sh
+```sh
 rake db:create
 rake db:migrate
 ```
