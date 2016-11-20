@@ -17,7 +17,8 @@ class Project < ActiveRecord::Base
   #after_save  :update_numbers
 
   def members
-    return project_members.active.uniq
+    # return project_members.active.uniq
+    return project_members.active
   end
 
   def update_user_project_count(pm)
