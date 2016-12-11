@@ -80,9 +80,15 @@ cp app.env.example app.env
 Database configurations relies on the file app.env . After above steps update this file with actual credentials.
 
 #### 2. Without docker
+For Mysql/maria Db
 ```sh
-cp config/database.yml.example config/database.yml
+cp config/database.yml.mysql config/database.yml
 ```
+For Postgresql
+```sh
+cp config/database.yml.postgres config/database.yml
+```
+
 Update the credentials in database.yml with actual values.
 
 Now you can create the database and perform migrations
