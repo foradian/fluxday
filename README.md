@@ -37,7 +37,7 @@ Please note that the demo will automatically reset every 2 hours.
 
 ### Dependencies
 - Ruby 2.1.0
-- MySQL or MariaDB server
+- MySQL, MariaDB server or Postgresql
 - Imagemagick
 - wkhtmltopdf (To be downloaded from [this website](http://wkhtmltopdf.org/) and placed in lib folder)
 
@@ -47,11 +47,22 @@ git clone https://github.com/foradian/fluxday.git
 ```
 
 ### Install bundler and required gems
-Once the specified version of Ruby is installed with all its dependencies satisfied, run the following command from the root directory of the application. (You can skip this section if you are using docker)
+Once the specified version of Ruby is installed with all its dependencies satisfied, run the following commands from the root directory of the application. (You can skip this section if you are using docker)
 ```sh
 gem install bundler
-bundle install
 ```
+If you are using Mysql or Mariadb
+
+```sh
+bundle install --with mysql --without test development
+```
+
+If you want to use postgresql
+
+```sh
+bundle install --with postgresql --without test development
+```
+
 ### Configure application
 
 For google authentication, you need to set up the corresponding key, secret, callback url etc. The application loads these informations from the file config/app_config.yml
@@ -69,9 +80,15 @@ cp app.env.example app.env
 Database configurations relies on the file app.env . After above steps update this file with actual credentials.
 
 #### 2. Without docker
+For Mysql/maria Db
 ```sh
-cp config/database.yml.example config/database.yml
+cp config/database.yml.mysql config/database.yml
 ```
+For Postgresql
+```sh
+cp config/database.yml.postgres config/database.yml
+```
+
 Update the credentials in database.yml with actual values.
 
 Now you can create the database and perform migrations
