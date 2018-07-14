@@ -31,7 +31,7 @@ Please note that the demo will automatically reset every 2 hours.
 | Employee 1  | emp1@fluxday.io  | password |
 | Employee 2  | emp2@fluxday.io  | password |
 
-### [Live demo](http://demo.fluxday.io)
+### [Live demo](https://app.fluxday.io)
 
 ## Installation
 
