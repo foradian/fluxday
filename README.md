@@ -12,7 +12,7 @@ fluxday is engineered based on the concepts of [OKR](https://en.wikipedia.org/wi
 - Analyzing progress and productivity of your company, its departments, teams and employees
 - OAuth server with filtered access to users
 
-Visit the [official website](http://fluxday.io) for more info		
+Visit the [official website](http://fluxday.io) for more info
 
 > “through discipline comes freedom” - aristotle
 
@@ -43,7 +43,7 @@ Please note that the demo will automatically reset every 2 hours.
 
 ### Clone Fluxday
 ```sh
-git clone https://github.com/foradian/fluxday.git  
+git clone https://github.com/foradian/fluxday.git
 ```
 
 ### Install bundler and required gems
@@ -94,7 +94,7 @@ docker-compose up -d --build --remove-orphans
 And to access the container:
 
 ```sh
-docker exec -it fluxday /bin/bash
+docker exec -it fluxday-app /bin/bash
 ```
 
 #### 2. Without docker
