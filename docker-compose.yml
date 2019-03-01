@@ -1,13 +1,13 @@
 version: '2'
 services:
   docker-fluxday-db:
-    container_name: docker-fluxday-db
+    container_name: fluxday-db
     image: mysql:5.6
     env_file:
       - db.env
 
   docker-fluxday-app:
-    container_name: docker-fluxday-app
+    container_name: fluxday-app
     tty: true
     stdin_open: true
     build:
@@ -18,8 +18,8 @@ services:
     env_file:
       - app.env
     depends_on:
-      - docker-fluxday-db
+      - fluxday-db
     links:
-      - docker-fluxday-db
+      - fluxday-db
     ports:
       - 3000:3000
