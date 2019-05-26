@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+	gem 'sdoc', '0.4.0',require: false
 end
 
 # Use ActiveModel has_secure_password
@@ -62,7 +62,7 @@ gem "omniauth-google-oauth2"
 gem "ransack"
 gem "will_paginate"
 gem "cocoon"
-gem 'wicked_pdf'
+gem 'wicked_pdf', '0.9.10'
 gem 'friendly_id', '~> 5.0.0'
 gem 'doorkeeper', '1.1.0'
 
