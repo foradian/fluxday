@@ -110,5 +110,14 @@ class User < ActiveRecord::Base
           end
       end
   end
+  
+  def archive_user
+    if self.update_attribute(:is_deleted, true)
+      project_managers.update_all(:status => 'archived')
+      team_members.each{|tm| tm.update_attribute(:status, 'archived')}
+      reporting_managers.update_all(:status => 'archived')
+      reporting_employees.update_all(:status => 'archived')
+    end
+  end
 
 end
