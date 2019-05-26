@@ -62,7 +62,7 @@ gem "omniauth-google-oauth2"
 gem "ransack"
 gem "will_paginate"
 gem "cocoon"
-gem 'wicked_pdf'
+gem 'wicked_pdf', '0.9.10'
 gem 'friendly_id', '~> 5.0.0'
 gem 'doorkeeper', '1.1.0'
 
