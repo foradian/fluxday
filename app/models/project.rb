@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   has_many :project_managers
   has_many :users,:through=>:project_managers,:after_remove => :update_user_project_count
   has_many :team_members, :through => :teams
-  has_many :project_members, :through=>:team_members, :source=>:user
+  has_many :project_members, -> { uniq }, :through => :team_members, :source => :user
   scope :active, -> {where(is_deleted: false)}
 
   validates_presence_of :name, :code

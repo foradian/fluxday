@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :project_managers
   has_many :projects, :through => :project_managers
   has_many :team_members
-  has_many :teams, :through => :team_members
+  has_many :teams, -> { uniq }, :through => :team_members
   has_many :admin_teams, :through => :projects, :source => :teams
   has_many :leads, -> { where role: 'lead' }, class_name: 'TeamMember'
   has_many :admin_teams, :through => :leads, :source => :team #,:foreign_key=>'user_id'
@@ -109,6 +109,15 @@ class User < ActiveRecord::Base
             return true
           end
       end
+  end
+  
+  def archive_user
+    if self.update_attribute(:is_deleted, true)
+      project_managers.update_all(:status => 'archived')
+      team_members.each{|tm| tm.update_attribute(:status, 'archived')}
+      reporting_managers.update_all(:status => 'archived')
+      reporting_employees.update_all(:status => 'archived')
+    end
   end
 
 end

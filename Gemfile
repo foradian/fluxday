@@ -53,7 +53,7 @@ gem "therubyracer"
 gem "foundation-rails",'5.2.1.0'
 gem 'hirb'
 gem 'thin'
-gem 'carrierwave'
+gem 'carrierwave', '1.0'
 gem "mini_magick"
 gem "select2-rails", '3.5.4'
 #gem "cancan"

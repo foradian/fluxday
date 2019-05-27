@@ -67,12 +67,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if @user.update_attribute(:is_deleted, true)
-      @user.project_managers.update_all(:status => 'archived')
-      @user.team_members.update_all(:status => 'archived')
-      @user.reporting_managers.update_all(:status => 'archived')
-      @user.reporting_employees.update_all(:status => 'archived')
-    end
+    @user.archive_user
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
