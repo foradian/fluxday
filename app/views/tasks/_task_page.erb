@@ -9,6 +9,7 @@
             <div class="right">
               <%= raw("<div class='icon icon-author'></div>") if task.user_id == current_user.id %>
               <%= raw("<div class='icon icon-assignee'></div>") if task.user_ids.include?(current_user.id) %>
+              <%= raw("<div class='task-priority task-index priority-#{task.priority}'>#{task.priority}</div>") %> 
             </div>
           </div>
           <div class="team">
