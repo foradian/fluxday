@@ -68,7 +68,7 @@
         <%= render :partial => 'teams/team_list', :locals => {:teams => @teams.present? ? @teams : @user.teams} %>
       </div>
       <div class="content" id="user-tasks">
-        <%#= render :partial=>'users/user_list',:locals=>{:users=>members.present? ? members : user.members} %>
+       <%= render :partial => 'tasks/task_listings',  :locals => {:task => @task} %>
       </div>
     </div>
   </div>

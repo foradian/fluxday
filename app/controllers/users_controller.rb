@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @teams = @user.teams
     @managers = @user.managers
     @users = User.active.by_name
+    @tasks = @user.assigned_and_written_tasks.pending
   end
 
   # GET /users/new
