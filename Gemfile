@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+#gem 'rails', '4.0.3'
+gem 'rails', '4.0.13'
 
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.21'
@@ -32,6 +33,10 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
 	gem 'sdoc', '0.4.0',require: false
 end
+
+gem 'activemodel', '= 4.0.13'
+gem 'activerecord', '= 4.0.13'
+gem 'activesupport', '= 4.0.13'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -69,3 +74,8 @@ gem 'doorkeeper', '1.1.0'
 gem "omniauth-oauth2"#, '1.0.2'
 #gem 'omniauth-fluxapp' , :path => '/home/tp/Desktop/flux'
 gem 'omniauth-fluxapp' , :git  => 'https://github.com/stpnlr/omniauth-fluxapp.git'
+group :production do
+  gem 'puma'
+  gem 'pg'
+  gem 'rails_12factor'
+end

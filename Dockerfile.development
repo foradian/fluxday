@@ -11,8 +11,8 @@ RUN apt-add-repository ppa:brightbox/ruby-ng
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y nodejs \
-    ruby2.1 \
-    ruby2.1-dev \
+    ruby2.3 \
+    ruby2.3-dev \
     build-essential \
     curl \
     zlib1g-dev \
@@ -30,7 +30,7 @@ RUN apt-get install -y nodejs \
     imagemagick \
     wkhtmltopdf
 
-RUN gem install bundler
+RUN gem install bundler -v 1.17.3
 
 ENV APP_HOME /share
 RUN mkdir $APP_HOME

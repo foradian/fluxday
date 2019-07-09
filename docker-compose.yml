@@ -1,12 +1,12 @@
 version: '2'
 services:
-  fluxday-db:
+  docker-fluxday-db:
     container_name: fluxday-db
-    image: mysql
+    image: mysql:5.6
     env_file:
       - db.env
 
-  fluxday-app:
+  docker-fluxday-app:
     container_name: fluxday-app
     tty: true
     stdin_open: true
