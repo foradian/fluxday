@@ -4,7 +4,8 @@
   <% end %>
 </ul>
 <ul class="side-nav sidebar-links top-set">
-  <li><a href="/"><span class="icon icon-dashboard-16"></span> Dashboard</a></li>
+  <!--li><a href="/"><span class="icon icon-dashboard-16"></span> Dashboard</a></li-->
+  <li><%= link_to raw('<span class="icon icon-dashboard-16"></span>Dashboard'), root_path %></li>
   <li><%= link_to raw('<span class="icon icon-tasks-16"></span>My tasks'), tasks_path %></li>
   <li><%= link_to raw('<span class="icon icon-projects-16"></span>Departments'), projects_path %></li>
   <li><%= link_to raw('<span class="icon icon-teams-16"></span>Team'), teams_path %></li>
