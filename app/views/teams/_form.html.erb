@@ -21,7 +21,7 @@
               <%= f.label :team_lead_ids, 'Team leads' %>
             </div>
             <div class='small-9 columns'>
-              <%= f.select :team_lead_ids, @users.map { |x| [x.name, x.id] }, {}, {:multiple => true} %>
+              <%= f.select :team_lead_ids, @users.map { |x| [x.name, x.id] }, {:include_blank => false}, {:multiple => true} %>
             </div>
           </div>
 

@@ -5,7 +5,7 @@
 <%= form_for(@team, :html => {:class => 'form-horizontal', :multipart => true, :data => {:abide => true}}) do |f| %>
     <div class="form-content form-below">
       <div class="team-member-add">
-        <%= f.select :user_ids, options_for_select(@users.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @team.user_ids), {}, :multiple => true, :class => 'select_add' %>
+        <%= f.select :user_ids, options_for_select(@users.map { |x| ["#{x.name} (#{x.nickname})", x.id] }, @team.user_ids), {:include_blank => false}, :multiple => true, :class => 'select_add' %>
       </div>
 
     </div>

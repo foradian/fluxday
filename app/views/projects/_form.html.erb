@@ -21,7 +21,7 @@
           <%= f.label :user_ids, 'Managers' %>
         </div>
         <div class='small-9 columns'>
-          <%= f.select :user_ids,@users.map{|x| [x.name,x.id]},{},{:multiple=>true} %>
+          <%= f.select :user_ids,@users.map{|x| [x.name,x.id]},{:include_blank => false},{:multiple=>true} %>
         </div>
       </div>
     </div>
