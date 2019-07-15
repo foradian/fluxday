@@ -12,7 +12,7 @@ fluxday is engineered based on the concepts of [OKR](https://en.wikipedia.org/wi
 - Analyzing progress and productivity of your company, its departments, teams and employees
 - OAuth server with filtered access to users
 
-Visit the [official website](http://fluxday.io) for more info		
+Visit the [official website](http://fluxday.io) for more info
 
 > “through discipline comes freedom” - aristotle
 
@@ -43,7 +43,7 @@ Please note that the demo will automatically reset every 2 hours.
 
 ### Clone Fluxday
 ```sh
-git clone https://github.com/foradian/fluxday.git  
+git clone https://github.com/foradian/fluxday.git
 ```
 
 ### Install bundler and required gems
@@ -65,6 +65,7 @@ cp config/app_config.yml.example config/app_config.yml
 ```sh
 cp config/database.yml.example config/database.yml
 cp app.env.example app.env
+cp db.env.example db.env
 ```
 Database configurations relies on the file app.env . After above steps update this file with actual credentials.
 
